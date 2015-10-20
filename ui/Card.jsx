@@ -7,6 +7,17 @@ Card = React.createClass({
     Meteor.call('pieceRemove', this.props.piece._id);
   },
 
+  renderButton() {
+    if (this.props.piece.ownerId === Meteor.userId()) {
+      return (
+        <div>
+          <button className="btn btn-primary-outline card-link">Detail</button>
+          <button className="btn btn-danger-outline card-link" onClick={this.pieceRemove}>Delete</button>
+        </div>
+      );
+    }
+  },
+
   render() {
     return (
       <div className="card card-block">
@@ -15,12 +26,7 @@ Card = React.createClass({
         <p className="card-text">
           <small className="text-muted">{this.props.piece.owner}</small>
         </p>
-        { this.props.piece.ownerId === Meteor.userId() ?
-          <div>
-            <button className="btn btn-primary-outline card-link">Detail</button>
-            <button className="btn btn-danger-outline card-link" onClick={this.pieceRemove}>Delete</button>
-          </div> : ''
-        }
+        {this.renderButton()}
       </div>
     );
   }

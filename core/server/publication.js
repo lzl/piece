@@ -1,3 +1,6 @@
+// mimic latency
+// Meteor._sleepForMs(1000);
+
 Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   if (limit === undefined) {
     limit = 20;
