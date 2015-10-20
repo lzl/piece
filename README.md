@@ -2,8 +2,10 @@
 
 ### The UI
 
-- The UI is the surface of that Core. Visitors see and use Core with the help of UI.
-- I try to use React.
+- The UI is the interface of that Core. Visitors see and use Core with the help of UI.
+- I try to use React. Get started with the official Meteor-React tutorial.
+- Component App and Card. Card is the interface of each piece.
+- Yes, that Card is from Bootstrap v4.
 
 ### The Core
 
