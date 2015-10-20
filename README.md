@@ -6,8 +6,8 @@
 - I try to use React. Get started with the official Meteor-React tutorial.
 - Component App and Card. Card is the interface of each piece.
 - Yes, that Card is from Bootstrap v4.
-- There is a textarea to submit your piece.
-- In the card, you can delete piece.
+- Hide the textarea unless you are logged in.
+- In the card, you can delete your own piece.
 
 ### The Core
 

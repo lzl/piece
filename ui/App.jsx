@@ -3,7 +3,8 @@ App = React.createClass({
 
   getMeteorData() {
     return {
-      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch()
+      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
+      currentUser: Meteor.user()
     }
   },
 
@@ -24,13 +25,15 @@ App = React.createClass({
     return (
       <div className="container">
         <div className="row">
-          <form onSubmit={this.handleSubmit} >
-            <fieldset className="form-group">
-              <label for="textarea">Example textarea</label>
-              <textarea className="form-control" ref="textarea" rows="3"></textarea>
-            </fieldset>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
+          <AccountsUIWrapper />
+          { this.data.currentUser ?
+            <form onSubmit={this.handleSubmit} >
+              <fieldset className="form-group">
+                <textarea className="form-control" ref="textarea" rows="3"></textarea>
+              </fieldset>
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </form> : ''
+          }
         </div>
 
         <hr />
