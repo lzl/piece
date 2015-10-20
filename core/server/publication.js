@@ -14,3 +14,11 @@ Meteor.publish("pieceCurrentUserPosts", function (limit) {
   check(limit, Number);
   return Pieces.find({authorId: this.userId, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
+
+Meteor.publish("pieceAllUserPosts", function (limit) {
+  if (limit === undefined) {
+    limit = 20;
+  }
+  check(limit, Number);
+  return Pieces.find({}, {sort: {createdAt: -1}, limit: limit});
+});

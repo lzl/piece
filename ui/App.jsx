@@ -1,14 +1,14 @@
 App = React.createClass({
-  getPieces() {
-    return [
-      { _id: 1, content: "This is piece 1" },
-      { _id: 2, content: "This is piece 2" },
-      { _id: 3, content: "This is piece 3" },
-    ];
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    return {
+      pieces: Pieces.find({}).fetch()
+    }
   },
 
   renderCards() {
-    return this.getPieces().map((piece) => {
+    return this.data.pieces.map((piece) => {
       return <Card key={piece._id} piece={piece} />;
     });
   },
