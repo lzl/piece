@@ -4,8 +4,8 @@ Meteor.methods({
     return Pieces.insert({
       type: "plaintext",
       content: val,
-      author: Meteor.user().username,
-      authorId: Meteor.userId(),
+      // author: Meteor.user().username,
+      // authorId: Meteor.userId(),
       published: true,
       createdAt: new Date()
     })
