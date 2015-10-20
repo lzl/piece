@@ -12,11 +12,12 @@ Meteor.methods({
   },
   pieceRemove: function (id) {
     check(id, String);
-    let authorId = Pieces.findOne({_id: id}).authorId;
-    if (authorId === Meteor.userId()) {
-      return Pieces.remove(id);
-    } else {
-      throw new Meteor.Error("unauthorized", "This piece is not belong to you.");
-    }
+    return Pieces.remove(id);
+    // let authorId = Pieces.findOne({_id: id}).authorId;
+    // if (authorId === Meteor.userId()) {
+    //   return Pieces.remove(id);
+    // } else {
+    //   throw new Meteor.Error("unauthorized", "This piece is not belong to you.");
+    // }
   }
 });
