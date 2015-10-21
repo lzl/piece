@@ -1,4 +1,8 @@
-## v0.1, 2015-10-20
+## v0.1, 2015-10-21
+
+- Goal: Build a prototype, then upload to Meteor and GitHub.
+- Meteor: [http://piece.meteor.com](http://piece.meteor.com)
+- GitHub: [https://github.com/lzl/piece](https://github.com/lzl/piece)
 
 ### The UI
 
