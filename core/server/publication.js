@@ -7,7 +7,7 @@ Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   }
   check(userId, String);
   check(limit, Number);
-  return Pieces.find({authorId: userId, published: true}, {sort: {createdAt: -1}, limit: limit});
+  return Pieces.find({ownerId: userId, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
 
 Meteor.publish("pieceCurrentUserPosts", function (limit) {
@@ -15,7 +15,7 @@ Meteor.publish("pieceCurrentUserPosts", function (limit) {
     limit = 20;
   }
   check(limit, Number);
-  return Pieces.find({authorId: this.userId, published: true}, {sort: {createdAt: -1}, limit: limit});
+  return Pieces.find({ownerId: this.userId, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
 
 Meteor.publish("pieceAllUserPosts", function (limit) {
@@ -23,5 +23,5 @@ Meteor.publish("pieceAllUserPosts", function (limit) {
     limit = 20;
   }
   check(limit, Number);
-  return Pieces.find({}, {sort: {createdAt: -1}, limit: limit});
+  return Pieces.find({published: true}, {sort: {createdAt: -1}, limit: limit});
 });

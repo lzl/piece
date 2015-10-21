@@ -2,7 +2,11 @@ App = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let handle = Meteor.subscribe("pieceAllUserPosts");
+    if (Meteor.user()) {
+      var handle = Meteor.subscribe("pieceCurrentUserPosts");
+    } else {
+      var handle = Meteor.subscribe("pieceAllUserPosts");
+    }
 
     return {
       loading: ! handle.ready(),
