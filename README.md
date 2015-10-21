@@ -2,14 +2,18 @@
 
 ### The UI
 
-- The UI is the interface of that Core. Visitors see and use Core with the help of UI.
-- I try to use React. Get started with the official Meteor-React tutorial.
-- Component App and Card. Card is the interface of each piece.
-- Yes, that Card is from Bootstrap v4.
+Goal: With the UI, visitors can view public pieces, users can create, read and delete their own pieces.
+
+- The UI is the interface of that Core. Visitors see and use Piece with the help of UI.
+- It uses React to render what you see. Get started with the official Meteor-React tutorial.
+- Build App and Card component. Card is the interface of each piece.
+- Yes, that Card style is from Bootstrap v4.
 - Hide the textarea unless you are logged in.
-- In the card, you can delete your own piece.
+- In the Card, you can delete your own piece.
 
 ### The Core
+
+Goal: With the Core, developers can publish, subscribe and CRUD the pieces from collection.
 
 - Reuse the code from old day. Including collection, methods and publication. Which is the Core 思密达~
 - The one and only one collection is the store of pieces.
