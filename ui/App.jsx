@@ -36,8 +36,19 @@ App = React.createClass({
             </fieldset>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
-          
+
           <div className="hr"></div>
+        </div>
+      );
+    }
+  },
+
+  renderHero() {
+    if (! this.data.currentUser) {
+      return (
+        <div className="jumbotron">
+          <h1 className="display-3">Welcome to Piece</h1>
+          <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         </div>
       );
     }
@@ -56,6 +67,10 @@ App = React.createClass({
         <div className="row">
           <AccountsUIWrapper />
           {this.renderForm()}
+        </div>
+
+        <div className="row">
+          {this.renderHero()}
         </div>
 
         <div className="row">
