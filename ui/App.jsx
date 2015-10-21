@@ -27,12 +27,16 @@ App = React.createClass({
   renderForm() {
     if (this.data.currentUser) {
       return (
-        <form onSubmit={this.handleSubmit} >
-          <fieldset className="form-group">
-            <textarea className="form-control" ref="textarea" rows="3"></textarea>
-          </fieldset>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+        <div>
+          <form onSubmit={this.handleSubmit} >
+            <fieldset className="form-group">
+              <textarea className="form-control" ref="textarea" rows="3"></textarea>
+            </fieldset>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+          
+          <div className="hr"></div>
+        </div>
       );
     }
   },
@@ -51,8 +55,6 @@ App = React.createClass({
           <AccountsUIWrapper />
           {this.renderForm()}
         </div>
-
-        <hr />
 
         <div className="row">
           {this.renderCards()}
