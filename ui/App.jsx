@@ -48,7 +48,7 @@ App = React.createClass({
       return (
         <div className="jumbotron">
           <h1 className="display-2">Welcome to Piece.</h1>
-          <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <p className="lead">Each piece is a message. You can view recent public pieces at bottom ↓ or you can create an account at top-left corner ↖ to submit your own piece.</p>
         </div>
       );
     }
@@ -64,6 +64,8 @@ App = React.createClass({
   render() {
     return (
       <div className="container">
+        <div className="hr"></div>
+
         <div className="row">
           <AccountsUIWrapper />
           {this.renderForm()}
