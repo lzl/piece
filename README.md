@@ -1,3 +1,11 @@
+## v0.2, 2015-10-23
+
+- Goal: Build a sub-project called Piece Reader, where you can follow/subscribe pieces, like Twitter to tweets, or RSS Reader to feeds. Then upload to Meteor and GitHub.
+
+### The UI
+
+Goal: Users can follow/subscribe and read others' pieces.
+
 ## v0.1, 2015-10-21
 
 - Goal: Build a prototype, then upload to Meteor and GitHub.
