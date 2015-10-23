@@ -6,6 +6,10 @@
 
 Goal: Users can follow/subscribe and read others' pieces.
 
+### The Core
+
+- Add a publication to subscribe multiple users' pieces.
+
 ## v0.1, 2015-10-21
 
 - Goal: Build a prototype, then upload to Meteor and GitHub.

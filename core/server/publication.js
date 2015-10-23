@@ -25,3 +25,12 @@ Meteor.publish("pieceAllUserPosts", function (limit) {
   check(limit, Number);
   return Pieces.find({published: true}, {sort: {createdAt: -1}, limit: limit});
 });
+
+Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
+  if (limit === undefined) {
+    limit = 20;
+  }
+  check(userId, Array);
+  check(limit, Number);
+  return Pieces.find({ownerId: {$in: userId}, published: true}, {sort: {createdAt: -1}, limit: limit});
+});
