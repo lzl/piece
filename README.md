@@ -6,6 +6,8 @@
 
 Goal: Users can follow/subscribe and read others' pieces.
 
+- Ask: [How to show documents from multiple remote publication in the template?](http://stackoverflow.com/q/33298716/1958475)
+
 ### The Core
 
 - Add a publication to subscribe multiple users' pieces.
