@@ -8,6 +8,7 @@ Goal: Users can follow/subscribe and read others' pieces.
 
 - Ask: [How to show documents from multiple remote publication in the template?](http://stackoverflow.com/q/33298716/1958475)
 - Problem solved: Connect to multiple servers via DDP, then observe their collections reactive via cursor.observeChanges.
+- Create a Subs collection to store users' subscription.
 
 ### The Core
 
