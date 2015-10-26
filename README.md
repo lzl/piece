@@ -1,8 +1,10 @@
 ## v0.2, 2015-10-26
 
 - Goal: Build a sub-project called Piece Reader, where you can follow/subscribe pieces, like Twitter to tweets, or RSS Reader to feeds. Then upload to Meteor and GitHub.
+- Meteor: [http://piece-reader.meteor.com](http://piece-reader.meteor.com)
+- Github: [https://github.com/lzl/piece-reader](https://github.com/lzl/piece-reader)
 
-### The UI
+### The UI of Piece Reader
 
 Goal: Users can follow/subscribe and read others' pieces.
 
@@ -10,8 +12,10 @@ Goal: Users can follow/subscribe and read others' pieces.
 - Problem solved: Connect to multiple servers via DDP, then observe their collections reactive via cursor.observeChanges.
 - Create a Subs collection to store users' subscription.
 - Users can subscribe manually with remote server name and user ID.
+- The subscription form will be validating while users are typing.
+- Visitors can make a quick demo easily without an account.
 
-### The Core
+### The Core of Piece
 
 - Add a publication to subscribe multiple users' pieces.
 
