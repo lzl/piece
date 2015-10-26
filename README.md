@@ -1,4 +1,4 @@
-## v0.2, 2015-10-24
+## v0.2, 2015-10-26
 
 - Goal: Build a sub-project called Piece Reader, where you can follow/subscribe pieces, like Twitter to tweets, or RSS Reader to feeds. Then upload to Meteor and GitHub.
 
@@ -9,6 +9,7 @@ Goal: Users can follow/subscribe and read others' pieces.
 - Ask: [How to show documents from multiple remote publication in the template?](http://stackoverflow.com/q/33298716/1958475)
 - Problem solved: Connect to multiple servers via DDP, then observe their collections reactive via cursor.observeChanges.
 - Create a Subs collection to store users' subscription.
+- Users can subscribe manually with remote server name and user ID.
 
 ### The Core
 
