@@ -1,3 +1,14 @@
+## v0.3, 2015-10-28
+
+- Goal: Make Piece and Piece Reader more security.
+
+### Security
+
+- Learn from [Securing Meteor Applications](https://themeteorchef.com/blog/securing-meteor-applications/) by Ryan Glover (aka The Meteor Chef).
+- Added package `audit-arguments-check` and `browser-policy`.
+- Disabled allow and deny, especially the `Meteor.users` collection.
+- Enabled SSL connection by default.
+
 ## v0.2, 2015-10-26
 
 - Goal: Build a sub-project called Piece Reader, where you can follow/subscribe pieces, like Twitter to tweets, or RSS Reader to feeds. Then upload to Meteor and GitHub.

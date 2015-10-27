@@ -18,5 +18,8 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 react
 check
+audit-argument-checks
 accounts-password
 accounts-ui
+force-ssl
+browser-policy
