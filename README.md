@@ -1,3 +1,7 @@
+## v0.4, 2015-10-28
+
+- Goal: Build another sub-project called Piece Profile, where visitors can read your pieces, like Twitter profile page or Wordpress blog page. Then upload to Meteor and GitHub.
+
 ## v0.3, 2015-10-28
 
 - Goal: Make Piece and Piece Reader more security.
