@@ -1,4 +1,4 @@
-## v0.4, 2015-10-28
+## v0.4, 2015-10-29
 
 - Goal: Build another sub-project called Piece Profile, where visitors can read your pieces, like Twitter profile page or Wordpress blog page. Then upload to Meteor and GitHub.
 - Meteor: [https://piece-profile.meteor.com](https://piece-profile.meteor.com)
