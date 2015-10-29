@@ -1,6 +1,16 @@
 ## v0.4, 2015-10-28
 
 - Goal: Build another sub-project called Piece Profile, where visitors can read your pieces, like Twitter profile page or Wordpress blog page. Then upload to Meteor and GitHub.
+- Meteor: [https://piece-profile.meteor.com](https://piece-profile.meteor.com)
+- Github: [https://github.com/lzl/piece-profile](https://github.com/lzl/piece-profile)
+
+### Piece Profile
+
+- The core logic is simple. Use DDP to connect and subscribe from remote Piece server.
+- New UI: Use Bootstrap v4, Card for profile. List group for posts.
+- Hidden UI: I created my own theme called B&W, which is hidden at folder `.ui-lzl`.
+- [ ] Server-side rendering. Be fast.
+- [ ] Security security security!
 
 ## v0.3, 2015-10-28
 
@@ -16,7 +26,7 @@
 ## v0.2, 2015-10-26
 
 - Goal: Build a sub-project called Piece Reader, where you can follow/subscribe pieces, like Twitter to tweets, or RSS Reader to feeds. Then upload to Meteor and GitHub.
-- Meteor: [http://piece-reader.meteor.com](http://piece-reader.meteor.com)
+- Meteor: [https://piece-reader.meteor.com](https://piece-reader.meteor.com)
 - Github: [https://github.com/lzl/piece-reader](https://github.com/lzl/piece-reader)
 
 ### The UI of Piece Reader
@@ -37,7 +47,7 @@ Goal: Users can follow/subscribe and read others' pieces.
 ## v0.1, 2015-10-21
 
 - Goal: Build a prototype, then upload to Meteor and GitHub.
-- Meteor: [http://piece.meteor.com](http://piece.meteor.com)
+- Meteor: [https://piece.meteor.com](https://piece.meteor.com)
 - GitHub: [https://github.com/lzl/piece](https://github.com/lzl/piece)
 
 ### The UI
