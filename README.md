@@ -9,7 +9,7 @@
 - The core logic is simple. Use DDP to connect and subscribe from remote Piece server.
 - New UI: Use Bootstrap v4, Card for profile. List group for posts.
 - Hidden UI: I created my own theme called B&W, which is hidden at folder `.ui-lzl`.
-- [ ] Server-side rendering. Be fast.
+- Server-side rendering. Be fast.
 - [ ] Security security security!
 
 ## v0.3, 2015-10-28
