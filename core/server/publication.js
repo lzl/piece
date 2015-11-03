@@ -7,6 +7,9 @@ Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   }
   check(userId, String);
   check(limit, Number);
+  if (! Meteor.users.findOne(userId)) {
+    this.ready();
+  }
   return Pieces.find({ownerId: userId, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
 
