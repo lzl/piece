@@ -1,3 +1,16 @@
+## v0.5, 2015-11-03
+
+- Goal: Follow Button. At Piece Profile, visitor can click the Follow button to subscribe/follow at selected Piece Reader.
+
+### Piece Reader
+
+- Use FlowRouter and BlazeLayout.
+- Create the `/follow` page.
+
+### Piece Profile
+
+- Build the input group of Follow Button.
+
 ## v0.4, 2015-10-29
 
 - Goal: Build another sub-project called Piece Profile, where visitors can read your pieces, like Twitter profile page or Wordpress blog page. Then upload to Meteor and GitHub.
@@ -9,8 +22,7 @@
 - The core logic is simple. Use DDP to connect and subscribe from remote Piece server.
 - New UI: Use Bootstrap v4, Card for profile. List group for posts.
 - Hidden UI: I created my own theme called B&W, which is hidden at folder `.ui-lzl`.
-- Server-side rendering. Be fast.
-- [ ] Security security security!
+- Server-side rendering. Such fast.
 
 ## v0.3, 2015-10-28
 
