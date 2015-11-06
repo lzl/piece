@@ -1,11 +1,13 @@
-## v0.5, 2015-11-03
+## v0.5, 2015-11-06
 
-- Goal: Follow Button. At Piece Profile, visitor can click the Follow button to subscribe/follow at selected Piece Reader.
+- Goal: Follow Button. At Piece Reader, users can manage their following/subscriptions. At Piece Profile, visitor can click the Follow button to follow at selected Piece Reader.
 
 ### Piece Reader
 
 - Use FlowRouter and BlazeLayout.
-- Create the `/follow` page.
+- Added `/following` and `/follow` router.
+- Added navbar of Bootstrap 4.
+- Code refactoring.
 
 ### Piece Profile
 
