@@ -91,10 +91,10 @@ App = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
-    var val = ReactDOM.findDOMNode(this.refs.textarea).value.trim();
+    var val = this.refs.textarea.value.trim();
     if (val) {
       Meteor.call('pieceInsert', val);
-      ReactDOM.findDOMNode(this.refs.textarea).value = "";
+      this.refs.textarea.value = "";
     }
   },
 
