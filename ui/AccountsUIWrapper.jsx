@@ -13,7 +13,6 @@ AccountsUIWrapper = React.createClass({
     return (
       <div>
         <span ref="container" />
-        <div className="hr"></div>
       </div>
     );
   }

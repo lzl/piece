@@ -13,7 +13,42 @@ App = React.createClass({
     return {
       loading: ! handle.ready(),
       pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
-      currentUser: Meteor.user()
+      currentUser: Meteor.user(),
+      status: Meteor.status().status
+    }
+  },
+
+  renderNavbar() {
+    return (
+      <nav className="navbar navbar-light">
+        <ul className="nav navbar-nav">
+          <li className="nav-item active">
+            <div className="nav-link">{this.renderStatus()}</div>
+          </li>
+        </ul>
+      </nav>
+    )
+  },
+
+  renderStatus() {
+    switch (this.data.status) {
+      case 'connecting':
+        return <span className="text-primary">Connecting</span>;
+        break;
+      case 'connected':
+        return <AccountsUIWrapper />;
+        break;
+      case 'failed':
+        return <span className="text-danger">Failed</span>
+        break;
+      case 'waiting':
+        return <span className="text-primary">Waiting</span>;
+        break;
+      case 'offline':
+        return <span className="text-danger">Offline</span>;
+        break;
+      default:
+        return <AccountsUIWrapper />;
     }
   },
 
@@ -59,17 +94,18 @@ App = React.createClass({
     var val = ReactDOM.findDOMNode(this.refs.textarea).value.trim();
     if (val) {
       Meteor.call('pieceInsert', val);
-      ReactDOM.findDOMNode(this.refs.textarea).value = "";  
+      ReactDOM.findDOMNode(this.refs.textarea).value = "";
     }
   },
 
   render() {
     return (
       <div className="container">
-        <div className="hr"></div>
+        <div className="row">
+          {this.renderNavbar()}
+        </div>
 
         <div className="row">
-          <AccountsUIWrapper />
           {this.renderForm()}
         </div>
 
