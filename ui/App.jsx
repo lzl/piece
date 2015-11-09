@@ -67,7 +67,7 @@ App = React.createClass({
         <div>
           <form onSubmit={this.handleSubmit} >
             <fieldset className="form-group">
-              <textarea className="form-control" ref="textarea" rows="3"></textarea>
+              <textarea className="form-control" ref="textarea" rows="3" required></textarea>
             </fieldset>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
