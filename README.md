@@ -14,6 +14,7 @@
 - Show clones at navbar.
 - Switch clone by clicking clone name.
 - Highlight current clone name.
+- Create new clone when new user was created. With same username.
 
 ### Piece Reader
 
