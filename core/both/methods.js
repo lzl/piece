@@ -25,5 +25,17 @@ Meteor.methods({
     } else {
       throw new Meteor.Error("not-authorized", "You are not this piece's owner.");
     }
+  },
+  cloneInsert(val) {
+    check(val, String);
+    if (Meteor.userId()) {
+      return Clones.insert({
+        name: val,
+        ownerId: Meteor.userId(),
+        createdAt: new Date()
+      });
+    } else {
+      throw new Meteor.Error("not-authorized", "Log in before create clone.");
+    }
   }
 });

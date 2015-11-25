@@ -8,6 +8,7 @@
 - Goal: Each clone would post its own pieces.
 - Create a collection called Clones.
 - Make a form to create new clone.
+- Create new method to insert clone.
 
 ### Piece Reader
 
