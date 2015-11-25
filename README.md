@@ -11,6 +11,7 @@
 - Create new method to insert clone.
 - Connect that form with the new method.
 - Publish and subscribe Clones.
+- Show clones at navbar.
 
 ### Piece Reader
 

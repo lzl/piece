@@ -16,7 +16,9 @@ App = React.createClass({
       loading: ! handle.ready(),
       pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
       currentUser: Meteor.user(),
-      status: Meteor.status().status
+      status: Meteor.status().status,
+      loadingClones: ! handleClones.ready(),
+      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch()
     }
   },
 
@@ -29,6 +31,20 @@ App = React.createClass({
     }
   },
 
+  renderClones() {
+    if (this.data.loadingClones) {
+      return "Loading";
+    }
+    return this.data.clones.map((clone) => {
+      // return <Card key={piece._id} piece={piece} />;
+      return (
+        <li key={clone._id} className="nav-item">
+          <a className="nav-link" href="#">{clone.name}</a>
+        </li>
+      );
+    });
+  },
+
   renderNavbar() {
     return (
       <nav className="navbar navbar-light">
@@ -36,6 +52,8 @@ App = React.createClass({
           <li className="nav-item active">
             <div className="nav-link">{this.renderStatus()}</div>
           </li>
+
+          {this.renderClones()}
         </ul>
         <form className="form-inline navbar-form" onSubmit={this.handleCloneSubmit} >
           <input className="form-control" type="text" placeholder="Clone name" ref="cloneName" required />
