@@ -1,3 +1,17 @@
+## v0.6, 2015-11-25
+
+- Goal: Clone. Users can clone themselves. Clones would have their own lives.
+
+### Piece
+
+- Each user can create multiple clones.
+- Each clone would post its own pieces.
+
+### Piece Reader
+
+- Each user can create multiple clones.
+- Each clone would have its own following.
+
 ## v0.5, 2015-11-06
 
 - Goal: Follow Button. At Piece Reader, users can manage their following/subscriptions. At Piece Profile, visitor can click the Follow button to follow at selected Piece Reader.
