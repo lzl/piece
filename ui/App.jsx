@@ -26,6 +26,10 @@ App = React.createClass({
             <div className="nav-link">{this.renderStatus()}</div>
           </li>
         </ul>
+        <form className="form-inline navbar-form">
+          <input className="form-control" type="text" placeholder="Clone name" />
+          <button className="btn btn-success-outline" type="submit">New Clone</button>
+        </form>
       </nav>
     )
   },
