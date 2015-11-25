@@ -12,6 +12,7 @@
 - Connect that form with the new method.
 - Publish and subscribe Clones.
 - Show clones at navbar.
+- Switch clone by clicking clone name.
 
 ### Piece Reader
 

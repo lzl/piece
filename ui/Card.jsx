@@ -22,7 +22,9 @@ Card = React.createClass({
     return (
       <div className="card card-block">
         <p className="card-text">
-          <strong>{this.props.piece.owner}</strong> ({this.props.piece.ownerId})
+          <strong>{this.props.piece.owner}</strong>
+          {' '}
+          <small className="text-muted">({this.props.piece.ownerId})</small>
         </p>
         <p className="card-text">
           {this.props.piece.content}

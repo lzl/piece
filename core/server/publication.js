@@ -41,3 +41,12 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
 Meteor.publish("pieceCurrentUserClones", function () {
   return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
 });
+
+Meteor.publish("pieceSingleClonePosts", (cloneId, limit = 20) => {
+  check(cloneId, String);
+  check(limit, Number);
+  if (! Clones.findOne(cloneId)) {
+    this.ready();
+  }
+  return Pieces.find({ownerId: cloneId, published: true}, {sort: {createdAt: -1}, limit: limit});
+});

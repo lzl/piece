@@ -37,5 +37,28 @@ Meteor.methods({
     } else {
       throw new Meteor.Error("not-authorized", "Log in before create clone.");
     }
+  },
+  pieceInsertByClone(val, cloneId) {
+    check(val, String);
+    check(cloneId, String);
+
+    const userId = Meteor.userId();
+    if (! userId) {
+      throw new Meteor.Error("not-authorized", "Log in before insert piece.");
+    }
+
+    const ownedClone = Clones.findOne({_id: cloneId, ownerId: userId});
+    if (ownedClone) {
+      return Pieces.insert({
+        type: "plaintext",
+        content: val,
+        owner: ownedClone.name,
+        ownerId: ownedClone._id,
+        published: true,
+        createdAt: new Date()
+      })
+    } else {
+      throw new Meteor.Error("not-authorized", "You don't own that clone.");
+    }
   }
 });
