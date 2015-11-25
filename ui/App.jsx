@@ -31,10 +31,12 @@ App = React.createClass({
   },
 
   renderClones() {
+    const id = Session.get("currentCloneId");
     return this.data.clones.map((clone) => {
+      const style = clone._id === id ? "nav-item active" : "nav-item";
       return (
-        <li key={clone._id} className="nav-item">
-          <div className="nav-link" onClick={() => Session.set("currentCloneId", clone._id)}>{clone.name}</div>
+        <li key={clone._id} className={style}>
+          <a className="nav-link" onClick={() => Session.set("currentCloneId", clone._id)}>{clone.name}</a>
         </li>
       );
     });
@@ -42,7 +44,7 @@ App = React.createClass({
 
   renderNewCloneForm() {
     return (
-      <form className="form-inline navbar-form" onSubmit={this.handleCloneSubmit} >
+      <form className="form-inline navbar-form pull-right" onSubmit={this.handleCloneSubmit} >
         <input className="form-control" type="text" placeholder="Clone name" ref="cloneName" required />
         <button className="btn btn-success-outline" type="submit">New Clone</button>
       </form>
@@ -58,6 +60,7 @@ App = React.createClass({
           </li>
           {this.data.currentUser ? this.renderClones() : ''}
         </ul>
+
         {this.data.currentUser ? this.renderNewCloneForm() : ''}
       </nav>
     )

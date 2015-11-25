@@ -13,6 +13,7 @@
 - Publish and subscribe Clones.
 - Show clones at navbar.
 - Switch clone by clicking clone name.
+- Highlight current clone name.
 
 ### Piece Reader
 
