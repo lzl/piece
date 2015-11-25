@@ -18,6 +18,15 @@ App = React.createClass({
     }
   },
 
+  handleCloneSubmit(event) {
+    event.preventDefault();
+    var val = this.refs.cloneName.value.trim();
+    if (val) {
+      Meteor.call('cloneInsert', val);
+      this.refs.cloneName.value = "";
+    }
+  },
+
   renderNavbar() {
     return (
       <nav className="navbar navbar-light">
@@ -26,8 +35,8 @@ App = React.createClass({
             <div className="nav-link">{this.renderStatus()}</div>
           </li>
         </ul>
-        <form className="form-inline navbar-form">
-          <input className="form-control" type="text" placeholder="Clone name" />
+        <form className="form-inline navbar-form" onSubmit={this.handleCloneSubmit} >
+          <input className="form-control" type="text" placeholder="Clone name" ref="cloneName" required />
           <button className="btn btn-success-outline" type="submit">New Clone</button>
         </form>
       </nav>
