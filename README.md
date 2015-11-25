@@ -4,8 +4,9 @@
 
 ### Piece
 
-- Each user can create multiple clones.
-- Each clone would post its own pieces.
+- Goal: Each user can create multiple clones.
+- Goal: Each clone would post its own pieces.
+- Create a collection called Clones.
 
 ### Piece Reader
 
