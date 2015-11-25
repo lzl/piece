@@ -37,3 +37,7 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
   check(limit, Number);
   return Pieces.find({ownerId: {$in: userId}, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
+
+Meteor.publish("pieceCurrentUserClones", function () {
+  return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
+});

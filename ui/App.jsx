@@ -3,9 +3,11 @@ App = React.createClass({
 
   getMeteorData() {
     let handle;
+    let handleClones;
 
     if (Meteor.user()) {
       handle = Meteor.subscribe("pieceCurrentUserPosts");
+      handleClones = Meteor.subscribe("pieceCurrentUserClones");
     } else {
       handle = Meteor.subscribe("pieceAllUserPosts");
     }

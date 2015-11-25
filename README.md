@@ -10,6 +10,7 @@
 - Make a form to create new clone.
 - Create new method to insert clone.
 - Connect that form with the new method.
+- Publish and subscribe Clones.
 
 ### Piece Reader
 
