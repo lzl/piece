@@ -5,8 +5,14 @@ App = React.createClass({
     if (Meteor.user()) {
       const handleClones = Meteor.subscribe("pieceCurrentUserClones");
       if (handleClones.ready()) {
-        const cloneId = Clones.findOne()._id;
-        Session.setDefault("currentCloneId", cloneId);
+        // set currentCloneId with first clone's id if it wasn't set before
+        Session.setDefault("currentCloneId", Clones.findOne()._id);
+        // if currentCloneId was set, then check if it belongs to current user
+        if (! Clones.findOne(Session.get("currentCloneId"))) {
+          // if not, then set again
+          Session.set("currentCloneId", Clones.findOne()._id);
+        }
+        // subscribe with currentCloneId
         const handlePieces = Meteor.subscribe("pieceSingleClonePosts", Session.get("currentCloneId"));
       }
     } else {
