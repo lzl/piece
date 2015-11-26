@@ -60,5 +60,18 @@ Meteor.methods({
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
-  }
+  },
+  pieceRemoveByClone: function (id) {
+    check(id, String);
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("not-authorized", "Log in before remove piece.");
+    }
+    let cloneId = Pieces.findOne({_id: id}).ownerId;
+    let userId = Clones.findOne({_id: cloneId}).ownerId;
+    if (userId === Meteor.userId()) {
+      return Pieces.remove(id);
+    } else {
+      throw new Meteor.Error("not-authorized", "You are not this piece's owner.");
+    }
+  },
 });

@@ -4,11 +4,11 @@ Card = React.createClass({
   },
 
   pieceRemove() {
-    Meteor.call('pieceRemove', this.props.piece._id);
+    Meteor.call('pieceRemoveByClone', this.props.piece._id);
   },
 
   renderButton() {
-    if (this.props.piece.ownerId === Meteor.userId()) {
+    if (Meteor.userId()) {
       return (
         <div>
           <button className="btn btn-primary-outline card-link" disabled>Detail</button>
@@ -36,4 +36,4 @@ Card = React.createClass({
       </div>
     );
   }
-})
+});

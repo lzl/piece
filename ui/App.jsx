@@ -4,100 +4,13 @@ App = React.createClass({
   getMeteorData() {
     if (Meteor.user()) {
       const handleClones = Meteor.subscribe("pieceCurrentUserClones");
-      if (handleClones.ready()) {
-        // set currentCloneId with first clone's id if it wasn't set before
-        Session.setDefault("currentCloneId", Clones.findOne()._id);
-        // if currentCloneId was set, then check if it belongs to current user
-        if (! Clones.findOne(Session.get("currentCloneId"))) {
-          // if not, then set again
-          Session.set("currentCloneId", Clones.findOne()._id);
-        }
-        // subscribe with currentCloneId
-        const handlePieces = Meteor.subscribe("pieceSingleClonePosts", Session.get("currentCloneId"));
-      }
-    } else {
-      const handlePieces = Meteor.subscribe("pieceAllUserPosts");
     }
 
     return {
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
-      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
       currentUser: Meteor.user(),
       status: Meteor.status().status
     }
-  },
-
-  handleCloneSubmit(event) {
-    event.preventDefault();
-    var val = this.refs.cloneName.value.trim();
-    if (val) {
-      Meteor.call('cloneInsert', val);
-      this.refs.cloneName.value = "";
-    }
-  },
-
-  renderClones() {
-    const id = Session.get("currentCloneId");
-    return this.data.clones.map((clone) => {
-      const style = clone._id === id ? "nav-item active" : "nav-item";
-      return (
-        <li key={clone._id} className={style}>
-          <a className="nav-link" onClick={() => Session.set("currentCloneId", clone._id)}>{clone.name}</a>
-        </li>
-      );
-    });
-  },
-
-  renderNewCloneForm() {
-    return (
-      <form className="form-inline navbar-form pull-right" onSubmit={this.handleCloneSubmit} >
-        <input className="form-control" type="text" placeholder="Clone name" ref="cloneName" required />
-        <button className="btn btn-success-outline" type="submit">New Clone</button>
-      </form>
-    );
-  },
-
-  renderNavbar() {
-    return (
-      <nav className="navbar navbar-light">
-        <ul className="nav navbar-nav">
-          <li className="nav-item active">
-            <div className="nav-link">{this.renderStatus()}</div>
-          </li>
-          {this.data.currentUser ? this.renderClones() : ''}
-        </ul>
-
-        {this.data.currentUser ? this.renderNewCloneForm() : ''}
-      </nav>
-    )
-  },
-
-  renderStatus() {
-    switch (this.data.status) {
-      case 'connecting':
-        return <span className="text-primary">Connecting</span>;
-        break;
-      case 'connected':
-        return <AccountsUIWrapper />;
-        break;
-      case 'failed':
-        return <span className="text-danger">Failed</span>
-        break;
-      case 'waiting':
-        return <span className="text-primary">Waiting</span>;
-        break;
-      case 'offline':
-        return <span className="text-danger">Offline</span>;
-        break;
-      default:
-        return <AccountsUIWrapper />;
-    }
-  },
-
-  renderCards() {
-    return this.data.pieces.map((piece) => {
-      return <Card key={piece._id} piece={piece} />;
-    });
   },
 
   renderForm() {
@@ -138,11 +51,23 @@ App = React.createClass({
     }
   },
 
+  renderCards() {
+    if (this.data.currentUser) {
+      return <CurrenUserCards clones={this.data.clones}/>;
+    } else {
+      return <AllUserCards />;
+    }
+  },
+
   render() {
     return (
       <div className="container">
         <div className="row">
-          {this.renderNavbar()}
+          <Navbar
+            currentUser={this.data.currentUser}
+            status={this.data.status}
+            clones={this.data.clones}
+          />
         </div>
 
         <div className="row">
@@ -153,9 +78,7 @@ App = React.createClass({
           {this.renderHero()}
         </div>
 
-        <div className="row">
-          {this.renderCards()}
-        </div>
+        {this.renderCards()}
       </div>
     );
   }
