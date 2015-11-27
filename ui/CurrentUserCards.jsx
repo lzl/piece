@@ -1,9 +1,13 @@
 CurrenUserCards = React.createClass({
+  propTypes: {
+    clones: React.PropTypes.array.isRequired
+  },
+
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    const handleClones = Meteor.subscribe("pieceCurrentUserClones");
-    if (handleClones.ready()) {
+    // const handleClones = Meteor.subscribe("pieceCurrentUserClones");
+    if (this.data.clones) {
       // set currentCloneId with first clone's id if it wasn't set before
       Session.setDefault("currentCloneId", Clones.findOne()._id);
       // if currentCloneId was set, then check if it belongs to current user
@@ -16,7 +20,8 @@ CurrenUserCards = React.createClass({
     }
 
     return {
-      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch()
+      clones: this.props.clones,
+      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
     }
   },
 

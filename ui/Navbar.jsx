@@ -1,4 +1,10 @@
 Navbar = React.createClass({
+  propTypes: {
+    status: React.PropTypes.string.isRequired,
+    currentUser: React.PropTypes.object,
+    clones: React.PropTypes.array
+  },
+
   mixins: [ReactMeteorData],
 
   getMeteorData() {
@@ -30,7 +36,7 @@ Navbar = React.createClass({
   },
 
   renderCloneNames() {
-    if (this.props.currentUser) {
+    if (this.props.currentUser && this.props.clones.length > 1) {
       const id = this.data.currentCloneId;
       return this.props.clones.map((clone) => {
         const style = clone._id === id ? "nav-item active" : "nav-item";
@@ -40,18 +46,18 @@ Navbar = React.createClass({
           </li>
         );
       });
-    } else {
-      return '';
     }
   },
 
   renderNewCloneForm() {
-    return (
-      <form className="form-inline navbar-form pull-right" onSubmit={this.handleNewCloneSubmit} >
-        <input className="form-control" type="text" placeholder="Clone name" ref="cloneName" required />
-        <button className="btn btn-success-outline" type="submit">New Clone</button>
-      </form>
-    );
+    if (this.props.currentUser) {
+      return (
+        <form className="form-inline navbar-form pull-right" onSubmit={this.handleNewCloneSubmit} >
+          <input className="form-control" type="text" placeholder="Make a new name" ref="cloneName" required />
+          <button className="btn btn-success-outline" type="submit">Clone</button>
+        </form>
+      );
+    }
   },
 
   handleNewCloneSubmit(event) {
@@ -65,16 +71,18 @@ Navbar = React.createClass({
 
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <ul className="nav navbar-nav">
-          <li className="nav-item active">
-            <div className="nav-link">{this.renderStatus()}</div>
-          </li>
-          {this.renderCloneNames()}
-        </ul>
+      <div className="row">
+        <nav className="navbar navbar-light">
+          <ul className="nav navbar-nav">
+            <li className="nav-item active">
+              <div className="nav-link">{this.renderStatus()}</div>
+            </li>
+            {this.renderCloneNames()}
+          </ul>
 
-        {this.props.currentUser ? this.renderNewCloneForm() : ''}
-      </nav>
+          {this.renderNewCloneForm()}
+        </nav>
+      </div>
     )
   }
 });

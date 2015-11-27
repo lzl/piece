@@ -7,16 +7,16 @@ App = React.createClass({
     }
 
     return {
-      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
+      status: Meteor.status().status,
       currentUser: Meteor.user(),
-      status: Meteor.status().status
+      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
     }
   },
 
   renderForm() {
     if (this.data.currentUser) {
       return (
-        <div>
+        <div className="row">
           <form onSubmit={this.handleSubmit} >
             <fieldset className="form-group">
               <textarea className="form-control" ref="textarea" rows="3" required></textarea>
@@ -33,9 +33,11 @@ App = React.createClass({
   renderHero() {
     if (! this.data.currentUser) {
       return (
-        <div className="jumbotron">
-          <h1 className="display-2">Welcome to Piece.</h1>
-          <p className="lead">Each piece is a message. You can view recent public pieces at bottom ↓ or you can create an account at top-left corner ↖ to submit your own piece.</p>
+        <div className="row">
+          <div className="jumbotron">
+            <h1 className="display-2">Welcome to Piece.</h1>
+            <p className="lead">Each piece is a message. You can view recent public pieces at bottom ↓ or you can create an account at top-left corner ↖ to submit your own piece.</p>
+          </div>
         </div>
       );
     }
@@ -62,22 +64,14 @@ App = React.createClass({
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <Navbar
-            currentUser={this.data.currentUser}
-            status={this.data.status}
-            clones={this.data.clones}
-          />
-        </div>
+        <Navbar
+          currentUser={this.data.currentUser}
+          status={this.data.status}
+          clones={this.data.clones}
+        />
 
-        <div className="row">
-          {this.renderForm()}
-        </div>
-
-        <div className="row">
-          {this.renderHero()}
-        </div>
-
+        {this.renderForm()}
+        {this.renderHero()}
         {this.renderCards()}
       </div>
     );
