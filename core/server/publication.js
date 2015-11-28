@@ -39,7 +39,11 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
 });
 
 Meteor.publish("pieceCurrentUserClones", function () {
-  return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
+  if (this.userId) {
+    return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
+  } else {
+    return this.ready();
+  }
 });
 
 Meteor.publish("pieceSingleClonePosts", (cloneId, limit = 20) => {

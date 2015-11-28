@@ -5,14 +5,19 @@ AllUserCards = React.createClass({
     const handlePieces = Meteor.subscribe("pieceAllUserPosts");
 
     return {
-      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch()
+      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
+      piecesIsReady: handlePieces.ready()
     }
   },
 
   renderCards() {
-    return this.data.pieces.map((piece) => {
-      return <Card key={piece._id} piece={piece} />;
-    });
+    if (this.data.piecesIsReady) {
+      return this.data.pieces.map((piece) => {
+        return <Card key={piece._id} piece={piece} />;
+      });
+    } else {
+      return <Loading text={"Loading public pieces"} />;
+    }
   },
 
   render() {

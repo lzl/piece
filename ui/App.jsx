@@ -2,14 +2,12 @@ App = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    if (Meteor.user()) {
-      const handleClones = Meteor.subscribe("pieceCurrentUserClones");
-    }
-
+    const handleClones = Meteor.subscribe("pieceCurrentUserClones");
     return {
       status: Meteor.status().status,
       currentUser: Meteor.user(),
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
+      clonesIsReady: handleClones.ready()
     }
   },
 
@@ -55,7 +53,15 @@ App = React.createClass({
 
   renderCards() {
     if (this.data.currentUser) {
-      return <CurrenUserCards clones={this.data.clones}/>;
+      if (this.data.clonesIsReady) {
+        return <CurrenUserCards />;
+      } else {
+        return (
+          <div className="row">
+            <Loading text={"Loading your clones"} />
+          </div>
+        )
+      }
     } else {
       return <AllUserCards />;
     }
