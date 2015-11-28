@@ -1,8 +1,12 @@
-Accounts.onCreateUser((options, user) => {
-  Clones.insert({
-    name: user.username,
-    ownerId: user._id,
-    createdAt: new Date()
-  });
-  return user;
+Accounts.onLogin(() => {
+  const user = Meteor.user();
+  const hasClone = Clones.findOne(user._id);
+  if (! hasClone) {
+    Clones.insert({
+      _id: user._id,
+      name: user.username,
+      ownerId: user._id,
+      createdAt: new Date()
+    });
+  }
 });
