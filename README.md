@@ -1,20 +1,12 @@
-## v0.6, 2015-11-27
+## v0.6, 2015-11-28
 
 - Goal: Clone. Users can clone themselves. Clones would have their own lives.
 
 ### Piece
 
-- Goal: Each user can create multiple clones.
-- Goal: Each clone would post its own pieces.
-- Create a collection called Clones.
-- Make a form to create new clone.
-- Create new method to insert clone.
-- Connect that form with the new method.
-- Publish and subscribe Clones.
-- Show clones at navbar.
-- Switch clone by clicking clone name.
-- Highlight current clone name.
-- Create new clone when new user was created. With same username.
+- Each user can create multiple clones.
+- Each clone would post its own pieces.
+- Older version still works for backwards compatibility.
 
 ### Piece Reader
 
