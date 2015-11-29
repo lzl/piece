@@ -1,4 +1,4 @@
-## v0.6, 2015-11-28
+## v0.6, 2015-11-29
 
 - Goal: Clone. Users can clone themselves. Clones would have their own lives.
 
@@ -12,6 +12,7 @@
 
 - Each user can create multiple clones.
 - Each clone would have its own following.
+- Older version still works for backwards compatibility.
 
 ## v0.5, 2015-11-06
 
