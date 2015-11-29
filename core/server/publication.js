@@ -46,7 +46,10 @@ Meteor.publish("pieceCurrentUserClones", function () {
   }
 });
 
-Meteor.publish("pieceSingleClonePosts", (cloneId, limit = 20) => {
+Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
+  if (limit === undefined) {
+    limit = 20;
+  }
   check(cloneId, String);
   check(limit, Number);
   if (! Clones.findOne(cloneId)) {
