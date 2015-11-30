@@ -2,69 +2,19 @@ App = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let handle;
-
-    if (Meteor.user()) {
-      handle = Meteor.subscribe("pieceCurrentUserPosts");
-    } else {
-      handle = Meteor.subscribe("pieceAllUserPosts");
-    }
-
+    const handleClones = Meteor.subscribe("pieceCurrentUserClones");
     return {
-      loading: ! handle.ready(),
-      pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
+      status: Meteor.status().status,
       currentUser: Meteor.user(),
-      status: Meteor.status().status
+      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
+      clonesIsReady: handleClones.ready()
     }
-  },
-
-  renderNavbar() {
-    return (
-      <nav className="navbar navbar-light">
-        <ul className="nav navbar-nav">
-          <li className="nav-item active">
-            <div className="nav-link">{this.renderStatus()}</div>
-          </li>
-        </ul>
-      </nav>
-    )
-  },
-
-  renderStatus() {
-    switch (this.data.status) {
-      case 'connecting':
-        return <span className="text-primary">Connecting</span>;
-        break;
-      case 'connected':
-        return <AccountsUIWrapper />;
-        break;
-      case 'failed':
-        return <span className="text-danger">Failed</span>
-        break;
-      case 'waiting':
-        return <span className="text-primary">Waiting</span>;
-        break;
-      case 'offline':
-        return <span className="text-danger">Offline</span>;
-        break;
-      default:
-        return <AccountsUIWrapper />;
-    }
-  },
-
-  renderCards() {
-    if (this.data.loading) {
-      return "Loading";
-    }
-    return this.data.pieces.map((piece) => {
-      return <Card key={piece._id} piece={piece} />;
-    });
   },
 
   renderForm() {
     if (this.data.currentUser) {
       return (
-        <div>
+        <div className="row">
           <form onSubmit={this.handleSubmit} >
             <fieldset className="form-group">
               <textarea className="form-control" ref="textarea" rows="3" required></textarea>
@@ -81,9 +31,11 @@ App = React.createClass({
   renderHero() {
     if (! this.data.currentUser) {
       return (
-        <div className="jumbotron">
-          <h1 className="display-2">Welcome to Piece.</h1>
-          <p className="lead">Each piece is a message. You can view recent public pieces at bottom ↓ or you can create an account at top-left corner ↖ to submit your own piece.</p>
+        <div className="row">
+          <div className="jumbotron">
+            <h1 className="display-2">Welcome to Piece.</h1>
+            <p className="lead">Each piece is a message. You can view recent public pieces at bottom ↓ or you can create an account at top-left corner ↖ to submit your own piece.</p>
+          </div>
         </div>
       );
     }
@@ -91,31 +43,42 @@ App = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
-    var val = this.refs.textarea.value.trim();
-    if (val) {
-      Meteor.call('pieceInsert', val);
+    const val = this.refs.textarea.value.trim();
+    const cloneId = Session.get("currentCloneId");
+    if (val && cloneId) {
+      Meteor.call('pieceInsertByClone', val, cloneId);
       this.refs.textarea.value = "";
+    }
+  },
+
+  renderCards() {
+    if (this.data.currentUser) {
+      if (this.data.clonesIsReady) {
+        return <CurrenUserCards />;
+      } else {
+        return (
+          <div className="row">
+            <Loading text={"Loading your clones"} />
+          </div>
+        )
+      }
+    } else {
+      return <AllUserCards />;
     }
   },
 
   render() {
     return (
       <div className="container">
-        <div className="row">
-          {this.renderNavbar()}
-        </div>
+        <Navbar
+          currentUser={this.data.currentUser}
+          status={this.data.status}
+          clones={this.data.clones}
+        />
 
-        <div className="row">
-          {this.renderForm()}
-        </div>
-
-        <div className="row">
-          {this.renderHero()}
-        </div>
-
-        <div className="row">
-          {this.renderCards()}
-        </div>
+        {this.renderForm()}
+        {this.renderHero()}
+        {this.renderCards()}
       </div>
     );
   }

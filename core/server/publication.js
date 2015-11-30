@@ -37,3 +37,23 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
   check(limit, Number);
   return Pieces.find({ownerId: {$in: userId}, published: true}, {sort: {createdAt: -1}, limit: limit});
 });
+
+Meteor.publish("pieceCurrentUserClones", function () {
+  if (this.userId) {
+    return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
+  } else {
+    return this.ready();
+  }
+});
+
+Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
+  if (limit === undefined) {
+    limit = 20;
+  }
+  check(cloneId, String);
+  check(limit, Number);
+  if (! Clones.findOne(cloneId)) {
+    this.ready();
+  }
+  return Pieces.find({ownerId: cloneId, published: true}, {sort: {createdAt: -1}, limit: limit});
+});

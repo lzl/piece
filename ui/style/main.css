@@ -2,3 +2,6 @@
   width: 100%;
   height: 1em;
 }
+.nav-link {
+  cursor: pointer;
+}
