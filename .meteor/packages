@@ -25,4 +25,4 @@ force-ssl
 browser-policy
 ddp-rate-limiter
 
-meteortoys:allthings
+# meteortoys:allthings
