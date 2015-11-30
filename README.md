@@ -1,4 +1,4 @@
-## v0.6, 2015-11-29
+## v0.6, 2015-11-30
 
 - Goal: Clone. Users can clone themselves. Clones would have their own lives.
 
