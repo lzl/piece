@@ -19,9 +19,9 @@ Meteor.methods({
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized", "Log in before remove piece.");
     }
-    let ownerId = Pieces.findOne(id).ownerId;
+    const ownerId = Pieces.findOne(id).ownerId;
     if (ownerId === Meteor.userId()) {
-      return Pieces.remove(id);
+      return Pieces.remove({_id: id});
     } else {
       throw new Meteor.Error("not-authorized", "You are not this piece's owner.");
     }
@@ -66,10 +66,10 @@ Meteor.methods({
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized", "Log in before remove piece.");
     }
-    let cloneId = Pieces.findOne(id).ownerId;
-    let userId = Clones.findOne(cloneId).ownerId;
+    const cloneId = Pieces.findOne(id).ownerId;
+    const userId = Clones.findOne(cloneId).ownerId;
     if (userId === Meteor.userId()) {
-      return Pieces.remove(id);
+      return Pieces.remove({_id: id});
     } else {
       throw new Meteor.Error("not-authorized", "You are not this piece's owner.");
     }

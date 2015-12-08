@@ -1,16 +1,28 @@
 // mimic latency
 // Meteor._sleepForMs(1000);
 
+const MAX_PIECES = 1000;
+
 Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   if (limit === undefined) {
     limit = 20;
   }
   check(userId, String);
   check(limit, Number);
+
   if (! Meteor.users.findOne(userId)) {
     this.ready();
   }
-  return Pieces.find({ownerId: userId, published: true}, {sort: {createdAt: -1}, limit: limit});
+
+  const selectors = {
+    ownerId: userId,
+    published: true
+  };
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_PIECES)
+  };
+  return Pieces.find(selectors, options);
 });
 
 Meteor.publish("pieceCurrentUserPosts", function (limit) {
@@ -18,7 +30,20 @@ Meteor.publish("pieceCurrentUserPosts", function (limit) {
     limit = 20;
   }
   check(limit, Number);
-  return Pieces.find({ownerId: this.userId, published: true}, {sort: {createdAt: -1}, limit: limit});
+
+  if (! this.userId) {
+    this.ready();
+  }
+
+  const selectors = {
+    ownerId: this.userId,
+    published: true
+  };
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_PIECES)
+  };
+  return Pieces.find(selectors, options);
 });
 
 Meteor.publish("pieceAllUserPosts", function (limit) {
@@ -26,7 +51,15 @@ Meteor.publish("pieceAllUserPosts", function (limit) {
     limit = 20;
   }
   check(limit, Number);
-  return Pieces.find({published: true}, {sort: {createdAt: -1}, limit: limit});
+
+  const selectors = {
+    published: true
+  };
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_PIECES)
+  };
+  return Pieces.find(selectors, options);
 });
 
 Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
@@ -35,7 +68,16 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
   }
   check(userId, Array);
   check(limit, Number);
-  return Pieces.find({ownerId: {$in: userId}, published: true}, {sort: {createdAt: -1}, limit: limit});
+
+  const selectors = {
+    ownerId: {$in: userId},
+    published: true
+  };
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_PIECES)
+  };
+  return Pieces.find(selectors, options);
 });
 
 Meteor.publish("pieceCurrentUserClones", function () {
@@ -52,8 +94,18 @@ Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
   }
   check(cloneId, String);
   check(limit, Number);
+
   if (! Clones.findOne(cloneId)) {
     this.ready();
   }
-  return Pieces.find({ownerId: cloneId, published: true}, {sort: {createdAt: -1}, limit: limit});
+
+  const selectors = {
+    ownerId: cloneId,
+    published: true
+  };
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_PIECES)
+  };
+  return Pieces.find(selectors, options);
 });
