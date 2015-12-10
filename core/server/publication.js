@@ -10,11 +10,11 @@ Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   check(userId, String);
   check(limit, Number);
 
-  if (! Meteor.users.findOne(userId)) {
+  if (! Meteor.users.findOne({_id: userId})) {
     this.ready();
   }
 
-  const selectors = {
+  const query = {
     ownerId: userId,
     published: true
   };
@@ -22,7 +22,7 @@ Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
     sort: {createdAt: -1},
     limit: Math.min(limit, MAX_PIECES)
   };
-  return Pieces.find(selectors, options);
+  return Pieces.find(query, options);
 });
 
 Meteor.publish("pieceCurrentUserPosts", function (limit) {
@@ -35,7 +35,7 @@ Meteor.publish("pieceCurrentUserPosts", function (limit) {
     this.ready();
   }
 
-  const selectors = {
+  const query = {
     ownerId: this.userId,
     published: true
   };
@@ -43,7 +43,7 @@ Meteor.publish("pieceCurrentUserPosts", function (limit) {
     sort: {createdAt: -1},
     limit: Math.min(limit, MAX_PIECES)
   };
-  return Pieces.find(selectors, options);
+  return Pieces.find(query, options);
 });
 
 Meteor.publish("pieceAllUserPosts", function (limit) {
@@ -52,14 +52,14 @@ Meteor.publish("pieceAllUserPosts", function (limit) {
   }
   check(limit, Number);
 
-  const selectors = {
+  const query = {
     published: true
   };
   const options = {
     sort: {createdAt: -1},
     limit: Math.min(limit, MAX_PIECES)
   };
-  return Pieces.find(selectors, options);
+  return Pieces.find(query, options);
 });
 
 Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
@@ -69,7 +69,7 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
   check(userId, Array);
   check(limit, Number);
 
-  const selectors = {
+  const query = {
     ownerId: {$in: userId},
     published: true
   };
@@ -77,7 +77,7 @@ Meteor.publish("pieceMultiUserPosts", function (userId, limit) {
     sort: {createdAt: -1},
     limit: Math.min(limit, MAX_PIECES)
   };
-  return Pieces.find(selectors, options);
+  return Pieces.find(query, options);
 });
 
 Meteor.publish("pieceCurrentUserClones", function () {
@@ -95,11 +95,11 @@ Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
   check(cloneId, String);
   check(limit, Number);
 
-  if (! Clones.findOne(cloneId)) {
+  if (! Clones.findOne({_id: cloneId})) {
     this.ready();
   }
 
-  const selectors = {
+  const query = {
     ownerId: cloneId,
     published: true
   };
@@ -107,5 +107,17 @@ Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
     sort: {createdAt: -1},
     limit: Math.min(limit, MAX_PIECES)
   };
-  return Pieces.find(selectors, options);
+  return Pieces.find(query, options);
+});
+
+Meteor.publish("pieceMultiCloneProfiles", function (cloneIds) {
+  check(cloneIds, Array);
+
+  const query = {
+    _id: {$in: cloneIds}
+  };
+  const options = {
+    fields: {name: 1}
+  };
+  return Clones.find(query, options);
 });
