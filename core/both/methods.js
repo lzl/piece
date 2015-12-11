@@ -32,7 +32,8 @@ Meteor.methods({
       return Clones.insert({
         name: val,
         ownerId: Meteor.userId(),
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       });
     } else {
       throw new Meteor.Error("not-authorized", "Log in before create clone.");
@@ -49,13 +50,15 @@ Meteor.methods({
 
     const ownedClone = Clones.findOne({_id: cloneId, ownerId: userId});
     if (ownedClone) {
+      const timestamp = new Date();
+      Clones.update({_id: cloneId, ownerId: userId}, {$set: {updatedAt: timestamp}});
       return Pieces.insert({
         type: "plaintext",
         content: val,
         owner: ownedClone.name,
         ownerId: ownedClone._id,
         published: true,
-        createdAt: new Date()
+        createdAt: timestamp
       })
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");

@@ -117,7 +117,7 @@ Meteor.publish("pieceMultiCloneProfiles", function (cloneIds) {
     _id: {$in: cloneIds}
   };
   const options = {
-    fields: {name: 1}
+    fields: {name: 1, updatedAt: 1}
   };
   return Clones.find(query, options);
 });
