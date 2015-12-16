@@ -24,5 +24,6 @@ accounts-ui
 force-ssl
 browser-policy
 ddp-rate-limiter
+mizzao:timesync
 
 # meteortoys:allthings
