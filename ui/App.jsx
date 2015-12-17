@@ -8,7 +8,6 @@ App = React.createClass({
       currentUser: Meteor.user(),
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
       clonesIsReady: handleClones.ready(),
-      clonesCount: Clones.find().count(),
       currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
       otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch()
     }
@@ -27,7 +26,7 @@ App = React.createClass({
   },
 
   renderSelectClone() {
-    if (this.data.clonesCount > 1) {
+    if (this.data.clones.length > 1) {
       return (
         <select className="c-select" ref="selectClone" onChange={this.selectClone}>
           <option value={this.data.currentClone._id} selected>{this.data.currentClone.name}</option>
@@ -101,7 +100,6 @@ App = React.createClass({
         <Navbar
           currentUser={this.data.currentUser}
           status={this.data.status}
-          clones={this.data.clones}
         />
 
         {this.renderForm()}
