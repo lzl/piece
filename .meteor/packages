@@ -22,7 +22,7 @@ audit-argument-checks
 accounts-password
 accounts-ui
 force-ssl
-browser-policy
+# browser-policy # disabled because of bootstrap.js
 ddp-rate-limiter
 mizzao:timesync
 

@@ -33,17 +33,76 @@ Card = React.createClass({
     }
   },
 
-  pieceRemove() {
+  publishedAt(timestamp) {
+    return moment(timestamp).format('LLL');
+  },
+
+  pieceRemove(event) {
+    event.preventDefault();
     Meteor.call('pieceRemoveByClone', this.props.piece._id);
+  },
+
+  pieceDetail(event) {
+    event.preventDefault();
+    $(`#detail-${this.props.piece._id}`).modal('show');
   },
 
   renderButton() {
     if (Meteor.userId()) {
       return (
         <div>
-          <button type="button" className="btn btn-secondary" disabled>Detail</button>
+          <button type="button" className="btn btn-secondary" onClick={this.pieceDetail}>Detail</button>
           {' '}
           <button type="button" className="btn btn-danger-outline" onClick={this.pieceRemove}>Delete</button>
+
+          {this.readerPieceDetail()}
+        </div>
+      );
+    }
+  },
+
+  readerPieceDetail() {
+    return (
+      <div className="modal fade" id={`detail-${this.props.piece._id}`} tabIndex="-1" role="dialog" aria-labelledby="readerPieceDetail" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 className="modal-title" id="readerPieceDetail">The detail of this piece.</h4>
+            </div>
+            <div className="modal-body">
+              <p className="card-text">
+                Username: {this.props.piece.owner}
+                <br />
+                User ID: <code>{this.props.piece.ownerId}</code>
+                <br />
+                Published at {this.publishedAt(this.props.piece.createdAt)}
+              </p>
+
+              {this.readerPieceOriginDetail()}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+
+  readerPieceOriginDetail() {
+    if (this.props.piece.origin) {
+      return (
+        <div className="card card-block">
+          <p className="card-text">
+            Username: {this.props.piece.origin.owner}
+            <br />
+            User ID: <code>{this.props.piece.origin.ownerId}</code>
+            <br />
+            Published at {this.publishedAt(this.props.piece.origin.createdAt)}
+          </p>
         </div>
       );
     }
