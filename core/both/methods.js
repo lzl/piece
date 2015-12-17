@@ -1,3 +1,13 @@
+let hostname = Meteor.absoluteUrl();
+if (Meteor.isServer) {
+  const url = Npm.require("url");
+  hostname = url.parse(hostname).host;
+} else {
+  const parser = document.createElement('a');
+  parser.href = hostname;
+  hostname = parser.host;
+}
+
 Meteor.methods({
   pieceInsert: function (val) {
     check(val, String);
@@ -7,6 +17,7 @@ Meteor.methods({
         content: val,
         owner: Meteor.user().username,
         ownerId: Meteor.userId(),
+        hostname: hostname,
         published: true,
         createdAt: new Date()
       })
@@ -57,6 +68,7 @@ Meteor.methods({
         content: val,
         owner: ownedClone.name,
         ownerId: ownedClone._id,
+        hostname: hostname,
         published: true,
         createdAt: timestamp
       })
