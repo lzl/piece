@@ -56,8 +56,12 @@ Navbar = React.createClass({
     event.preventDefault();
     var val = this.refs.cloneName.value.trim();
     if (val) {
-      Meteor.call('cloneInsert', val);
-      this.refs.cloneName.value = "";
+      Meteor.call('cloneInsert', val, (error, result) => {
+        if (!error) {
+          this.refs.cloneName.value = "";
+          Session.set("currentCloneId", result);
+        }
+      });
     }
   },
 
