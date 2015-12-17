@@ -7,7 +7,33 @@ App = React.createClass({
       status: Meteor.status().status,
       currentUser: Meteor.user(),
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
-      clonesIsReady: handleClones.ready()
+      clonesIsReady: handleClones.ready(),
+      clonesCount: Clones.find().count(),
+      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
+      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch()
+    }
+  },
+
+  selectClone(event) {
+    event.preventDefault();
+    const currentCloneId = ReactDOM.findDOMNode(this.refs.selectClone).value;
+    Session.set("currentCloneId", currentCloneId);
+  },
+
+  renderOtherClones() {
+    return this.data.otherClones.map((clone) => {
+      return <option key={clone._id} value={clone._id}>{clone.name}</option>
+    });
+  },
+
+  renderSelectClone() {
+    if (this.data.clonesCount > 1) {
+      return (
+        <select className="c-select" ref="selectClone" onChange={this.selectClone}>
+          <option value={this.data.currentClone._id} selected>{this.data.currentClone.name}</option>
+          {this.renderOtherClones()}
+        </select>
+      );
     }
   },
 
@@ -20,6 +46,8 @@ App = React.createClass({
               <textarea className="form-control" ref="textarea" rows="3" required></textarea>
             </fieldset>
             <button type="submit" className="btn btn-primary">Submit</button>
+            {' '}
+            {this.renderSelectClone()}
           </form>
 
           <div className="hr"></div>
