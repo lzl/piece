@@ -1,3 +1,23 @@
+## v0.7, 2015-12-18
+
+- Goal: Sharism. Users can share pieces from Reader to Piece.
+
+### Piece
+
+- User can see more information about piece.
+- New type of piece: sharism-piece.
+- Better way to switch clones.
+
+### Piece Reader
+
+- Very robust since code refactoring.
+- User can see more information about piece.
+- Follow/unfollow at piece detail modal.
+
+### Piece Profile
+
+- A Button to follow at given Piece Reader.
+
 ## v0.6, 2015-11-30
 
 - Goal: Clone. Users can clone themselves. Clones would have their own lives.
