@@ -73,12 +73,16 @@ Card = React.createClass({
               <h4 className="modal-title" id="readerPieceDetail">The detail of this piece.</h4>
             </div>
             <div className="modal-body">
+              <p className="card-text">Username: {this.props.piece.owner}</p>
               <p className="card-text">
-                Username: {this.props.piece.owner}
+                <span>URL: <code>https://{this.props.piece.hostname}</code></span>
                 <br />
-                User ID: <code>{this.props.piece.ownerId}</code>
+                <span>User ID: <code>{this.props.piece.ownerId}</code></span>
+              </p>
+              <p className="card-text">
+                <span>Piece ID: <code>{this.props.piece._id}</code></span>
                 <br />
-                Published at {this.publishedAt(this.props.piece.createdAt)}
+                <span>Published at {this.publishedAt(this.props.piece.createdAt)}</span>
               </p>
 
               {this.readerPieceOriginDetail()}
@@ -96,12 +100,16 @@ Card = React.createClass({
     if (this.props.piece.origin) {
       return (
         <div className="card card-block">
+          <p className="card-text">Username: {this.props.piece.origin.owner}</p>
           <p className="card-text">
-            Username: {this.props.piece.origin.owner}
+            <span>URL: <code>https://{this.props.piece.origin.hostname}</code></span>
             <br />
-            User ID: <code>{this.props.piece.origin.ownerId}</code>
+            <span>User ID: <code>{this.props.piece.origin.ownerId}</code></span>
+          </p>
+          <p className="card-text">
+            <span>Piece ID: <code>{this.props.piece.origin._id}</code></span>
             <br />
-            Published at {this.publishedAt(this.props.piece.origin.createdAt)}
+            <span>Published at {this.publishedAt(this.props.piece.origin.createdAt)}</span>
           </p>
         </div>
       );
