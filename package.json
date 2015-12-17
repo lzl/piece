@@ -1,0 +1,9 @@
+{
+  "name": "piece",
+  "version": "0.1.0",
+  "description": "A message platform powered by Meteor",
+  "scripts": {
+    "start": "meteor --port 3000",
+    "deploy": "meteor deploy piece.meteor.com"
+  }
+}
