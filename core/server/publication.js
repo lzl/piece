@@ -121,3 +121,26 @@ Meteor.publish("pieceMultiCloneProfiles", function (cloneIds) {
   };
   return Clones.find(query, options);
 });
+
+Meteor.publish("pieceMultiUserPostsByDate", function (userId, date) {
+  if (date === undefined) {
+    date = (function(d){d.setDate(d.getDate()-1); return d;})(new Date);
+  }
+  check(userId, Array);
+  check(date, Date);
+
+  const MIN_DATE = (function(d){d.setDate(d.getDate()-7); return d;})(new Date);
+  if (date < MIN_DATE) {
+    date = MIN_DATE;
+  }
+
+  const query = {
+    ownerId: {$in: userId},
+    published: true,
+    createdAt: {$gt: date}
+  };
+  const options = {
+    sort: {createdAt: -1}
+  };
+  return Pieces.find(query, options);
+});
