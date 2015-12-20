@@ -100,6 +100,7 @@ App = React.createClass({
         <Navbar
           currentUser={this.data.currentUser}
           status={this.data.status}
+          clones={this.data.clones}
         />
 
         {this.renderForm()}

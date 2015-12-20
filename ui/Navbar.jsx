@@ -2,7 +2,16 @@ Navbar = React.createClass({
   propTypes: {
     status: React.PropTypes.string.isRequired,
     currentUser: React.PropTypes.object,
-    // clones: React.PropTypes.array
+    clones: React.PropTypes.array
+  },
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    Session.setDefault('enableCloneFeature', false);
+    return {
+      enableCloneFeature: Session.get('enableCloneFeature')
+    }
   },
 
   renderStatus() {
@@ -65,7 +74,16 @@ Navbar = React.createClass({
     }
   },
 
+  renderNewCloneFormOrNot() {
+    const hasMoreThanOneClone = this.props.clones.length > 1;
+    if (this.data.enableCloneFeature || hasMoreThanOneClone) {
+      return this.renderNewCloneForm();
+    }
+  },
+
   render() {
+    Session.setDefault('enableCloneFeature', false);
+    const hasMoreThanOneClone = Clones.find().count() > 1;
     return (
       <div className="row">
         <nav className="navbar navbar-light">
@@ -75,7 +93,7 @@ Navbar = React.createClass({
             </li>
           </ul>
 
-          {this.renderNewCloneForm()}
+          {this.renderNewCloneFormOrNot()}
         </nav>
       </div>
     )
