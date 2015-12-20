@@ -39,7 +39,9 @@ Card = React.createClass({
 
   pieceRemove(event) {
     event.preventDefault();
-    Meteor.call('pieceRemoveByClone', this.props.piece._id);
+    if (confirm("Do you really want to delete this piece?")) {
+      Meteor.call('pieceRemoveByClone', this.props.piece._id);
+    }
   },
 
   pieceDetail(event) {
