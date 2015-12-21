@@ -73,8 +73,12 @@ App = React.createClass({
     const val = this.refs.textarea.value.trim();
     const cloneId = Session.get("currentCloneId");
     if (val && cloneId) {
-      Meteor.call('pieceInsertByClone', val, cloneId);
-      this.refs.textarea.value = "";
+      Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
+        if (! error) {
+          this.refs.textarea.value = "";
+          this.refs.textarea.focus();  
+        }
+      });
     }
   },
 
