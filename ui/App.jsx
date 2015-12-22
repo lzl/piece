@@ -43,17 +43,43 @@ App = React.createClass({
   handleExport(event) {
     event.preventDefault();
     const cloneId = Session.get('currentCloneId');
-    Meteor.call("pieceCurrentCloneExport", cloneId, (error, response) => {
+    Meteor.call("pieceCurrentCloneExport", cloneId, (error, result) => {
       if (error) {
         console.log("export failed:", error);
       } else {
-        if (response) {
-          const blob = new Blob([response], {type: "application/json;charset=utf-8"});
+        if (result) {
+          const blob = new Blob([result], {type: "application/json;charset=utf-8"});
           const username = Clones.findOne({_id: cloneId}).name;
           saveAs(blob, `${username}.json`); // use FileSaver.js
         }
       }
     });
+  },
+
+  renderImportInput() {
+    return <input type="file" className="form-control-file" ref="import" onChange={this.handleImport}/>
+  },
+
+  handleImport(event) {
+    event.preventDefault();
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(upload) {
+      const json = upload.target.result;
+      const pieces = JSON.parse(json);
+      console.log(pieces);
+      const cloneId = Session.get('currentCloneId');
+      Meteor.call('pieceCurrentCloneImport', cloneId, pieces, (error, result) => {
+        if (error) {
+          console.log("import failed:", error);
+        } else {
+          if (result) {
+            console.log("import success:", result);
+          }
+        }
+      })
+    }
+    reader.readAsText(file);
   },
 
   renderForm() {
@@ -69,6 +95,8 @@ App = React.createClass({
             {this.renderSelectClone()}
             {' '}
             {this.renderExportButton()}
+            {' '}
+            {this.renderImportInput()}
           </form>
 
           <div className="hr"></div>
