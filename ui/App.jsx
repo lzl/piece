@@ -36,6 +36,26 @@ App = React.createClass({
     }
   },
 
+  renderExportButton() {
+    return <button type="submit" className="btn btn-secondary" onClick={this.handleExport}>Export</button>
+  },
+
+  handleExport(event) {
+    event.preventDefault();
+    const cloneId = Session.get('currentCloneId');
+    Meteor.call("pieceCurrentCloneExport", cloneId, (error, response) => {
+      if (error) {
+        console.log("export failed:", error);
+      } else {
+        if (response) {
+          const blob = new Blob([response], {type: "application/json;charset=utf-8"});
+          const username = Clones.findOne({_id: cloneId}).name;
+          saveAs(blob, `${username}.json`); // use FileSaver.js
+        }
+      }
+    });
+  },
+
   renderForm() {
     if (this.data.currentUser) {
       return (
@@ -47,6 +67,8 @@ App = React.createClass({
             <button type="submit" className="btn btn-primary">Submit</button>
             {' '}
             {this.renderSelectClone()}
+            {' '}
+            {this.renderExportButton()}
           </form>
 
           <div className="hr"></div>
@@ -76,7 +98,7 @@ App = React.createClass({
       Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
         if (! error) {
           this.refs.textarea.value = "";
-          this.refs.textarea.focus();  
+          this.refs.textarea.focus();
         }
       });
     }

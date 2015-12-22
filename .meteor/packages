@@ -25,5 +25,6 @@ force-ssl
 # browser-policy # disabled because of bootstrap.js
 ddp-rate-limiter
 mizzao:timesync
+pfafman:filesaver
 
 # meteortoys:allthings
