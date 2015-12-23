@@ -26,5 +26,7 @@ force-ssl
 ddp-rate-limiter
 mizzao:timesync
 pfafman:filesaver
+kadira:flow-router
+kadira:react-layout
 
 # meteortoys:allthings

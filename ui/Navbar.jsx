@@ -2,16 +2,8 @@ Navbar = React.createClass({
   propTypes: {
     status: React.PropTypes.string.isRequired,
     currentUser: React.PropTypes.object,
-    clones: React.PropTypes.array
-  },
-
-  mixins: [ReactMeteorData],
-
-  getMeteorData() {
-    Session.setDefault('enableCloneFeature', false);
-    return {
-      enableCloneFeature: Session.get('enableCloneFeature')
-    }
+    clones: React.PropTypes.array,
+    routeName: React.PropTypes.string.isRequired
   },
 
   renderStatus() {
@@ -36,54 +28,25 @@ Navbar = React.createClass({
     }
   },
 
-  // renderCloneNames() {
-  //   if (this.props.currentUser && this.props.clones.length > 1) {
-  //     const id = this.data.currentCloneId;
-  //     return this.props.clones.map((clone) => {
-  //       const style = clone._id === id ? "nav-item active" : "nav-item";
-  //       return (
-  //         <li key={clone._id} className={style}>
-  //           <a className="nav-link" onClick={() => Session.set("currentCloneId", clone._id)}>{clone.name}</a>
-  //         </li>
-  //       );
-  //     });
-  //   }
-  // },
+  activeRoute(routeName) {
+    if (this.props.routeName === routeName) {
+      return 'nav-item active';
+    } else {
+      return 'nav-item';
+    }
+  },
 
-  renderNewCloneForm() {
+  renderDashboard() {
     if (this.props.currentUser) {
       return (
-        <form className="form-inline navbar-form pull-right" onSubmit={this.handleNewCloneSubmit} >
-          <input className="form-control" type="text" placeholder="Make a new name" ref="cloneName" required />
-          <button className="btn btn-success-outline" type="submit">Clone</button>
-        </form>
+        <li className={this.activeRoute('dashboard')}>
+          <a className="nav-link" href="/dashboard">Dashboard</a>
+        </li>
       );
     }
   },
 
-  handleNewCloneSubmit(event) {
-    event.preventDefault();
-    var val = this.refs.cloneName.value.trim();
-    if (val) {
-      Meteor.call('cloneInsert', val, (error, result) => {
-        if (!error) {
-          this.refs.cloneName.value = "";
-          Session.set("currentCloneId", result);
-        }
-      });
-    }
-  },
-
-  renderNewCloneFormOrNot() {
-    const hasMoreThanOneClone = this.props.clones.length > 1;
-    if (this.data.enableCloneFeature || hasMoreThanOneClone) {
-      return this.renderNewCloneForm();
-    }
-  },
-
   render() {
-    Session.setDefault('enableCloneFeature', false);
-    const hasMoreThanOneClone = Clones.find().count() > 1;
     return (
       <div className="row">
         <nav className="navbar navbar-light">
@@ -91,9 +54,11 @@ Navbar = React.createClass({
             <li className="nav-item active">
               <div className="nav-link">{this.renderStatus()}</div>
             </li>
+            <li className={this.activeRoute('piece')}>
+              <a className="nav-link" href="/">Piece</a>
+            </li>
+            {this.renderDashboard()}
           </ul>
-
-          {this.renderNewCloneFormOrNot()}
         </nav>
       </div>
     )

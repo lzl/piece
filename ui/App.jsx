@@ -9,7 +9,8 @@ App = React.createClass({
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
       clonesIsReady: handleClones.ready(),
       currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
-      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch()
+      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
+      routeName: FlowRouter.getRouteName()
     }
   },
 
@@ -36,52 +37,6 @@ App = React.createClass({
     }
   },
 
-  renderExportButton() {
-    return <button type="submit" className="btn btn-secondary" onClick={this.handleExport}>Export</button>
-  },
-
-  handleExport(event) {
-    event.preventDefault();
-    const cloneId = Session.get('currentCloneId');
-    Meteor.call("pieceExportByClone", cloneId, (error, result) => {
-      if (error) {
-        console.log("export failed:", error);
-      } else {
-        if (result) {
-          const blob = new Blob([result], {type: "application/json;charset=utf-8"});
-          const username = Clones.findOne({_id: cloneId}).name;
-          saveAs(blob, `${username}.json`); // use FileSaver.js
-        }
-      }
-    });
-  },
-
-  renderImportInput() {
-    return <input type="file" className="form-control-file" ref="import" onChange={this.handleImport}/>
-  },
-
-  handleImport(event) {
-    event.preventDefault();
-    const file = event.target.files[0];
-    if (file === undefined) return;
-    const reader = new FileReader();
-    reader.onload = function(upload) {
-      const json = upload.target.result;
-      const pieces = JSON.parse(json);
-      const cloneId = Session.get('currentCloneId');
-      Meteor.call('pieceImportByClone', cloneId, pieces, (error, result) => {
-        if (error) {
-          console.log("import failed:", error);
-        } else {
-          if (result) {
-            console.log("import success:", result);
-          }
-        }
-      })
-    }
-    reader.readAsText(file);
-  },
-
   renderForm() {
     if (this.data.currentUser) {
       return (
@@ -93,10 +48,6 @@ App = React.createClass({
             <button type="submit" className="btn btn-primary">Submit</button>
             {' '}
             {this.renderSelectClone()}
-            {' '}
-            {this.renderExportButton()}
-            {' '}
-            {this.renderImportInput()}
           </form>
 
           <div className="hr"></div>
@@ -148,6 +99,37 @@ App = React.createClass({
     }
   },
 
+  router() {
+    switch (this.data.routeName) {
+      case 'piece':
+        return (
+          <div>
+            {this.renderForm()}
+            {this.renderHero()}
+            {this.renderCards()}
+          </div>
+        );
+        break;
+      case 'dashboard':
+        return <Dashboard
+                 currentUser={this.data.currentUser}
+                 clones={this.data.clones}
+                 clonesIsReady={this.data.clonesIsReady}
+                 currentClone={this.data.currentClone}
+                 otherClones={this.data.otherClones}
+               />;
+        break;
+      default:
+        return (
+          <div>
+            {this.renderForm()}
+            {this.renderHero()}
+            {this.renderCards()}
+          </div>
+        );
+    }
+  },
+
   render() {
     return (
       <div className="container">
@@ -155,11 +137,10 @@ App = React.createClass({
           currentUser={this.data.currentUser}
           status={this.data.status}
           clones={this.data.clones}
+          routeName={this.data.routeName}
         />
 
-        {this.renderForm()}
-        {this.renderHero()}
-        {this.renderCards()}
+        {this.router()}
       </div>
     );
   }

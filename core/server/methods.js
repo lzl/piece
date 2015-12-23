@@ -26,19 +26,23 @@ Meteor.methods({
 
     const ownedClone = Clones.findOne({_id: cloneId, ownerId: userId});
     if (ownedClone) {
+      var count = 0;
+
+      const owner = ownedClone.name;
+      const ownerId = cloneId;
+
+      let hostname = Meteor.absoluteUrl();
+      const url = Npm.require("url");
+      hostname = url.parse(hostname).host;
+      // for local development
+      if (hostname === 'localhost') {
+        hostname = 'localhost:3000';
+      }
+
+      const importedAt = new Date();
+
       _.each(pieces, (piece) => {
         if (piece._id) delete piece['_id'];
-
-        const owner = ownedClone.name;
-        const ownerId = cloneId;
-
-        let hostname = Meteor.absoluteUrl();
-        const url = Npm.require("url");
-        hostname = url.parse(hostname).host;
-        // for local development
-        if (hostname === 'localhost') {
-          hostname = 'localhost:3000';
-        }
 
         const createdAt = new Date(piece.createdAt);
 
@@ -51,19 +55,26 @@ Meteor.methods({
             ownerId,
             hostname,
             createdAt,
-            origin
+            origin,
+            imported: true,
+            importedAt
           })
         } else {
           modifiedPiece = Object.assign({}, piece, {
             owner,
             ownerId,
             hostname,
-            createdAt
+            createdAt,
+            imported: true,
+            importedAt
           })
         }
 
         Pieces.insert(modifiedPiece);
+        count = count + 1;
       })
+
+      return count;
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
