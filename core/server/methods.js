@@ -1,5 +1,5 @@
 Meteor.methods({
-  pieceCurrentCloneExport(cloneId) {
+  pieceExportByClone(cloneId) {
     check(cloneId, String);
 
     const userId = Meteor.userId();
@@ -15,7 +15,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
   },
-  pieceCurrentCloneImport(cloneId, pieces) {
+  pieceImportByClone(cloneId, pieces) {
     check(cloneId, String);
     check(pieces, Array);
 
@@ -28,6 +28,9 @@ Meteor.methods({
     if (ownedClone) {
       _.each(pieces, (piece) => {
         if (piece._id) delete piece['_id'];
+
+        const owner = ownedClone.name;
+        const ownerId = cloneId;
 
         let hostname = Meteor.absoluteUrl();
         const url = Npm.require("url");
@@ -44,20 +47,21 @@ Meteor.methods({
           piece.origin.createdAt = new Date(piece.origin.createdAt);
           const origin = piece.origin;
           modifiedPiece = Object.assign({}, piece, {
-            owner: ownedClone.name,
-            ownerId: cloneId,
-            hostname: hostname,
-            createdAt: createdAt,
-            origin: origin
+            owner,
+            ownerId,
+            hostname,
+            createdAt,
+            origin
           })
         } else {
           modifiedPiece = Object.assign({}, piece, {
-            owner: ownedClone.name,
-            ownerId: cloneId,
-            hostname: hostname,
-            createdAt: createdAt
+            owner,
+            ownerId,
+            hostname,
+            createdAt
           })
         }
+
         Pieces.insert(modifiedPiece);
       })
     } else {

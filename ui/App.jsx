@@ -43,7 +43,7 @@ App = React.createClass({
   handleExport(event) {
     event.preventDefault();
     const cloneId = Session.get('currentCloneId');
-    Meteor.call("pieceCurrentCloneExport", cloneId, (error, result) => {
+    Meteor.call("pieceExportByClone", cloneId, (error, result) => {
       if (error) {
         console.log("export failed:", error);
       } else {
@@ -63,13 +63,13 @@ App = React.createClass({
   handleImport(event) {
     event.preventDefault();
     const file = event.target.files[0];
+    if (file === undefined) return;
     const reader = new FileReader();
     reader.onload = function(upload) {
       const json = upload.target.result;
       const pieces = JSON.parse(json);
-      console.log(pieces);
       const cloneId = Session.get('currentCloneId');
-      Meteor.call('pieceCurrentCloneImport', cloneId, pieces, (error, result) => {
+      Meteor.call('pieceImportByClone', cloneId, pieces, (error, result) => {
         if (error) {
           console.log("import failed:", error);
         } else {
