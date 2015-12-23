@@ -124,7 +124,14 @@ Dashboard = React.createClass({
   handleImport(event) {
     event.preventDefault();
     const file = event.target.files[0];
+
+    // if select no file, then cancel it
     if (file === undefined) return;
+    // if select non-json file, then cancel it
+    const extension = file.name.split('.').pop().toLowerCase();
+    const isJSON = extension === 'json';
+    if (! isJSON) return;
+
     const reader = new FileReader();
     reader.onload = function(upload) {
       const json = upload.target.result;
