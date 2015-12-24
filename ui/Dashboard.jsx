@@ -46,7 +46,7 @@ Dashboard = React.createClass({
             <option value={this.props.currentClone._id}>{this.props.currentClone.name}</option>
             {this.renderOtherClones()}
           </select>
-          <div className="hr"></div>
+          <p><small className="text-muted">Select clone as your target to export or import.</small></p>
         </div>
       );
     }
@@ -66,7 +66,7 @@ Dashboard = React.createClass({
           <input className="form-control" type="text" placeholder="Make a new name" ref="cloneName" required />
           <button className="btn btn-success-outline" type="submit">Clone</button>
         </form>
-        <div className="hr"></div>
+        <p><small className="text-muted">Or you can make a new clone.</small></p>
       </div>
     );
   },
@@ -88,7 +88,7 @@ Dashboard = React.createClass({
     return (
       <div>
         <button type="submit" className="btn btn-secondary" onClick={this.handleExport}>Export</button>
-        <div className="hr"></div>
+        <p><small className="text-muted">Backup all your own pieces as a JSON file.</small></p>
       </div>
     );
   },
@@ -116,7 +116,7 @@ Dashboard = React.createClass({
           <input type="file" ref="import" onChange={this.handleImport} />
           <span className="file-custom"></span>
         </label>
-        <div className="hr"></div>
+        <p><small className="text-muted">Restore the pieces from your JSON file. Please confirm the clone name ↑ before click me.</small></p>
       </div>
     );
   },
