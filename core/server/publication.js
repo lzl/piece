@@ -1,7 +1,7 @@
 // mimic latency
 // Meteor._sleepForMs(1000);
 
-const MAX_PIECES = 1000;
+const MAX_PIECES = 100;
 
 Meteor.publish("pieceSingleUserPosts", function (userId, limit) {
   if (limit === undefined) {
@@ -140,7 +140,8 @@ Meteor.publish("pieceMultiUserPostsByDate", function (userId, date) {
     createdAt: {$gt: date}
   };
   const options = {
-    sort: {createdAt: -1}
+    sort: {createdAt: -1},
+    limit: MAX_PIECES
   };
   return Pieces.find(query, options);
 });

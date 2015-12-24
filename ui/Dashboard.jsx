@@ -1,3 +1,41 @@
+// import security check
+// isId
+const isId = Match.Where((id) => {
+  const isString = typeof id === 'string';
+  const isSeventeen = id.length === 17;
+  return isString && isSeventeen;
+});
+// isOfficialType
+const types = ['plaintext', 'hyperlink', 'sharism-piece'];
+const isOfficialType = Match.Where((type) => {
+  return types.indexOf(type) > -1;
+});
+const pieceSchema = {
+  _id: Match.Optional(isId),
+  type: isOfficialType,
+  content: String,
+  owner: String,
+  ownerId: isId,
+  published: Boolean,
+  createdAt: String,
+  hostname: String,
+  imported: Match.Optional(Boolean),
+  importedAt: Match.Optional(String)
+}
+const sharismPieceSchema = {
+  _id: Match.Optional(isId),
+  type: isOfficialType,
+  comment: Match.OneOf(String, null),
+  owner: String,
+  ownerId: isId,
+  published: Boolean,
+  createdAt: String,
+  hostname: String,
+  imported: Match.Optional(Boolean),
+  importedAt: Match.Optional(String),
+  origin: pieceSchema
+}
+
 Dashboard = React.createClass({
   propTypes: {
     currentUser: React.PropTypes.object,
@@ -136,6 +174,17 @@ Dashboard = React.createClass({
     reader.onload = function(upload) {
       const json = upload.target.result;
       const pieces = JSON.parse(json);
+
+      // check if pieces is an Array
+      check(pieces, Array);
+      _.each(pieces, (piece) => {
+        if (piece.origin) {
+          check(piece, sharismPieceSchema)
+        } else {
+          check(piece, pieceSchema)
+        }
+      })
+
       const cloneId = Session.get('currentCloneId');
       Meteor.call('pieceImportByClone', cloneId, pieces, (error, result) => {
         if (error) {

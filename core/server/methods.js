@@ -1,3 +1,41 @@
+// import security check
+// isId
+const isId = Match.Where((id) => {
+  const isString = typeof id === 'string';
+  const isSeventeen = id.length === 17;
+  return isString && isSeventeen;
+});
+// isOfficialType
+const types = ['plaintext', 'hyperlink', 'sharism-piece'];
+const isOfficialType = Match.Where((type) => {
+  return types.indexOf(type) > -1;
+});
+const pieceSchema = {
+  _id: Match.Optional(isId),
+  type: isOfficialType,
+  content: String,
+  owner: String,
+  ownerId: isId,
+  published: Boolean,
+  createdAt: String,
+  hostname: String,
+  imported: Match.Optional(Boolean),
+  importedAt: Match.Optional(String)
+}
+const sharismPieceSchema = {
+  _id: Match.Optional(isId),
+  type: isOfficialType,
+  comment: Match.OneOf(String, null),
+  owner: String,
+  ownerId: isId,
+  published: Boolean,
+  createdAt: String,
+  hostname: String,
+  imported: Match.Optional(Boolean),
+  importedAt: Match.Optional(String),
+  origin: pieceSchema
+}
+
 Meteor.methods({
   pieceExportByClone(cloneId) {
     check(cloneId, String);
@@ -18,6 +56,13 @@ Meteor.methods({
   pieceImportByClone(cloneId, pieces) {
     check(cloneId, String);
     check(pieces, Array);
+    _.each(pieces, (piece) => {
+      if (piece.origin) {
+        check(piece, sharismPieceSchema)
+      } else {
+        check(piece, pieceSchema)
+      }
+    })
 
     const userId = Meteor.userId();
     if (! userId) {
