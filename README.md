@@ -1,3 +1,41 @@
+# Overview v1.0
+
+## Piece ([GitHub](https://github.com/lzl/piece) - [Demo](https://piece.meteor.com))
+
+- Visitor can view the most recent 20 pieces in real-time. It's like a firehose of Piece.
+- Visitor can create an account. No need Email address.
+- Visitor can sign in with the username and password if she had an account.
+- Visitor who signed in called User. Of course, user can sign out or change password.
+- User can submit her own pieces. There is a text area and a button for that.
+- User can view her own pieces in reverse chronological order. Including her username, related time from now and the content.
+- User can view the detail of one piece if she click the Detail button. Including her username, source info (URL + User ID) and attribute info (Piece ID + Published date).
+- User can delete a piece if she click the Delete button. There is a confirm dialog.
+- User can make multiple accounts if she needs, which is called Clone. [temporarily disabled]
+- User can do almost anything on behalf of the clone she made. Each clone has its own User ID.
+- User can switch clone easily.
+- User can export all her own pieces as a JSON file for backup.
+- User can import pieces with a JSON file for restore. [temporarily disabled]
+
+## Piece Reader ([GitHub](https://github.com/lzl/piece-reader) - [Demo](https://piece-reader.meteor.com))
+
+- Visitor can view the pieces from Official Piece account, for demonstration.
+- Visitor can preview pieces from any account if she know its URL and User ID.
+- Same as Piece, Visitor can become a User.
+- User can follow any account if she know its URL and User ID.
+- At homepage, which is called Reader, User can view the most recent pieces in reverse chronological order from the accounts she followed. It's like a river of information only she can control.
+- User will see a banner when there are new pieces published. She can click to view.
+- User can manage her followings at the page called following.
+- User can view the detail of one piece if she click the Detail button. She can preview more pieces from that account or even unfollow it instantly.
+- User can share one piece if she click the Share button. She can make a comment or not. This shared piece will be sent to her followers. [temporarily disabled]
+
+## Piece Profile ([GitHub](https://github.com/lzl/piece-profile) - [Demo](https://lzl.meteor.com))
+
+- User can make a personal website of pieces with her URL and User ID.
+- Visitor can view User's pieces.
+- Visitor can follow User's pieces at Piece Reader, there is a button for that.
+
+# History
+
 ## v0.8, 2015-12-25
 
 - Goal: Export. Users can export all their own pieces as an JSON file for backup.
