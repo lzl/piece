@@ -1,6 +1,6 @@
-## v0.7, 2015-12-25
+## v0.8, 2015-12-25
 
-- Goal: Export. Users can export all of their own pieces as an JSON file to backup.
+- Goal: Export. Users can export all their own pieces as an JSON file for backup.
 
 ### Piece
 
