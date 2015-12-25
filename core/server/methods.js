@@ -54,6 +54,9 @@ Meteor.methods({
     }
   },
   pieceImportByClone(cloneId, pieces) {
+    // disabled temporarily
+    return;
+    
     check(cloneId, String);
     check(pieces, Array);
     _.each(pieces, (piece) => {

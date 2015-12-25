@@ -205,7 +205,6 @@ Dashboard = React.createClass({
         {this.renderSelectClone()}
         {this.renderNewCloneFormOrNot()}
         {this.renderExportButton()}
-        {this.renderImportInput()}
       </div>
     );
   },
