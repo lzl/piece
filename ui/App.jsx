@@ -9,7 +9,8 @@ App = React.createClass({
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
       clonesIsReady: handleClones.ready(),
       currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
-      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch()
+      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
+      routeName: FlowRouter.getRouteName()
     }
   },
 
@@ -76,7 +77,7 @@ App = React.createClass({
       Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
         if (! error) {
           this.refs.textarea.value = "";
-          this.refs.textarea.focus();  
+          this.refs.textarea.focus();
         }
       });
     }
@@ -98,6 +99,37 @@ App = React.createClass({
     }
   },
 
+  router() {
+    switch (this.data.routeName) {
+      case 'piece':
+        return (
+          <div>
+            {this.renderForm()}
+            {this.renderHero()}
+            {this.renderCards()}
+          </div>
+        );
+        break;
+      case 'dashboard':
+        return <Dashboard
+                 currentUser={this.data.currentUser}
+                 clones={this.data.clones}
+                 clonesIsReady={this.data.clonesIsReady}
+                 currentClone={this.data.currentClone}
+                 otherClones={this.data.otherClones}
+               />;
+        break;
+      default:
+        return (
+          <div>
+            {this.renderForm()}
+            {this.renderHero()}
+            {this.renderCards()}
+          </div>
+        );
+    }
+  },
+
   render() {
     return (
       <div className="container">
@@ -105,11 +137,10 @@ App = React.createClass({
           currentUser={this.data.currentUser}
           status={this.data.status}
           clones={this.data.clones}
+          routeName={this.data.routeName}
         />
 
-        {this.renderForm()}
-        {this.renderHero()}
-        {this.renderCards()}
+        {this.router()}
       </div>
     );
   }
