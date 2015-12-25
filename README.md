@@ -1,3 +1,12 @@
+## v0.7, 2015-12-25
+
+- Goal: Export. Users can export all of their own pieces as an JSON file to backup.
+
+### Piece
+
+- There is a Dashboard page.
+- One button click to export pieces.
+
 ## v0.7, 2015-12-18
 
 - Goal: Sharism. Users can share pieces from Reader to Piece.
