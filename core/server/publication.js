@@ -110,6 +110,25 @@ Meteor.publish("pieceSingleClonePosts", function (cloneId, limit) {
   return Pieces.find(query, options);
 });
 
+Meteor.publish('pieceSingleClonePostsNew', function (cloneId) {
+  check(cloneId, String);
+  var self = this;
+  if (! Clones.findOne({_id: cloneId})) {
+    this.ready();
+  }
+  const query = {
+    ownerId: cloneId,
+    published: true
+  };
+  // const options = {
+  //   sort: {createdAt: -1},
+  //   limit: Math.min(limit, MAX_PIECES)
+  // };
+  self.autorun(function (computation) {
+    return Pieces.find(query, {limit: self.data('limit') || 20, sort: {createdAt: -1}});
+  });
+});
+
 Meteor.publish("pieceMultiCloneProfiles", function (cloneIds) {
   check(cloneIds, Array);
 

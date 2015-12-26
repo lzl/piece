@@ -10,28 +10,57 @@ CurrenUserCards = React.createClass({
       Session.set("currentCloneId", Clones.findOne()._id);
     }
     // subscribe with currentCloneId
-    const handlePieces = Meteor.subscribe("pieceSingleClonePosts", Session.get("currentCloneId"));
+    const handlePieces = Meteor.subscribe("pieceSingleClonePostsNew", Session.get("currentCloneId"));
 
     return {
       pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
-      piecesIsReady: handlePieces.ready()
+      piecesIsReady: handlePieces.ready(),
+      handlePieces: handlePieces
+    }
+  },
+
+  renderCardsOrLoading() {
+    if (this.data.piecesIsReady) {
+      return (
+        <div>
+          {this.renderCards()}
+          {this.renderReadMoreButton()}
+          <div className="hr"></div>
+        </div>
+      );
+    } else {
+      return <Loading text={"Loading your pieces"} />;
     }
   },
 
   renderCards() {
-    if (this.data.piecesIsReady) {
-      return this.data.pieces.map((piece) => {
-        return <Card key={piece._id} piece={piece} />;
-      });
+    return this.data.pieces.map((piece) => {
+      return <Card key={piece._id} piece={piece} />;
+    });
+  },
+
+  renderReadMoreButton() {
+    const limit = this.data.handlePieces.data('limit') || 20;
+    let disabled = '';
+    if (limit > Pieces.find().count()) {
+      disabled = 'disabled';
+    }
+    return <button type="button" className="btn btn-primary-outline btn-block" onClick={this.loadMore} disabled={disabled} >Read More</button>
+  },
+
+  loadMore(event) {
+    event.preventDefault();
+    if (this.data.handlePieces.data('limit') === undefined) {
+      this.data.handlePieces.setData('limit', 40);
     } else {
-      return <Loading text={"Loading your pieces"} />;
+      this.data.handlePieces.setData('limit', this.data.handlePieces.data('limit') + 20);
     }
   },
 
   render() {
     return (
       <div className="row">
-        {this.renderCards()}
+        {this.renderCardsOrLoading()}
       </div>
     )
   }
