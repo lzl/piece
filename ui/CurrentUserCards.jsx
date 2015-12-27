@@ -10,7 +10,7 @@ CurrenUserCards = React.createClass({
       Session.set("currentCloneId", Clones.findOne()._id);
     }
     // subscribe with currentCloneId
-    const handlePieces = Meteor.subscribe("pieceSingleClonePostsNew", Session.get("currentCloneId"));
+    const handlePieces = Meteor.subscribe("pieceCurrentClonePosts", Session.get("currentCloneId"));
 
     return {
       pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
