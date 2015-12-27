@@ -30,3 +30,6 @@ kadira:flow-router
 kadira:react-layout
 
 # meteortoys:allthings
+
+peerlibrary:reactive-publish
+peerlibrary:subscription-data
