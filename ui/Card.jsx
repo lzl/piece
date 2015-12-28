@@ -29,7 +29,7 @@ Card = React.createClass({
       },
       linkClass: null
     };
-    $('p.card-text').linkify(options);
+    $('p.js-content').linkify(options);
   },
 
   createdFromNow(timestamp) {
@@ -142,7 +142,7 @@ Card = React.createClass({
           {' '}
           <small className="text-muted">· {this.data.createdAt}</small>
         </p>
-        <p className="card-text">
+        <p className="card-text js-content">
           {this.props.piece.content}
         </p>
         <p className="card-text"></p>
@@ -152,7 +152,7 @@ Card = React.createClass({
 
   renderComment() {
     return (
-      <p className="card-text">
+      <p className="card-text js-content">
         {this.props.piece.comment}
       </p>
     );
@@ -175,7 +175,7 @@ Card = React.createClass({
             {' '}
             <small className="text-muted">· {this.data.originCreatedAt}</small>
           </p>
-          <p className="card-text">
+          <p className="card-text js-content">
             {this.props.piece.origin.content}
           </p>
         </div>
