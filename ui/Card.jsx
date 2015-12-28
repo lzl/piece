@@ -16,6 +16,22 @@ Card = React.createClass({
     }
   },
 
+  componentDidMount() {
+    const options = {
+      format: (value, type) => {
+        if (type === 'url' && value.length > 50) {
+          value = value.slice(0, 50) + '…';
+        }
+        return value;
+      },
+      linkAttributes: {
+        rel: 'nofollow'
+      },
+      linkClass: null
+    };
+    $('p.card-text').linkify(options);
+  },
+
   createdFromNow(timestamp) {
     if (timestamp === undefined) {
       return 'unknown';
