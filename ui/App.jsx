@@ -14,6 +14,12 @@ App = React.createClass({
     }
   },
 
+  getInitialState() {
+    return {
+      formDisabled: false
+    };
+  },
+
   selectClone(event) {
     event.preventDefault();
     const currentCloneId = ReactDOM.findDOMNode(this.refs.selectClone).value;
@@ -38,16 +44,19 @@ App = React.createClass({
   },
 
   renderForm() {
+    const disabled = this.state.formDisabled ? 'disabled' : '';
     if (this.data.currentUser) {
       return (
         <div className="row">
           <form onSubmit={this.handleSubmit} >
-            <fieldset className="form-group">
-              <textarea className="form-control" ref="textarea" rows="3" required></textarea>
+            <fieldset disabled={disabled}>
+              <div className="form-group">
+                <textarea className="form-control" ref="textarea" rows="3" required></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary">Submit</button>
+              {' '}
+              {this.renderSelectClone()}
             </fieldset>
-            <button type="submit" className="btn btn-primary">Submit</button>
-            {' '}
-            {this.renderSelectClone()}
           </form>
 
           <div className="hr"></div>
@@ -71,11 +80,13 @@ App = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({formDisabled: true});
     const val = this.refs.textarea.value.trim();
     const cloneId = Session.get("currentCloneId");
     if (val && cloneId) {
       Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
         if (! error) {
+          this.setState({formDisabled: false});
           this.refs.textarea.value = "";
           this.refs.textarea.focus();
         }
