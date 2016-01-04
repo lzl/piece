@@ -88,9 +88,11 @@ App = React.createClass({
     if (val && cloneId) {
       Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
         if (! error) {
-          this.setState({formDisabled: false});
+          this.setState({
+            formDisabled: false,
+            formText: ''
+          });
           window.localStorage.removeItem("Piece.formText");
-          this.refs.textarea.value = "";
           this.refs.textarea.focus();
         }
       });
@@ -99,6 +101,7 @@ App = React.createClass({
 
   handleChange(event) {
     const val = this.refs.textarea.value.trim();
+    this.setState({formText: val});
     window.localStorage.setItem("Piece.formText", val);
   },
 
