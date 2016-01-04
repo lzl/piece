@@ -15,8 +15,10 @@ App = React.createClass({
   },
 
   getInitialState() {
+    const formText = window.localStorage.getItem('Piece.formText') || '';
     return {
-      formDisabled: false
+      formDisabled: false,
+      formText
     };
   },
 
@@ -51,7 +53,7 @@ App = React.createClass({
           <form onSubmit={this.handleSubmit} >
             <fieldset disabled={disabled}>
               <div className="form-group">
-                <textarea className="form-control" ref="textarea" rows="3" required></textarea>
+                <textarea className="form-control" ref="textarea" defaultValue={this.state.formText} rows="3" onChange={this.handleChange} required />
               </div>
               <button type="submit" className="btn btn-primary">Submit</button>
               {' '}
@@ -87,11 +89,17 @@ App = React.createClass({
       Meteor.call('pieceInsertByClone', val, cloneId, (error, result) => {
         if (! error) {
           this.setState({formDisabled: false});
+          window.localStorage.removeItem("Piece.formText");
           this.refs.textarea.value = "";
           this.refs.textarea.focus();
         }
       });
     }
+  },
+
+  handleChange(event) {
+    const val = this.refs.textarea.value.trim();
+    window.localStorage.setItem("Piece.formText", val);
   },
 
   renderCards() {
