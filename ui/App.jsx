@@ -93,6 +93,7 @@ App = React.createClass({
             formText: ''
           });
           window.localStorage.removeItem("Piece.formText");
+          this.refs.textarea.value = "";
           this.refs.textarea.focus();
         }
       });
