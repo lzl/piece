@@ -33,3 +33,6 @@ kadira:react-layout
 
 peerlibrary:reactive-publish
 peerlibrary:subscription-data
+
+aldeed:simple-schema
+aldeed:collection2

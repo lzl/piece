@@ -13,7 +13,7 @@ const isOfficialType = Match.Where((type) => {
 const pieceSchema = {
   _id: Match.Optional(isId),
   type: isOfficialType,
-  content: String,
+  content: Match.OneOf(String, null),
   owner: String,
   ownerId: isId,
   published: Boolean,
@@ -25,7 +25,7 @@ const pieceSchema = {
 const sharismPieceSchema = {
   _id: Match.Optional(isId),
   type: isOfficialType,
-  comment: Match.OneOf(String, null),
+  content: Match.OneOf(String, null),
   owner: String,
   ownerId: isId,
   published: Boolean,

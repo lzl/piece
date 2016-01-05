@@ -153,7 +153,7 @@ Card = React.createClass({
   renderComment() {
     return (
       <p className="card-text word-wrap js-content">
-        {this.props.piece.comment}
+        {this.props.piece.content}
       </p>
     );
   },
@@ -167,7 +167,7 @@ Card = React.createClass({
           <small className="text-muted">shared · {this.data.createdAt}</small>
         </p>
 
-        {this.props.piece.comment ? this.renderComment() : ''}
+        {this.props.piece.content ? this.renderComment() : ''}
 
         <div className="card card-block">
           <p className="card-text">
