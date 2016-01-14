@@ -148,15 +148,17 @@ Dashboard = React.createClass({
   },
 
   renderImportInput() {
-    return (
-      <div>
-        <label className="file">
-          <input type="file" ref="import" onChange={this.handleImport} />
-          <span className="file-custom"></span>
-        </label>
-        <p><small className="text-muted">Restore the pieces from your JSON file. Please confirm the clone name ↑ before click me.</small></p>
-      </div>
-    );
+    if (Meteor.settings.public.feature.import) {
+      return (
+        <div>
+          <label className="file">
+            <input type="file" ref="import" onChange={this.handleImport} />
+            <span className="file-custom"></span>
+          </label>
+          <p><small className="text-muted">Restore pieces from your JSON file.</small></p>
+        </div>
+      );
+    }
   },
 
   handleImport(event) {
@@ -192,6 +194,7 @@ Dashboard = React.createClass({
         } else {
           if (result) {
             alert(`Success. All of ${result} pieces are imported.`)
+            FlowRouter.go('/');
           }
         }
       })
@@ -205,6 +208,7 @@ Dashboard = React.createClass({
         {this.renderSelectClone()}
         {this.renderNewCloneFormOrNot()}
         {this.renderExportButton()}
+        {this.renderImportInput()}
       </div>
     );
   },

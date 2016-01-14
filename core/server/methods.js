@@ -47,18 +47,20 @@ Meteor.methods({
 
     const ownedClone = Clones.findOne({_id: cloneId, ownerId: userId});
     if (ownedClone) {
-      const pieces = Pieces.find({ownerId: cloneId}).fetch();
+      const pieces = Pieces.find({ownerId: cloneId}, {sort: {createdAt: -1}}).fetch();
       return JSON.stringify(pieces, null, 2);
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
   },
   pieceImportByClone(cloneId, pieces) {
-    // disabled temporarily
-    return;
-
     check(cloneId, String);
     check(pieces, Array);
+
+    if (! Meteor.settings.public.feature.import) {
+      return;
+    }
+
     _.each(pieces, (piece) => {
       if (piece.origin) {
         check(piece, sharismPieceSchema)
@@ -104,7 +106,7 @@ Meteor.methods({
             hostname,
             createdAt,
             origin,
-            imported: true,
+            // imported: true,
             importedAt
           })
         } else {
@@ -113,7 +115,7 @@ Meteor.methods({
             ownerId,
             hostname,
             createdAt,
-            imported: true,
+            // imported: true,
             importedAt
           })
         }

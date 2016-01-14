@@ -10,6 +10,7 @@ Pieces.schema = new SimpleSchema({
   imported: {type: Boolean, optional: true},
   importedAt: {type: Date, optional: true},
   origin: {type: Object, optional: true},
+  'origin._id': {type: String, regEx: SimpleSchema.RegEx.Id},
   'origin.type': {type: String, allowedValues: ['plaintext', 'sharism-piece', 'hyperlink']},
   'origin.content': {type: String, max: 2000},
   'origin.owner': {type: String},
