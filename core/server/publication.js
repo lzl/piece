@@ -127,6 +127,18 @@ Meteor.publish('pieceCurrentClonePosts', function (cloneId) {
   });
 });
 
+Meteor.publish("pieceSingleCloneProfile", function (cloneId) {
+  check(cloneId, String);
+
+  const query = {
+    _id: cloneId
+  };
+  const options = {
+    fields: {name: 1, updatedAt: 1}
+  };
+  return Clones.find(query, options);
+});
+
 Meteor.publish("pieceMultiCloneProfiles", function (cloneIds) {
   check(cloneIds, Array);
 
