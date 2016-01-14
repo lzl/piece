@@ -17,6 +17,7 @@ Card = React.createClass({
   },
 
   componentDidMount() {
+    // linkify.js
     const options = {
       format: (value, type) => {
         if (type === 'url' && value.length > 50) {
@@ -91,11 +92,10 @@ Card = React.createClass({
               <h4 className="modal-title" id="readerPieceDetail">The detail of this piece.</h4>
             </div>
             <div className="modal-body">
-              <p className="card-text">Username: {this.props.piece.owner}</p>
               <p className="card-text">
-                <span>URL: <code>https://{this.props.piece.hostname}</code></span>
+                <span>Username: {this.props.piece.owner}</span>
                 <br />
-                <span>User ID: <code>{this.props.piece.ownerId}</code></span>
+                <span>Address: <code>https://{this.props.piece.hostname}/c/{this.props.piece.ownerId}</code></span>
               </p>
               <p className="card-text">
                 <span>Piece ID: <code>{this.props.piece._id}</code></span>
@@ -118,11 +118,10 @@ Card = React.createClass({
     if (this.props.piece.origin) {
       return (
         <div className="card card-block">
-          <p className="card-text">Username: {this.props.piece.origin.owner}</p>
           <p className="card-text">
-            <span>URL: <code>https://{this.props.piece.origin.hostname}</code></span>
+            <span>Username: {this.props.piece.origin.owner}</span>
             <br />
-            <span>User ID: <code>{this.props.piece.origin.ownerId}</code></span>
+            <span>Address: <code>https://{this.props.piece.origin.hostname}/c/{this.props.piece.origin.ownerId}</code></span>
           </p>
           <p className="card-text">
             <span>Piece ID: <code>{this.props.piece.origin._id}</code></span>
