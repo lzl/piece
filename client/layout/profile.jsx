@@ -37,10 +37,13 @@ ProfileClone = React.createClass({
   },
   render () {
     if (this.data.profile) {
+      const {_id, name, updatedAt} = this.data.profile;
+      const hostname = P.getHostname();
+      const address = P.makeAddress({hostname, userId: _id});
       return (
         <div className="card">
           <div className="card-block">
-            <span>{this.data.profile.name}</span>
+            {name ? <span title={address}>{name}</span> : ''}
           </div>
         </div>
       );
