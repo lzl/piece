@@ -1,7 +1,8 @@
 Meteor.publish("currentUserClones", function () {
   // Meteor._sleepForMs(500);
-  if (this.userId) {
-    return Clones.find({ownerId: this.userId}, {sort: {createdAt: 1}});
+  const ownerId = this.userId;
+  if (ownerId) {
+    return Clones.find({ownerId}, {sort: {createdAt: 1}});
   } else {
     return this.ready();
   }
@@ -32,8 +33,8 @@ Meteor.publish('currentClonePieces', function (cloneId, before) {
     before = new Date(timestamp);
     query = {
       userId: cloneId,
-      published: true,
-      createdAt: {$lt: before}
+      createdAt: {$lt: before},
+      published: true
     };
   } else {
     query = {
@@ -125,8 +126,8 @@ Meteor.publish('multiClonePieces', function (cloneId, before) {
     before = new Date(timestamp);
     query = {
       $or: subs,
-      published: true,
-      createdAt: {$lt: before}
+      createdAt: {$lt: before},
+      published: true
     };
   } else {
     query = {
@@ -134,8 +135,9 @@ Meteor.publish('multiClonePieces', function (cloneId, before) {
       published: true
     };
   }
+  const limit = P.publishPieceLimit;
   const options = {
-    limit: 20,
+    limit,
     sort: {createdAt: -1}
   };
   return Pieces.find(query, options);
