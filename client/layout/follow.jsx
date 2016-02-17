@@ -3,12 +3,16 @@ Follow = React.createClass({
     return (
       <ClonesWrapper>
         <SubsWrapper>
-          <FollowWithSubs {...this.props} />
+          <div className="row">
+            <FollowBox hostname={this.props.hostname} userId={this.props.userId} />
+            <div className="hr" />
+            <FollowWithSubs />
+          </div>
         </SubsWrapper>
       </ClonesWrapper>
     );
   }
-})
+});
 
 FollowWithSubs = React.createClass({
   componentDidMount() {
@@ -18,12 +22,6 @@ FollowWithSubs = React.createClass({
     Blaze.remove(this.view);
   },
   render() {
-    return (
-      <div className="row">
-        <FollowBox hostname={this.props.hostname} userId={this.props.userId} />
-        <div className="hr" />
-        <span ref="previewPieces" />
-      </div>
-    );
+    return <span ref="previewPieces" />
   }
-})
+});
