@@ -14,12 +14,16 @@ ProfileCloneWrapper = React.createClass({
       profileIsReady: handleProfile.ready()
     };
   },
-
   render() {
     if (this.data.profileIsReady) {
-      return <ProfileClone cloneId={this.props.cloneId} />;
+      return <ProfileClone cloneId={this.props.cloneId} />
     } else {
-      return <Loading text="Loading profile..." />;
+      return (
+        <div>
+          <Loading text="Loading profile..." />
+          <div className="br" />
+        </div>
+      );
     }
   }
 });
@@ -41,7 +45,12 @@ ProfileClone = React.createClass({
         </div>
       );
     } else {
-      return <Loading text="None profile is found." />;
+      return (
+        <div>
+          <Loading text="No profile found." />
+          <div className="br" />
+        </div>
+      );
     }
   }
 });
@@ -54,7 +63,6 @@ ProfilePiecesWrapper = React.createClass({
       piecesIsReady: handlePieces.ready()
     };
   },
-
   render() {
     if (this.data.piecesIsReady) {
       return <ProfilePieces cloneId={this.props.cloneId} />;
@@ -77,7 +85,7 @@ ProfilePieces = React.createClass({
         <PieceList pieces={this.data.pieces} />
       );
     } else {
-      return <Loading text="None piece is found." />;
+      return <Loading text="No piece found." />;
     }
   }
 });
