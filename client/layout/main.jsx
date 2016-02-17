@@ -2,27 +2,19 @@ Main = React.createClass({
   render() {
     return (
       <ClonesWrapper>
-        <MainWithClones before={this.props.before} />
-      </ClonesWrapper>
-    );
-  }
-});
-
-MainWithClones = React.createClass({
-  render() {
-    return (
-      <div>
-        <div className="row">
-          <Notepad />
-          <div className="hr" />
-        </div>
-
-        <SubsWrapper>
+        <div>
           <div className="row">
-            <MainWithSubs before={this.props.before} />
+            <Notepad />
+            <div className="hr" />
           </div>
-        </SubsWrapper>
-      </div>
+
+          <SubsWrapper>
+            <div className="row">
+              <MainWithSubs before={this.props.before} />
+            </div>
+          </SubsWrapper>
+        </div>
+      </ClonesWrapper>
     );
   }
 });
@@ -30,22 +22,15 @@ MainWithClones = React.createClass({
 MainWithSubs = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    P.setCurrentCloneId();
-    const handlePieces = Meteor.subscribe("currentClonePieces", Session.get("currentCloneId"), this.props.before);
+    const cloneId = Session.get("currentCloneId");
+    const handlePieces = Meteor.subscribe("currentClonePieces", cloneId, this.props.before);
     return {
       piecesIsReady: handlePieces.ready(),
-      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
-      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
-      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
     };
   },
   render() {
     if (this.data.piecesIsReady) {
-      return <MainWithPieces
-              clones={this.data.clones}
-              currentClone={this.data.currentClone}
-              otherClones={this.data.otherClones}
-              />
+      return <MainWithPieces />
     } else {
       return <Loading text="Loading pieces..." />
     }
@@ -59,6 +44,9 @@ MainWithPieces = React.createClass({
     return {
       hasPiece: Pieces.findOne({userId}),
       pieces: Pieces.find({userId}, {sort: {createdAt: -1}}).fetch(),
+      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
+      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
+      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
     };
   },
   render() {
@@ -79,9 +67,9 @@ MainWithPieces = React.createClass({
       return <PieceCard
               key={piece._id}
               piece={piece}
-              clones={this.props.clones}
-              currentClone={this.props.currentClone}
-              otherClones={this.props.otherClones}
+              clones={this.data.clones}
+              currentClone={this.data.currentClone}
+              otherClones={this.data.otherClones}
               />
     })
   },

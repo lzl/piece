@@ -2,15 +2,24 @@ Reader = React.createClass({
   render() {
     return (
       <ClonesWrapper>
-        <SubsWrapper>
-          <ReaderWithSubs before={this.props.before} />
-        </SubsWrapper>
+        <div>
+          <div className="row hidden-xs-down">
+            <PreviewBox />
+            <div className="hr" />
+          </div>
+
+          <SubsWrapper>
+            <div className="row">
+              <ReaderHasSub before={this.props.before} />
+            </div>
+          </SubsWrapper>
+        </div>
       </ClonesWrapper>
     );
   }
 });
 
-ReaderWithSubs = React.createClass({
+ReaderHasSub = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const ownerId = Session.get("currentCloneId");
@@ -19,30 +28,15 @@ ReaderWithSubs = React.createClass({
     };
   },
   render() {
-    return (
-      <div>
-        <div className="row hidden-xs-down">
-          <PreviewBox />
-          <div className="hr" />
-        </div>
-        {this.renderSubs()}
-      </div>
-    );
-  },
-  renderSubs() {
     if (this.data.hasSub) {
-      return <ReaderHandlePieces before={this.props.before} />
+      return <ReaderWithSubs before={this.props.before} />
     } else {
-      return (
-        <div className="row">
-          <Loading text="You have no following." />
-        </div>
-      );
+      return <Loading text="You have no following." />
     }
   }
-})
+});
 
-ReaderHandlePieces = React.createClass({
+ReaderWithSubs = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const cloneId = Session.get("currentCloneId");
@@ -55,11 +49,7 @@ ReaderHandlePieces = React.createClass({
     if (this.data.piecesIsReady) {
       return <ReaderWithPieces />
     } else {
-      return (
-        <div className="row">
-          <Loading text="Loading pieces..." />
-        </div>
-      );
+      return <Loading text="Loading pieces..." />
     }
   }
 });
@@ -68,6 +58,7 @@ ReaderWithPieces = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {
+      hasPiece: Pieces.findOne(),
       pieces: Pieces.find({}, {sort: {createdAt: -1}}).fetch(),
       clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
       currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
@@ -75,20 +66,16 @@ ReaderWithPieces = React.createClass({
     };
   },
   render() {
-    if (this.data.pieces.length > 0) {
+    if (this.data.hasPiece) {
       return (
-        <div className="row">
+        <div>
           {this.renderPieceCards()}
           {this.renderLoadMoreButton()}
           <div className="hr" />
         </div>
       );
     } else {
-      return (
-        <div className="row">
-          <Loading text="There is no more piece." />
-        </div>
-      );
+      return <Loading text="There is no more piece." />
     }
   },
   renderPieceCards() {
