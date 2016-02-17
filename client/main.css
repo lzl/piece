@@ -68,6 +68,12 @@
   }
 }
 
+@media (min-width: 34em) and (max-width: 48em) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
 @media (min-width: 34em) and (max-width: 62em) {
   .rwd-login {
     display: block;
