@@ -30,7 +30,6 @@ PreviewBox = React.createClass({
       alert("Please enter a valid address.");
     }
   },
-
   handleChange(event) {
     event.preventDefault();
     const length = this.refs.address.value.length;
@@ -49,12 +48,14 @@ FollowBox = React.createClass({
     const address = P.makeAddress({hostname, userId});
     return (
       <form className="form-inline">
+        <CloneSelectBox />
+        {' '}
         <div className="form-group">
           <label className="sr-only" htmlFor="address">Address</label>
           <input type="text" className="form-control" id="address" ref="address" value={address} size={address.length} readOnly />
         </div>
         {' '}
-        <FollowButton {...this.props} />
+        <FollowButton hostname={this.props.hostname} userId={this.props.userId} />
       </form>
     );
   }
@@ -62,7 +63,6 @@ FollowBox = React.createClass({
 
 FollowButton = React.createClass({
   mixins: [ReactMeteorData],
-
   getMeteorData() {
     return {
       following: !!Subs.findOne({hostname: this.props.hostname, userId: this.props.userId, ownerId: Session.get('currentCloneId')}),
@@ -117,7 +117,7 @@ FollowButton = React.createClass({
     event.preventDefault();
     this.setState({unfollow: false});
   },
-})
+});
 
 PreviewButton = React.createClass({
   render() {
@@ -129,4 +129,4 @@ PreviewButton = React.createClass({
     const userId = this.props.userId;
     FlowRouter.go(`/follow?hostname=${hostname}&userId=${userId}`);
   }
-})
+});
