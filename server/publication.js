@@ -17,12 +17,12 @@ Meteor.publish('currentClonePieces', function (cloneId, before) {
     return this.ready();
   }
 
-  if (! Clones.findOne({_id: cloneId})) {
+  const clone = Clones.findOne({_id: cloneId});
+  if (! clone) {
     return this.ready();
   }
 
-  const ownerId = Clones.findOne({_id: cloneId}).ownerId;
-  if (userId !== ownerId) {
+  if (userId !== clone.ownerId) {
     return this.ready();
   }
 
@@ -41,8 +41,9 @@ Meteor.publish('currentClonePieces', function (cloneId, before) {
       published: true
     };
   }
+  const limit = P.publishPieceLimit;
   const options = {
-    limit: 20,
+    limit,
     sort: {createdAt: -1}
   };
   return Pieces.find(query, options);

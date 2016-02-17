@@ -2,22 +2,13 @@ Main = React.createClass({
   render() {
     return (
       <ClonesWrapper>
-        <MainWithClones {...this.props} />
+        <MainWithClones before={this.props.before} />
       </ClonesWrapper>
     );
   }
-})
+});
 
 MainWithClones = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    P.setCurrentCloneId();
-    return {
-      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
-      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
-      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
-    };
-  },
   render() {
     return (
       <div>
@@ -25,39 +16,41 @@ MainWithClones = React.createClass({
           <Notepad />
           <div className="hr" />
         </div>
+
         <SubsWrapper>
           <div className="row">
-            <MainWithSubs
-              clones={this.data.clones}
-              currentClone={this.data.currentClone}
-              otherClones={this.data.otherClones}
-              {...this.props}
-            />
+            <MainWithSubs before={this.props.before} />
           </div>
         </SubsWrapper>
       </div>
     );
   }
-})
+});
 
 MainWithSubs = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    // P.setCurrentCloneId();
+    P.setCurrentCloneId();
     const handlePieces = Meteor.subscribe("currentClonePieces", Session.get("currentCloneId"), this.props.before);
     return {
       piecesIsReady: handlePieces.ready(),
-      handlePieces: handlePieces,
+      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
+      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
+      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
     };
   },
   render() {
     if (this.data.piecesIsReady) {
-      return <MainWithPieces handlePieces={this.data.handlePieces} {...this.props} />
+      return <MainWithPieces
+              clones={this.data.clones}
+              currentClone={this.data.currentClone}
+              otherClones={this.data.otherClones}
+              />
     } else {
       return <Loading text="Loading pieces..." />
     }
   }
-})
+});
 
 MainWithPieces = React.createClass({
   mixins: [ReactMeteorData],
@@ -87,7 +80,7 @@ MainWithPieces = React.createClass({
     })
   },
   renderReadMoreButton() {
-    if (this.data.pieces.length === 20) {
+    if (this.data.pieces.length === P.publishPieceLimit) {
       return <LoadMore handle={this.handleLoadMore} />
     } else {
       return <Loading text="There is no more piece." />
@@ -100,4 +93,4 @@ MainWithPieces = React.createClass({
     const before = createdAt.getTime().toString();
     FlowRouter.go(`/?before=${before}`);
   }
-})
+});
