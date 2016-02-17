@@ -1,6 +1,5 @@
 FollowingList = React.createClass({
   mixins: [ReactMeteorData],
-
   getMeteorData() {
     return {
       addresses: Addresses.find({}, {sort: {updatedAt: -1}}).fetch(),

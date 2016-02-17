@@ -100,14 +100,16 @@ FollowButton = React.createClass({
   },
   handleUnfollow(event) {
     event.preventDefault();
-    const hostname = this.props.hostname;
-    const userId = this.props.userId;
-    const cloneId = Session.get("currentCloneId");
-    Meteor.call('removeSubByClone', hostname, userId, cloneId, (error, result) => {
-      if (error) {
-        alert(error.reason);
-      }
-    });
+    if (confirm(`Do you really want to unfollow ${this.props.username}?`)) {
+      const hostname = this.props.hostname;
+      const userId = this.props.userId;
+      const cloneId = Session.get("currentCloneId");
+      Meteor.call('removeSubByClone', hostname, userId, cloneId, (error, result) => {
+        if (error) {
+          alert(error.reason);
+        }
+      });
+    }
   },
   handleMouseEnter(event) {
     event.preventDefault();

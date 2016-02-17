@@ -11,12 +11,12 @@ Dashboard = React.createClass({
             <div>
               <CloneBox />
               <SubsWrapper>
-                <FollowingWithSubs />
+                <FollowingHasSub />
               </SubsWrapper>
             </div>
           </ClonesWrapper>
           <div className="hr" />
-          
+
           <div className="row">
             <About />
           </div>
@@ -26,7 +26,7 @@ Dashboard = React.createClass({
   }
 })
 
-FollowingWithSubs = React.createClass({
+FollowingHasSub = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     const ownerId = Session.get("currentCloneId");
@@ -35,9 +35,6 @@ FollowingWithSubs = React.createClass({
     };
   },
   render() {
-    return this.renderAddressesWrapper();
-  },
-  renderAddressesWrapper() {
     if (this.data.hasSub) {
       return (
         <AddressesWrapper>
@@ -50,9 +47,7 @@ FollowingWithSubs = React.createClass({
       return (
         <div className="row">
           <ul id="following" className={P.isActiveListGroup('following')}>
-            <li className="list-group-item">
-              You have no following.
-            </li>
+            <li className="list-group-item">You have no following.</li>
           </ul>
         </div>
       );
