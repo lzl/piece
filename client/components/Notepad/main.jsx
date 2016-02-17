@@ -7,7 +7,6 @@ Notepad = React.createClass({
       formText
     };
   },
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -22,7 +21,6 @@ Notepad = React.createClass({
       </form>
     );
   },
-
   handleSubmit(event) {
     event.preventDefault();
     const content = this.refs.textarea.value.trim();
@@ -51,23 +49,3 @@ Notepad = React.createClass({
     window.localStorage.setItem("P.formText", content);
   }
 });
-
-// CloneSelect = React.createClass({
-//   render () {
-//     return (
-//       <select className="c-select" ref="select" defaultValue={this.props.currentClone._id} onChange={this.handleSelect}>
-//         <option value={this.props.currentClone._id}>{this.props.currentClone.name}</option>
-//         {this.props.otherClones.map((clone) => {
-//           return <option key={clone._id} value={clone._id}>{clone.name}</option>
-//         })}
-//       </select>
-//     );
-//   },
-//
-//   handleSelect(event) {
-//     event.preventDefault();
-//     const node = this.refs.select;
-//     const currentCloneId = node.value;
-//     Session.set("currentCloneId", currentCloneId);
-//   }
-// });

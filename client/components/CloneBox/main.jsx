@@ -103,7 +103,6 @@ CloneSelectBox = React.createClass({
       otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
     };
   },
-
   render () {
     if (this.data.clones.length > 1) {
       return (
@@ -118,7 +117,6 @@ CloneSelectBox = React.createClass({
       return <span />;
     }
   },
-
   handleSelect(event) {
     event.preventDefault();
     const node = this.refs.select;
