@@ -1,0 +1,62 @@
+<template name="previewPieces">
+  {{#if profile}}
+  <ul class="list-group">
+    <li class="list-group-item">
+      <small class="text-muted pull-xs-right">{{updateRate profile.updatedAt}}</small>
+      <span>{{profile.name}}</span>
+    </li>
+  </ul>
+  <div class="hr"></div>
+  {{/if}}
+
+  <ul class="list-group">
+    {{#if hasPiece}}
+      {{#each piece in pieces}}
+        {{> previewPieceContent piece=piece}}
+      {{/each}}
+    {{else}}
+      <li class="list-group-item">Fetching pieces...</li>
+    {{/if}}
+  </ul>
+  <div class="hr"></div>
+  {{#if showButton}}
+    <button type="button" class="btn btn-primary-outline btn-block" data-action="more" {{disabled}}>Read More</button>
+    <div class="hr"></div>
+  {{/if}}
+</template>
+
+<template name="previewPieceContent">
+  {{#if typeIsPlaintext}}
+    {{> previewPieceTypeIsPlaintext piece=piece}}
+  {{/if}}
+
+  {{#if typeIsHyperlink}}
+    {{> previewPieceTypeIsHyperlink piece=piece}}
+  {{/if}}
+
+  {{#if typeIsSharismPiece}}
+    {{> previewPieceTypeIsSharismPiece piece=piece}}
+  {{/if}}
+</template>
+
+<template name="previewPieceTypeIsPlaintext">
+  <li class="list-group-item">
+    <small class="text-muted pull-xs-right">{{fromNow piece.createdAt}}</small>
+    <span class="word-wrap js-content">{{piece.content}}</span>
+  </li>
+</template>
+
+<template name="previewPieceTypeIsHyperlink">
+</template>
+
+<template name="previewPieceTypeIsSharismPiece">
+  <li class="list-group-item">
+    <small class="text-muted pull-xs-right">{{fromNow piece.createdAt}}</small>
+    {{#if piece.content}}
+      <span class="word-wrap js-content">{{piece.content}} »</span>
+    {{else}}
+      <span>»</span>
+    {{/if}}
+    <span class="text-muted word-wrap js-content">{{piece.origin.username}}: {{piece.origin.content}}</span>
+  </li>
+</template>
