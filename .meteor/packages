@@ -16,23 +16,23 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-react
+# autopublish             # Publish all data to the clients (for prototyping)
+# insecure                # Allow all DB writes from clients (for prototyping)
+
 check
 audit-argument-checks
-accounts-password
-accounts-ui
-force-ssl
-# browser-policy # disabled because of bootstrap.js
-ddp-rate-limiter
-mizzao:timesync
-pfafman:filesaver
+reactive-dict
+# force-ssl
+
+react
+# https://github.com/arunoda/meteor-up/issues/812#issuecomment-170391908
+react-runtime@=0.14.3
+react-runtime-dev@=0.14.3
+react-runtime-prod@=0.14.3
+
 kadira:flow-router
 kadira:react-layout
+accounts-password
 
-# meteortoys:allthings
-
-peerlibrary:reactive-publish
-peerlibrary:subscription-data
-
-aldeed:simple-schema
-aldeed:collection2
+peerlibrary:server-autorun
+mizzao:timesync

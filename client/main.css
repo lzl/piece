@@ -1,0 +1,73 @@
+.hr {
+  width: 100%;
+  height: 1em;
+}
+.br {
+  width: 100%;
+  height: 0.5em;
+}
+
+.word-wrap {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.list-group-active .list-group-item {
+  background-color: #fafafa;
+}
+.card-active {
+  background-color: #fafafa;
+}
+
+.narrow {
+  max-width: 480px;
+}
+
+@media (max-width: 34em) {
+  .form-group {
+    margin-bottom: .5rem;
+  }
+}
+
+@media (max-width: 48em) {
+  form {
+    padding: 0 1em;
+  }
+  .card {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid #e5e5e5;
+  }
+  .list-group-item {
+    border-radius: 0 !important;
+  }
+  .btn-block {
+    margin: auto;
+    width: 95%;
+  }
+}
+
+@media (min-width: 34em) and (max-width: 62em) {
+  .rwd-login {
+    display: block;
+    padding: 0.5em;
+  }
+}
