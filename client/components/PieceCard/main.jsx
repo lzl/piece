@@ -1,6 +1,5 @@
 PieceCard = React.createClass({
   mixins: [ReactMeteorData],
-
   getMeteorData() {
     // It's weired, but it works.
     const createdAt = P.fromNow(this.props.piece.createdAt);
@@ -10,30 +9,30 @@ PieceCard = React.createClass({
   componentDidMount() {
     $('p.js-content').linkify(P.linkifyOptions);
   },
-
   componentWillUnmount() {
     const modalId = this.props.piece._id;
     $(`#detail-${modalId}`).modal('hide');
   },
 
   render() {
-    return <CardType {...this.props}>
-      <DetailButton handleDetail={this.handleDetail} />
-      {' '}
-      <ShareButton handleShare={this.handleShare} />
-      {' '}
-      {this.props.piece.userId === Session.get("currentCloneId") ? <DeleteButton handleDelete={this.handleDelete} /> : ''}
+    return (
+      <CardType {...this.props}>
+        <DetailButton handleDetail={this.handleDetail} />
+        {' '}
+        <ShareButton handleShare={this.handleShare} />
+        {' '}
+        {this.props.piece.userId === Session.get("currentCloneId") ? <DeleteButton handleDelete={this.handleDelete} /> : ''}
 
-      <DetailModal {...this.props} />
-      <ShareModal {...this.props} />
-    </CardType>
+        <DetailModal {...this.props} />
+        <ShareModal {...this.props} />
+      </CardType>
+    );
   },
 
   handleDetail(event) {
     event.preventDefault();
     $(`#detail-${this.props.piece._id}`).modal('show');
   },
-
   handleShare(event) {
     event.preventDefault();
     const modalId = this.props.piece._id;
@@ -43,14 +42,13 @@ PieceCard = React.createClass({
       // ReactDOM.findDOMNode(this.refs.comment).focus();
     });
   },
-
   handleDelete(event) {
     event.preventDefault();
     if (confirm("Do you really want to delete this piece?")) {
       Meteor.call('removePieceByClone', this.props.piece._id);
     }
   }
-})
+});
 
 const CardType = (props) => {
   const types = {
@@ -188,7 +186,7 @@ const DetailModal = React.createClass({
       );
     }
   }
-})
+});
 
 const ShareButton = ({handleShare}) =>
   <button type="button" className="btn btn-secondary" onClick={handleShare}>Share</button>
@@ -276,7 +274,7 @@ const ShareModal = React.createClass({
       $(`#share-${modalId}`).modal('hide');
     });
   }
-})
+});
 
 const DeleteButton = ({handleDelete}) =>
   <button type="button" className="btn btn-danger-outline" onClick={handleDelete}>Delete</button>

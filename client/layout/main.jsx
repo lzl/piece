@@ -76,7 +76,13 @@ MainWithPieces = React.createClass({
   },
   renderPieceCards() {
     return this.data.pieces.map((piece) => {
-      return <PieceCard key={piece._id} piece={piece} {...this.props} />;
+      return <PieceCard
+              key={piece._id}
+              piece={piece}
+              clones={this.props.clones}
+              currentClone={this.props.currentClone}
+              otherClones={this.props.otherClones}
+              />
     })
   },
   renderReadMoreButton() {
