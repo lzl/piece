@@ -19,7 +19,7 @@ const ChangePassword = React.createClass({
           <input type="password" className="form-control" id="newPassword" ref="newPassword" placeholder="New Password" required />
         </div>
         {' '}
-        <button type="submit" className="btn btn-primary">Change Password</button>
+        <button type="submit" className="btn btn-primary-outline">Change Password</button>
       </form>
     );
   },
@@ -42,7 +42,7 @@ const AddEmail = React.createClass({
           <input type="email" className="form-control" id="newEmail" ref="newEmail" placeholder="Email Address" />
         </div>
         {' '}
-        <button type="submit" className="btn btn-primary">Add Email</button>
+        <button type="submit" className="btn btn-primary-outline">Add Email</button>
         <div>
           <small className="text-muted">You could find your password with this email address.</small>
         </div>

@@ -34,7 +34,7 @@ CloneNewBox = React.createClass({
           <input type="text" className="form-control" id="new-clone" ref="cloneName" placeholder="New name" required />
         </div>
         {' '}
-        <button type="submit" className="btn btn-primary">Clone</button>
+        <button type="submit" className="btn btn-primary-outline">Clone</button>
         <button type="button" className="btn btn-link hidden-sm" onClick={this.handleHelp}>What is clone?</button>
         {this.renderHelp()}
       </form>
