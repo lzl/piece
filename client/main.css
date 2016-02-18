@@ -68,15 +68,20 @@
   }
 }
 
+@media (max-width: 62em) {
+  .rwd-login {
+    display: block;
+    padding: 0.5em;
+  }
+}
+
 @media (min-width: 34em) and (max-width: 48em) {
   .hidden-sm {
     display: none !important;
   }
-}
-
-@media (min-width: 34em) and (max-width: 62em) {
-  .rwd-login {
+  .rwd-forgot {
     display: block;
     padding: 0.5em;
+    padding-bottom: 0;
   }
 }

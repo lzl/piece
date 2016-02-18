@@ -9,3 +9,8 @@ Accounts.onEmailVerificationLink(function (token, done) {
     done();
   });
 });
+
+Accounts.onResetPasswordLink(function (token, done) {
+  FlowRouter.go('/reset-password');
+  done();
+});

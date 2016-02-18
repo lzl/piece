@@ -37,3 +37,10 @@ FlowRouter.route('/c/:cloneId', {
     });
   }
 });
+
+FlowRouter.route('/reset-password', {
+  name: 'reset-password',
+  action(params, queryParams) {
+    ReactLayout.render(ResetPasswordBox);
+  }
+});

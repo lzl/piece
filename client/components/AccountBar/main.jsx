@@ -1,23 +1,24 @@
 AccountBar = React.createClass({
   getInitialState() {
     return {
-      login: true
+      login: true,
+      forgot: false,
+      sending: false,
     };
   },
-
   render() {
     return (
       <div className="row">
         {this.renderLogin()}
         {this.renderSignup()}
+        {this.renderForgot()}
       </div>
     );
   },
-
   renderLogin() {
     const disabled = this.props.loggingIn ? 'disabled' : '';
     const text = this.props.loggingIn ? 'Logging in' : 'Login';
-    if (this.state.login) {
+    if (this.state.login && !this.state.forgot) {
       return (
         <form className="form-inline" onSubmit={this.handleLogin}>
           <fieldset disabled={disabled}>
@@ -33,13 +34,14 @@ AccountBar = React.createClass({
             {' '}
             <button type="submit" className="btn btn-primary">{text}</button>
             {' '}
+            <span className="rwd-forgot"><a href="#" onClick={this.handleForgot}>Forgot Password?</a></span>
+            {' '}
             <span className="rwd-login">Don't have an account? <a href="#" onClick={this.handleState}>Sign Up</a>.</span>
           </fieldset>
         </form>
       );
     }
   },
-
   handleLogin(event) {
     event.preventDefault();
     const username = this.refs.username.value;
@@ -47,6 +49,39 @@ AccountBar = React.createClass({
     this.refs.username.value = '';
     this.refs.password.value = '';
     P.loginWithPassword({username, password});
+  },
+
+  renderForgot() {
+    const disabled = this.state.sending ? 'disabled' : '';
+    if (this.state.login && this.state.forgot) {
+      return (
+        <form className="form-inline" onSubmit={this.handleForgotPassword}>
+          <fieldset disabled={disabled}>
+            <div className="form-group">
+              <label className="sr-only" htmlFor="forgot">Email Address</label>
+              <input type="email" className="form-control" id="forgot" ref="email" placeholder="Email Address" size="30" required />
+            </div>
+            {' '}
+            <button type="submit" className="btn btn-primary">Reset Password</button>
+            {' '}
+            <span><a href="#" onClick={this.handleForgot}>Back to Login</a></span>
+            <div>
+              <small className="text-muted">We will send an email to help you reset your password.</small>
+            </div>
+          </fieldset>
+        </form>
+      );
+    }
+  },
+  handleForgot(event) {
+    event.preventDefault();
+    this.setState({forgot: !this.state.forgot});
+  },
+  handleForgotPassword(event) {
+    event.preventDefault();
+    const email = this.refs.email.value;
+    this.setState({sending: true});
+    P.forgotPassword(email, this);
   },
 
   renderSignup() {
@@ -74,7 +109,6 @@ AccountBar = React.createClass({
       );
     }
   },
-
   handleSignup(event) {
     event.preventDefault();
     const username = this.refs.username.value;
