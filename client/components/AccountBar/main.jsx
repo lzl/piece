@@ -62,7 +62,7 @@ AccountBar = React.createClass({
               <input type="email" className="form-control" id="forgot" ref="email" placeholder="Email Address" size="30" required />
             </div>
             {' '}
-            <button type="submit" className="btn btn-primary">Reset Password</button>
+            <button type="submit" className="btn btn-primary">Send</button>
             {' '}
             <span><a href="#" onClick={this.handleForgot}>Back to Login</a></span>
             <div>

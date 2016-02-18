@@ -62,6 +62,11 @@ const AddEmail = React.createClass({
 });
 
 const ManageEmail = React.createClass({
+  getInitialState() {
+    return {
+      sent: false,
+    };
+  },
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {
@@ -69,13 +74,14 @@ const ManageEmail = React.createClass({
     }
   },
   render() {
-    const email = this.data.email;
-    if (email) {
+    if (this.data.email) {
       return (
         <p className="card-text">
-          <EmailText address={email.address} />
+          <EmailText address={this.data.email.address} />
           {' '}
-          {email.verified ? <EmailVerifiedText /> : <SendVerificationEmailText handle={this.handleSendVerificationEmail} />}
+          {this.renderEmailVerified()}
+          {this.renderSendEmail()}
+          {this.renderSentEmail()}
           {' '}
           <DeleteEmailText handle={this.handleDeleteEmail} />
         </p>
@@ -89,11 +95,28 @@ const ManageEmail = React.createClass({
       );
     }
   },
+  renderEmailVerified() {
+    if (this.data.email.verified) {
+      return <EmailVerifiedText />
+    }
+  },
+  renderSendEmail() {
+    if (!this.data.email.verified && !this.state.sent) {
+      return <SendVerificationEmailText handle={this.handleSendVerificationEmail} />
+    }
+  },
+  renderSentEmail() {
+    if (!this.data.email.verified && this.state.sent) {
+      return <SentEmailText />
+    }
+  },
+
   handleSendVerificationEmail(event) {
     event.preventDefault();
     if (Meteor.userId()) {
+      this.setState({sent: true});
       Meteor.call("sendVerificationEmail");
-      alert("Success! Please check your inbox.")
+      // alert("Success! Please check your inbox.")
     }
   },
   handleDeleteEmail(event) {
@@ -103,8 +126,6 @@ const ManageEmail = React.createClass({
       Meteor.call('removeEmail', email, (error, result) => {
         if (error) {
           alert(error.reason);
-        } else {
-          alert(`Success! ${email} is just removed.`);
         }
       });
     }
@@ -122,6 +143,10 @@ EmailText.displayName = "EmailText";
 const SendVerificationEmailText = ({handle}) =>
   <span>It's not verified, how about <a href="#" onClick={handle}>send a verification email</a>.</span>
 SendVerificationEmailText.displayName = "SendVerificationEmailText";
+
+const SentEmailText = () =>
+  <span>Verification email has been sent. Please check your inbox and the spam folder.</span>
+SentEmailText.displayName = "SentEmailText";
 
 const DeleteEmailText = ({handle}) =>
   <span>You can change your email address after <a href="#" onClick={handle}>delete this one</a>.</span>
