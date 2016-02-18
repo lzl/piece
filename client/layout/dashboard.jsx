@@ -16,7 +16,9 @@ Dashboard = React.createClass({
             </div>
           </ClonesWrapper>
           <div className="hr" />
-
+          <div className="row">
+            <AccountBox />
+          </div>
           <div className="row">
             <About />
           </div>

@@ -1,4 +1,4 @@
-AccountsBar = React.createClass({
+AccountBar = React.createClass({
   getInitialState() {
     return {
       login: true
@@ -90,7 +90,7 @@ AccountsBar = React.createClass({
   }
 })
 
-LoginWithPassword = React.createClass({
+const LoginWithPassword = React.createClass({
   render() {
     return (
       <div className="col-xs-12 col-sm-6">
@@ -117,7 +117,7 @@ LoginWithPassword = React.createClass({
   }
 })
 
-SignupWithPassword = React.createClass({
+const SignupWithPassword = React.createClass({
   render() {
     return (
       <div className="col-xs-12 col-sm-6">
@@ -144,7 +144,7 @@ SignupWithPassword = React.createClass({
   }
 })
 
-LoginWithEmail = React.createClass({
+const LoginWithEmail = React.createClass({
   render() {
     return (
       <div className="col-xs-12 col-sm-6">
@@ -175,7 +175,7 @@ LoginWithEmail = React.createClass({
   }
 })
 
-SignupWithEmail = React.createClass({
+const SignupWithEmail = React.createClass({
   render() {
     return (
       <div className="col-xs-12 col-sm-6">

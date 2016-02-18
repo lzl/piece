@@ -1,5 +1,5 @@
 Demo = React.createClass({
   render () {
-    return <AccountsBar loggingIn={this.props.loggingIn} />
+    return <AccountBar loggingIn={this.props.loggingIn} />
   }
 })
