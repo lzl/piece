@@ -70,7 +70,7 @@ const ManageEmail = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {
-      email: Meteor.user().emails[0],
+      email: Meteor.user().emails && Meteor.user().emails[0],
     }
   },
   render() {
