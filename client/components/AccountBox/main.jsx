@@ -1,5 +1,5 @@
 AccountBox = () =>
-  <div id="accounts" className={P.isActiveCard('accounts')}>
+  <div id="account" className={P.isActiveCard('account')}>
     <ManageEmail />
     <ChangePassword />
   </div>
