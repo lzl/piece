@@ -108,5 +108,9 @@ Meteor.methods({
     check(email, String);
     const userId = Meteor.userId();
     return Accounts.removeEmail(userId, email);
+  },
+  sendVerificationEmail() {
+    const userId = Meteor.userId();
+    return Accounts.sendVerificationEmail(userId);
   }
 })

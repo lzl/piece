@@ -91,7 +91,10 @@ const ManageEmail = React.createClass({
   },
   handleSendVerificationEmail(event) {
     event.preventDefault();
-    alert("SendVerificationEmail");
+    if (Meteor.userId()) {
+      Meteor.call("sendVerificationEmail");
+      alert("Success! Please check your inbox.")
+    }
   },
   handleDeleteEmail(event) {
     event.preventDefault();
