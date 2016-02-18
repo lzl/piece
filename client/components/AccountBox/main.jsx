@@ -1,8 +1,7 @@
 AccountBox = () =>
   <div id="accounts" className={P.isActiveCard('accounts')}>
+    <ManageEmail />
     <ChangePassword />
-    <div className="hr" />
-    <AddEmail />
   </div>
 AccountBox.displayName = "AccountBox";
 
@@ -37,10 +36,10 @@ const ChangePassword = React.createClass({
 const AddEmail = React.createClass({
   render() {
     return (
-      <form className="form-inline">
+      <form className="form-inline" onSubmit={this.handle}>
         <div className="form-group">
-          <label className="sr-only" htmlFor="email">Add Email</label>
-          <input type="email" className="form-control" id="email" placeholder="Email Address" />
+          <label className="sr-only" htmlFor="newEmail">Add Email</label>
+          <input type="email" className="form-control" id="newEmail" ref="newEmail" placeholder="Email Address" />
         </div>
         {' '}
         <button type="submit" className="btn btn-primary">Add Email</button>
@@ -49,5 +48,78 @@ const AddEmail = React.createClass({
         </div>
       </form>
     );
+  },
+  handle(event) {
+    event.preventDefault();
+    const newEmail = this.refs.newEmail.value;
+    this.refs.newEmail.value = '';
+    Meteor.call('addEmail', newEmail, (error, result) => {
+      if (error) {
+        alert(error.reason);
+      }
+    });
   }
 });
+
+const ManageEmail = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      email: Meteor.user().emails[0],
+    }
+  },
+  render() {
+    const email = this.data.email;
+    if (email) {
+      return (
+        <p className="card-text">
+          <EmailText address={email.address} />
+          {' '}
+          {email.verified ? <EmailVerifiedText /> : <SendVerificationEmailText handle={this.handleSendVerificationEmail} />}
+          {' '}
+          <DeleteEmailText handle={this.handleDeleteEmail} />
+        </p>
+      );
+    } else {
+      return (
+        <div>
+          <AddEmail />
+          <div className="hr" />
+        </div>
+      );
+    }
+  },
+  handleSendVerificationEmail(event) {
+    event.preventDefault();
+    alert("SendVerificationEmail");
+  },
+  handleDeleteEmail(event) {
+    event.preventDefault();
+    const email = this.data.email.address;
+    if (confirm(`Do you realy want to remove this email address: ${email} ?`)) {
+      Meteor.call('removeEmail', email, (error, result) => {
+        if (error) {
+          alert(error.reason);
+        } else {
+          alert(`Success! ${email} is just removed.`);
+        }
+      });
+    }
+  }
+});
+
+const EmailText = ({address}) =>
+  <span>Your email address is <mark>{address}</mark>.</span>
+EmailText.displayName = "EmailText";
+
+const EmailVerifiedText = () =>
+  <span>It has been verified.</span>
+EmailText.displayName = "EmailText";
+
+const SendVerificationEmailText = ({handle}) =>
+  <span>It's not verified, how about <a href="#" onClick={handle}>send a verification email</a>.</span>
+SendVerificationEmailText.displayName = "SendVerificationEmailText";
+
+const DeleteEmailText = ({handle}) =>
+  <span>You can change your email address after <a href="#" onClick={handle}>delete this one</a>.</span>
+EmailText.displayName = "EmailText";

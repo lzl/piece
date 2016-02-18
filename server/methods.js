@@ -98,5 +98,15 @@ Meteor.methods({
         setTimeout(function () {stop();}, 1000 * 5);
       }
     })
+  },
+  addEmail(newEmail) {
+    check(newEmail, String);
+    const userId = Meteor.userId();
+    return Accounts.addEmail(userId, newEmail);
+  },
+  removeEmail(email) {
+    check(email, String);
+    const userId = Meteor.userId();
+    return Accounts.removeEmail(userId, email);
   }
 })
