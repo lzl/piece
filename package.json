@@ -1,9 +1,0 @@
-{
-  "name": "piece",
-  "version": "1.0.0",
-  "description": "An app for doing stuff efficiently.",
-  "scripts": {
-    "start": "meteor --settings settings.json",
-    "piece": "meteor deploy piece.meteor.com"
-  }
-}
