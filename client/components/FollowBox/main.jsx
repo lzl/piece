@@ -38,13 +38,13 @@ PreviewBox = React.createClass({
                 First of all, it's totally optional to follow others. You can use Piece alone if you want.
               </p>
               <p className="card-text">
-                The core of connecting you with others is named <mark>Address</mark>. It's just a hyperlink. For example, your own address:
+                The key of connecting you with others is named <mark>Address</mark>. It's just a hyperlink. For example, this is your address:
               </p>
               <p className="card-text">
                 <a href={address} target="_blank">{address}</a>
               </p>
               <p className="card-text">
-                Tell your friends to paste it into the Address form then click the Preview button. You can do that too.
+                Tell friends to paste it into the Address form and click the Preview button. Then the rest is obvious. You can do that too.
               </p>
             </div>
             <div className="modal-footer">
