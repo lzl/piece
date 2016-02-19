@@ -4,7 +4,6 @@ PreviewBox = React.createClass({
       length: 30
     };
   },
-
   render() {
     return (
       <form className="form-inline" onSubmit={this.handleSubmit}>
@@ -16,7 +15,44 @@ PreviewBox = React.createClass({
         </div>
         {' '}
         <button type="submit" className="btn btn-primary">Preview</button>
+        <button type="button" className="btn btn-link hidden-sm" onClick={this.handleHelp}>How to follow?</button>
+        {this.renderHelp()}
       </form>
+    );
+  },
+  renderHelp() {
+    P.setCurrentCloneId();
+    const address = P.makeAddress({hostname: P.getHostname(), userId: Session.get("currentCloneId")});
+    return (
+      <div className="modal fade" id="how-to-follow" tabIndex="-1" role="dialog" aria-labelledby="howToFollow" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 className="modal-title" id="myModalLabel">Address is the key.</h4>
+            </div>
+            <div className="modal-body">
+              <p className="card-text">
+                First of all, it's totally optional to follow others. You can use Piece alone if you want.
+              </p>
+              <p className="card-text">
+                The core of connecting you with others is named <mark>Address</mark>. It's just a hyperlink. For example, your own address:
+              </p>
+              <p className="card-text">
+                <a href={address} target="_blank">{address}</a>
+              </p>
+              <p className="card-text">
+                Tell your friends to paste it into the Address form then click the Preview button. You can do that too.
+              </p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   },
 
@@ -38,7 +74,16 @@ PreviewBox = React.createClass({
     } else {
       this.setState({length: 30});
     }
-  }
+  },
+  handleHelp(event) {
+    event.preventDefault();
+    $('#how-to-follow').modal('show');
+    $('#how-to-follow').on('hidden.bs.modal', () => {
+      const address = P.makeAddress({hostname: P.getHostname(), userId: Session.get("currentCloneId")});
+      this.refs.address.value = address;
+      this.setState({length: address.length});
+    });
+  },
 });
 
 FollowBox = React.createClass({
@@ -62,17 +107,16 @@ FollowBox = React.createClass({
 });
 
 FollowButton = React.createClass({
+  getInitialState() {
+    return {
+      unfollow: false
+    };
+  },
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {
       following: !!Subs.findOne({hostname: this.props.hostname, userId: this.props.userId, ownerId: Session.get('currentCloneId')}),
     }
-  },
-
-  getInitialState() {
-    return {
-      unfollow: false
-    };
   },
 
   render() {
