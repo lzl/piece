@@ -40,6 +40,16 @@
   max-width: 480px;
 }
 
+.hero {
+  margin: auto;
+  padding: 3rem 0.5rem 1rem;
+  font-size: 1.1rem;
+}
+
+.heart {
+  color: red;
+}
+
 @media (max-width: 34em) {
   .form-group {
     margin-bottom: 0.5rem;

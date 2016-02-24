@@ -1,7 +1,7 @@
 AccountBar = React.createClass({
   getInitialState() {
     return {
-      login: true,
+      login: this.props.login,
       forgot: false,
       sending: false,
     };
