@@ -128,5 +128,63 @@ Meteor.methods({
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
+  },
+  importPieces(cloneId, pieces) {
+    check(cloneId, String);
+    check(pieces, Array);
+
+    const userId = Meteor.userId();
+    if (! userId) {
+      throw new Meteor.Error("not-authorized", "Log in before import pieces.");
+    }
+
+    if (userId !== "ECb9ff6LKQidizhcE") {
+      throw new Meteor.Error("not-authorized", "You have no authorization to import pieces.");
+    }
+
+    const ownedClone = Clones.findOne({_id: cloneId, ownerId: userId});
+    if (ownedClone) {
+      let count = 0;
+
+      const username = ownedClone.name;
+      const userId = cloneId;
+      const hostname = P.getHostname();
+      const importedAt = new Date();
+
+      _.each(pieces, (piece) => {
+        if (piece._id) delete piece['_id'];
+
+        const createdAt = new Date(piece.createdAt);
+
+        let modifiedPiece = undefined;
+        if (piece.origin) {
+          piece.origin.createdAt = new Date(piece.origin.createdAt);
+          const origin = piece.origin;
+          modifiedPiece = Object.assign({}, piece, {
+            username,
+            userId,
+            hostname,
+            createdAt,
+            origin,
+            importedAt
+          })
+        } else {
+          modifiedPiece = Object.assign({}, piece, {
+            username,
+            userId,
+            hostname,
+            createdAt,
+            importedAt
+          })
+        }
+
+        Pieces.insert(modifiedPiece);
+        count = count + 1;
+      })
+
+      return count;
+    } else {
+      throw new Meteor.Error("not-authorized", "You don't own that clone.");
+    }
   }
 })
