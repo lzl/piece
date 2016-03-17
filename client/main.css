@@ -50,6 +50,10 @@
   color: red;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @media (max-width: 34em) {
   .form-group {
     margin-bottom: 0.5rem;

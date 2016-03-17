@@ -45,9 +45,9 @@ const Status = ({status}) => {
   const statuses = {
     'connecting': <span className="text-primary">Connecting</span>,
     'connected': <span className="text-success">Connected</span>,
-    'failed': <span className="text-danger">Failed</span>,
-    'waiting': <span className="text-primary">Waiting</span>,
-    'offline': <span className="text-danger">Offline</span>,
+    'failed': <span className="text-danger pointer" onClick={Meteor.reconnect}>Failed</span>,
+    'waiting': <span className="text-primary pointer" onClick={Meteor.reconnect}>Waiting</span>,
+    'offline': <span className="text-danger pointer" onClick={Meteor.reconnect}>Offline</span>,
   };
 
   if (status && statuses.hasOwnProperty(status)) {
