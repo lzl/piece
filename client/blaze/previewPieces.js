@@ -15,19 +15,29 @@ Template.previewPieces.onCreated(function () {
 
   const hostname = FlowRouter.getQueryParam("hostname");
   const userId = FlowRouter.getQueryParam("userId");
-  // previewViaForm(instance, hostname, userId, instance.state.get('wantPiecesCount'));
-  // const protocol = Meteor.settings.public.protocol;
-  // TODO
-  instance.connection = DDP.connect(`${P.protocol}${hostname}`);
-  instance['collection.pieces'] = new Mongo.Collection('pieces', {connection: instance.connection});
-  instance.autorun(() => {
-    const limit = instance.state.get('wantPiecesCount');
-    instance['subscription.posts'] = instance.connection.subscribe("singleClonePieces", userId, limit);
-  });
-  instance['collection.clones'] = new Mongo.Collection('clones', {connection: instance.connection});
-  instance.autorun(() => {
-    instance['subscription.profile'] = instance.connection.subscribe("singleCloneProfile", userId);
-  });
+
+  if (hostname === P.getHostname()) {
+    instance['collection.pieces'] = Pieces;
+    instance.autorun(() => {
+      const limit = instance.state.get('wantPiecesCount');
+      instance['subscription.posts'] = Meteor.subscribe("singleClonePieces", userId, limit);
+    });
+    instance['collection.clones'] = Clones;
+    instance.autorun(() => {
+      instance['subscription.profile'] = Meteor.subscribe("singleCloneProfile", userId);
+    });
+  } else {
+    instance.connection = DDP.connect(`${P.protocol}${hostname}`);
+    instance['collection.pieces'] = new Mongo.Collection('pieces', {connection: instance.connection});
+    instance.autorun(() => {
+      const limit = instance.state.get('wantPiecesCount');
+      instance['subscription.posts'] = instance.connection.subscribe("singleClonePieces", userId, limit);
+    });
+    instance['collection.clones'] = new Mongo.Collection('clones', {connection: instance.connection});
+    instance.autorun(() => {
+      instance['subscription.profile'] = instance.connection.subscribe("singleCloneProfile", userId);
+    });
+  }
 })
 Template.previewPieces.helpers({
   hasPiece() {
