@@ -148,7 +148,7 @@ const DetailModal = React.createClass({
               <p className="card-text">
                 <PreviewButton hostname={this.props.piece.hostname} userId={this.props.piece.userId} />
                 {' '}
-                <FollowButton hostname={this.props.piece.hostname} userId={this.props.piece.userId} />
+                <FollowButton hostname={this.props.piece.hostname} userId={this.props.piece.userId} username={this.props.piece.username} />
               </p>
 
               {this.renderOrigin()}
@@ -180,7 +180,7 @@ const DetailModal = React.createClass({
           <p className="card-text">
             <PreviewButton hostname={this.props.piece.origin.hostname} userId={this.props.piece.origin.userId} />
             {' '}
-            <FollowButton hostname={this.props.piece.origin.hostname} userId={this.props.piece.origin.userId} />
+            <FollowButton hostname={this.props.piece.origin.hostname} userId={this.props.piece.origin.userId} username={this.props.piece.origin.username} />
           </p>
         </div>
       );

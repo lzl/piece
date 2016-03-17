@@ -144,7 +144,7 @@ FollowButton = React.createClass({
   },
   handleUnfollow(event) {
     event.preventDefault();
-    if (confirm(`Do you really want to unfollow ${this.props.username}?`)) {
+    if (confirm(`Do you really want to unfollow ${this.props.username || 'it'}?`)) {
       const hostname = this.props.hostname;
       const userId = this.props.userId;
       const cloneId = Session.get("currentCloneId");
