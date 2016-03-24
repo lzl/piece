@@ -67,7 +67,7 @@ CardType.displayName = 'CardType';
 const PlaintextCard = (props) =>
   <div className="card card-block">
     <p className="card-text">
-      <span title={props.piece.userId} className="username">{props.piece.username}</span>
+      <span title={`${P.protocol}${props.piece.hostname}/c/${props.piece.userId}`} className="username">{props.piece.username}</span>
       <small title={P.publishedAt(props.piece.createdAt)} className="text-muted"> · {P.fromNow(props.piece.createdAt)}</small>
     </p>
     <p className="card-text word-wrap js-content">
@@ -95,7 +95,7 @@ SharedPlaintextCard.displayName = 'SharedPlaintextCard';
 const SharismPieceCard = (props) =>
   <div className="card card-block">
     <p className="card-text">
-      <span title={props.piece.userId} className="username">{props.piece.username}</span>
+      <span title={`${P.protocol}${props.piece.hostname}/c/${props.piece.userId}`} className="username">{props.piece.username}</span>
       <small title={P.publishedAt(props.piece.createdAt)} className="text-muted"> shared · {P.fromNow(props.piece.createdAt)}</small>
     </p>
 
