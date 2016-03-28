@@ -16,7 +16,7 @@ Demo = React.createClass({
           <div className="hr" />
           <div className="hr" />
           <p>I believed in the Internet and I see hyperlink as a core value of it. What this app missed, you will find the counterpart via hyperlink. What we really need is, to recall the words we didn't value and to get the link we didn't know. That's the vision of Piece.</p>
-          <p><mark>Connect with the younger version of me.</mark></p>
+          <p><mark>Connect with the younger version of yourself.</mark></p>
           <p><mark>Connect with the world of unknown.</mark></p>
           <p>Do you agree? If yes, it's probably a good time to sign up.</p>
         </div>
