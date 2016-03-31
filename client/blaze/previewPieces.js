@@ -40,6 +40,10 @@ Template.previewPieces.onCreated(function () {
   }
 })
 Template.previewPieces.helpers({
+  isFetched() {
+    const instance = Template.instance();
+    return instance['subscription.posts'].ready();
+  },
   hasPiece() {
     const instance = Template.instance();
     return instance['collection.pieces'].findOne();
@@ -68,7 +72,8 @@ Template.previewPieces.helpers({
   },
   profile() {
     const instance = Template.instance();
-    return instance['collection.clones'].findOne();
+    const userId = FlowRouter.getQueryParam("userId");
+    return instance['collection.clones'].findOne({_id: userId});
   }
 })
 Template.previewPieces.events({

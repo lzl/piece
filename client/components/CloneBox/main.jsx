@@ -2,8 +2,10 @@ CloneBox = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     Session.setDefault('enableCloneFeature', false);
+    P.setCurrentCloneId();
+    const currentCloneId = Session.get("currentCloneId");
     return {
-      cloneNum: Clones.find().count(),
+      cloneNum: Clones.find({ownerId: currentCloneId}).count(),
       enableCloneFeature: Session.get('enableCloneFeature'),
     };
   },
@@ -97,10 +99,11 @@ CloneSelectBox = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     P.setCurrentCloneId();
+    const currentCloneId = Session.get("currentCloneId");
     return {
-      clones: Clones.find({}, {sort: {createdAt: 1}}).fetch(),
-      currentClone: Clones.findOne({_id: Session.get("currentCloneId")}),
-      otherClones: Clones.find({_id: {$ne: Session.get("currentCloneId")}}).fetch(),
+      clones: Clones.find({ownerId: currentCloneId}, {sort: {createdAt: 1}}).fetch(),
+      currentClone: Clones.findOne({_id: currentCloneId}),
+      otherClones: Clones.find({_id: {$ne: currentCloneId}, ownerId: currentCloneId}).fetch(),
     };
   },
   render () {

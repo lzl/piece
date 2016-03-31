@@ -10,10 +10,14 @@
   {{/if}}
 
   <ul class="list-group">
-    {{#if hasPiece}}
-      {{#each piece in pieces}}
-        {{> previewPieceContent piece=piece}}
-      {{/each}}
+    {{#if isFetched}}
+      {{#if hasPiece}}
+        {{#each piece in pieces}}
+          {{> previewPieceContent piece=piece}}
+        {{/each}}
+      {{else}}
+        <li class="list-group-item">There is no piece.</li>
+      {{/if}}
     {{else}}
       <li class="list-group-item">Fetching pieces...</li>
     {{/if}}
