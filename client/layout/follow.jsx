@@ -4,9 +4,9 @@ Follow = React.createClass({
       <ClonesWrapper>
         <SubsWrapper>
           <div className="row">
-            <FollowBox hostname={this.props.hostname} userId={this.props.userId} />
+            {this.props.hostname && this.props.userId ? <FollowBox hostname={this.props.hostname} userId={this.props.userId} /> : <PreviewBox />}
             <div className="hr" />
-            <FollowWithSubs />
+            {this.props.hostname && this.props.userId ? <FollowWithSubs /> : ''}
           </div>
         </SubsWrapper>
       </ClonesWrapper>
