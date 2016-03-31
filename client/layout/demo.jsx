@@ -11,8 +11,8 @@ Demo = React.createClass({
             <div className="hr" />
             <div className="hr" />
             <p>I build this app as an user. I use it. That's how I build it.</p>
-            <p>I want to publish my ideas, opinion or just feeling. So there is a blank form with a button.</p>
-            <p>I'd like to read someone's ideas, opinion or even feeling. Then there is a new page called <em>Reader</em>.</p>
+            <p>I want to publish my ideas, opinion or just feeling. So there is a text input area with a button to submit.</p>
+            <p>I'd like to follow someone's ideas, opinion or even feeling. Then there is a new page called <em>Reader</em>.</p>
             <p>Write and read. That's all the things you can do with this app, basically. I think it's enough.</p>
             <div className="hr" />
             <div className="hr" />
@@ -25,7 +25,7 @@ Demo = React.createClass({
           <AccountBar loggingIn={this.props.loggingIn} login={false} />
 
           <div className="hero narrow">
-            <p>I have to say, Piece is not Twitter or Weibo(微博). Piece is not decentralized version of anything. Piece is <em>just</em> an app you can use. Simple as writing or reading. Publish like a boss and don't give a shit about following anyone? That's OK. Have nothing to say and just glance at what you're following once a day? No problem.</p>
+            <p>I have to say, Piece is not Twitter or Weibo(微博). Piece is not decentralized version of anything. Piece is <em>just</em> a website you can use. Simple as writing or reading. Publish like a boss and don't give a shit about following anyone? That's OK. Have nothing to say and just glance at what you're following once a day? No problem.</p>
             <p>And do you know.</p>
             <p>No one could spam you because there is no reply button at all. (*´艸｀*)</p>
             <p>It feels like you live in a room without a door. Let all around us be peace.</p>
