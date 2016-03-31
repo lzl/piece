@@ -42,7 +42,7 @@ Template.previewPieces.onCreated(function () {
 Template.previewPieces.helpers({
   isFetched() {
     const instance = Template.instance();
-    return instance['subscription.posts'].ready();
+    return instance['subscription.posts'].ready() || instance['collection.pieces'].findOne();;
   },
   hasPiece() {
     const instance = Template.instance();
