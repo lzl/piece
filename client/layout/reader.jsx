@@ -3,7 +3,7 @@ Reader = React.createClass({
     return (
       <ClonesWrapper>
         <div>
-          <div className="row hidden-xs-down">
+          <div className="row">
             <PreviewBox />
             <div className="hr" />
           </div>
