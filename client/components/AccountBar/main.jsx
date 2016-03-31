@@ -8,7 +8,7 @@ AccountBar = React.createClass({
   },
   render() {
     return (
-      <div className="row">
+      <div>
         {this.renderLogin()}
         {this.renderSignup()}
         {this.renderForgot()}

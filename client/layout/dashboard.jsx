@@ -8,19 +8,25 @@ Dashboard = React.createClass({
         <div className="br hidden-sm-up" />
         <div className="col-sm-9">
           <ClonesWrapper>
-            <div>
-              <CloneBox />
-              <SubsWrapper>
-                <FollowingHasSub />
-              </SubsWrapper>
+            <div className="row">
+              <div className="col-xs-12">
+                <CloneBox />
+                <SubsWrapper>
+                  <FollowingHasSub />
+                </SubsWrapper>
+              </div>
             </div>
           </ClonesWrapper>
           <div className="hr" />
           <div className="row">
-            <AccountBox />
+            <div className="col-xs-12">
+              <AccountBox />
+            </div>
           </div>
           <div className="row">
-            <About />
+            <div className="col-xs-12">
+              <About />
+            </div>
           </div>
         </div>
       </div>
@@ -40,17 +46,17 @@ FollowingHasSub = React.createClass({
     if (this.data.hasSub) {
       return (
         <AddressesWrapper>
-          <div className="row">
-            <FollowingList />
-          </div>
+          <FollowingList />
         </AddressesWrapper>
       );
     } else {
       return (
         <div className="row">
-          <ul id="following" className={P.isActiveListGroup('following')}>
-            <li className="list-group-item">You have no following.</li>
-          </ul>
+          <div className="col-xs-12">
+            <ul id="following" className={P.isActiveListGroup('following')}>
+              <li className="list-group-item">You have no following.</li>
+            </ul>
+          </div>
         </div>
       );
     }

@@ -11,7 +11,7 @@ CloneBox = React.createClass({
   render() {
     if (this.data.cloneNum > 1 || this.data.enableCloneFeature) {
       return (
-        <div className="row">
+        <div>
           <CloneNewBox />
           <div className="hr" />
         </div>

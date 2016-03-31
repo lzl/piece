@@ -1,16 +1,33 @@
 Main = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      address: P.currentCloneAddress(),
+    };
+  },
   render() {
     return (
       <ClonesWrapper>
         <div>
           <div className="row">
-            <Notepad />
-            <div className="hr" />
+            <div className="col-xs-12">
+              <AddressBox address={this.data.address} />
+              <div className="br" />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12">
+              <Notepad />
+              <div className="hr" />
+            </div>
           </div>
 
           <SubsWrapper>
             <div className="row">
-              <MainWithSubs before={this.props.before} />
+              <div className="col-xs-12">
+                <MainWithSubs before={this.props.before} />
+              </div>
             </div>
           </SubsWrapper>
         </div>
@@ -59,7 +76,7 @@ MainWithPieces = React.createClass({
         </div>
       );
     } else {
-      return <Loading text="Welcome to Piece. It's a place to express your ideas and learn from others. You can submit a piece above." />
+      return <Loading text="Welcome to Piece. It's a place to express your ideas while learning from others. At above, you can write a piece, or find your address to copy and share." />
     }
   },
   renderPieceCards() {

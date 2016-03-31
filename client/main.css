@@ -54,32 +54,31 @@
   cursor: pointer;
 }
 
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 34em) {
-  .form-group {
-    margin-bottom: 0.5rem;
+
+}
+
+@media (max-width: 48em) {
+  /*.card {
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid #e5e5e5;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
   .list-group-item {
     border: 0;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-radius: 0 !important;
-  }
-}
-
-@media (max-width: 48em) {
-  form {
-    padding: 0 1em;
-  }
-  .card {
-    margin-bottom: 0;
-    border: 0;
-    border-top: 1px solid #e5e5e5;
-    border-radius: 0;
-  }
-  .btn-block {
-    margin: auto;
-    width: 95%;
-  }
+    padding-left: 0;
+    padding-right: 0;
+  }*/
 }
 
 @media (max-width: 62em) {

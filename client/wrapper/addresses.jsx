@@ -14,7 +14,9 @@ AddressesWrapper = React.createClass({
     } else {
       return (
         <div className="row">
-          <Loading text="Loading addresses..." />
+          <div className="col-xs-12">
+            <Loading text="Loading addresses..." />
+          </div>
         </div>
       );
     }

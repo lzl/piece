@@ -4,13 +4,17 @@ Reader = React.createClass({
       <ClonesWrapper>
         <div>
           <div className="row">
-            <PreviewBox />
-            <div className="hr" />
+            <div className="col-xs-12">
+              <PreviewBox />
+              <div className="hr" />
+            </div>
           </div>
 
           <SubsWrapper>
             <div className="row">
-              <ReaderHasSub before={this.props.before} />
+              <div className="col-xs-12">
+                <ReaderHasSub before={this.props.before} />
+              </div>
             </div>
           </SubsWrapper>
         </div>

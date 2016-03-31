@@ -12,7 +12,9 @@ ClonesWrapper = React.createClass({
     } else {
       return (
         <div className="row">
-          <Loading text="Loading clones..." />
+          <div className="col-xs-12">
+            <Loading text="Loading clones..." />
+          </div>
         </div>
       );
     }

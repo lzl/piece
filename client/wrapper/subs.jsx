@@ -13,7 +13,9 @@ SubsWrapper = React.createClass({
     } else {
       return (
         <div className="row">
-          <Loading text="Loading subscription..." />
+          <div className="col-xs-12">
+            <Loading text="Loading subscription..." />
+          </div>
         </div>
       );
     }
