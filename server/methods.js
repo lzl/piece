@@ -186,5 +186,18 @@ Meteor.methods({
     } else {
       throw new Meteor.Error("not-authorized", "You don't own that clone.");
     }
+  },
+  isLoyalWriter() {
+    const userId = Meteor.userId();
+    if (userId) {
+      const counts = Pieces.find({userId}).count();
+      if (counts >= 100) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 })
