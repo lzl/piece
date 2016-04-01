@@ -10,13 +10,13 @@ Demo = React.createClass({
             <p>But you can if you want to.</p>
             <div className="hr" />
             <div className="hr" />
-            <p>I build this app as an user. I use it. That's how I build it.</p>
+            <p>I build this website as an user. I use it. That's how I build it.</p>
             <p>I want to publish my ideas, opinion or just feeling. So there is a text input area with a button to submit.</p>
             <p>I'd like to follow someone's ideas, opinion or even feeling. Then there is a new page called <em>Reader</em>.</p>
-            <p>Write and read. That's all the things you can do with this app, basically. I think it's enough.</p>
+            <p>Write and read. That's all the things you can do with this website, basically. I think it's enough.</p>
             <div className="hr" />
             <div className="hr" />
-            <p>I believed in the Internet and I see hyperlink as a core value of it. What this app missed, you will find the counterpart via hyperlink. What we really need is, to recall the words we didn't value and to get the link we didn't know. That's the vision of Piece.</p>
+            <p>I believed in the Internet and I see <abbr title="A link, can be clicked to open a new page or website.">hyperlink</abbr> as a core value of it. What this website missed, you will find the counterpart via hyperlink. What we really need is, to recall the words we didn't value and to get the link we didn't know. That's the vision of Piece.</p>
             <p><mark>Connect with the younger version of self.</mark></p>
             <p><mark>Connect with the world of unknown.</mark></p>
             <p>Do you agree? If yes, it's probably a good time to sign up.</p>
