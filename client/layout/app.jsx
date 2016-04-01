@@ -11,7 +11,9 @@ App = React.createClass({
     return (
       <div className="container">
         <div className="row">
-          <Navigation status={this.data.status} isUser={this.data.isUser} />
+          <div className="col-xs-12">
+            <Navigation status={this.data.status} isUser={this.data.isUser} />
+          </div>
         </div>
         {this.data.isUser ? this.props.yield : <Demo loggingIn={this.data.loggingIn} />}
       </div>

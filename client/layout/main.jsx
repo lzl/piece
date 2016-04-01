@@ -26,6 +26,7 @@ Main = React.createClass({
           <SubsWrapper>
             <div className="row">
               <div className="col-xs-12">
+                <FilterBar />
                 <MainWithSubs before={this.props.before} />
               </div>
             </div>
@@ -47,7 +48,7 @@ MainWithSubs = React.createClass({
   },
   render() {
     if (this.data.piecesIsReady) {
-      return <MainWithPieces />
+      return <MainWithPieces before={this.props.before} />
     } else {
       return <Loading text="Loading pieces..." />
     }
@@ -75,6 +76,8 @@ MainWithPieces = React.createClass({
           <div className="hr" />
         </div>
       );
+    } else if (!this.data.hasPiece && this.props.before) {
+      return <Loading text="There is no piece." />
     } else {
       return <Loading text="Welcome to Piece. It's a place to express your ideas while learning from others. At above, you can write a piece, or find your address to copy and share." />
     }
