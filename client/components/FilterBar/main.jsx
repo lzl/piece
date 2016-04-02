@@ -14,19 +14,25 @@ FilterBar = React.createClass({
   render() {
     if (this.data.enableFilterFeature) {
       return (
-        <nav className="navbar navbar-light">
-          <div className="nav navbar-nav">
-            <span className={this.isActive('now')} onClick={this.handleNow}>Now</span>
-            <span className={this.isActive('week')} onClick={this.handleLastWeek}>last week</span>
-            <span className={this.isActive('month')} onClick={this.handleLastMonth}>last month</span>
-            <span className={this.isActive('year')} onClick={this.handleLastYear}>last year</span>
+        <div className="bar">
+          <div className="btn-group btn-group-sm">
+            <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Go to
+            </button>
+            <div className="dropdown-menu">
+              <span className={this.isActive('now')} onClick={this.handleNow}>now</span>
+              <span className={this.isActive('week')} onClick={this.handleLastWeek}>last week</span>
+              <span className={this.isActive('month')} onClick={this.handleLastMonth}>last month</span>
+              <span className={this.isActive('year')} onClick={this.handleLastYear}>last year</span>
+            </div>
           </div>
-          <form className="form-inline pull-xs-right hidden-xs-down">
-            <input className="form-control" type="text" placeholder="Search" />
+
+          <form className="form-inline pull-xs-right">
+            <input className="form-control form-control-sm" type="text" placeholder="Search" />
             {' '}
-            <button className="btn btn-success-outline" type="submit">Search</button>
+            <button className="btn btn-success-outline btn-sm hidden-xs-down" type="submit">Search</button>
           </form>
-        </nav>
+        </div>
       );
     } else {
       return <span />;
@@ -61,9 +67,9 @@ FilterBar = React.createClass({
 
     const now = () => {
       if (!timestamp) {
-        return "nav-item nav-link pointer active";
+        return "dropdown-item pointer active";
       } else {
-        return "nav-item nav-link pointer";
+        return "dropdown-item pointer";
       }
     }
 
@@ -71,9 +77,9 @@ FilterBar = React.createClass({
       const lastWeek = (function(d){d.setDate(d.getDate()-7); return d})(new Date).getTime();
       const lastTwoWeek = (function(d){d.setDate(d.getDate()-14); return d})(new Date).getTime();
       if (timestamp <= lastWeek && timestamp >= lastTwoWeek) {
-        return "nav-item nav-link pointer active";
+        return "dropdown-item pointer active";
       } else {
-        return "nav-item nav-link pointer";
+        return "dropdown-item pointer";
       }
     }
 
@@ -81,9 +87,9 @@ FilterBar = React.createClass({
       const lastMonth = (function(d){d.setMonth(d.getMonth()-1); return d})(new Date).getTime();
       const lastTwoMonth = (function(d){d.setMonth(d.getMonth()-2); return d})(new Date).getTime();
       if (timestamp <= lastMonth && timestamp >= lastTwoMonth) {
-        return "nav-item nav-link pointer active";
+        return "dropdown-item pointer active";
       } else {
-        return "nav-item nav-link pointer";
+        return "dropdown-item pointer";
       }
     }
 
@@ -91,9 +97,9 @@ FilterBar = React.createClass({
       const lastYear = (function(d){d.setFullYear(d.getFullYear()-1); return d})(new Date).getTime();
       const lastTwoYear = (function(d){d.setFullYear(d.getFullYear()-2); return d})(new Date).getTime();
       if (timestamp <= lastYear && timestamp >= lastTwoYear) {
-        return "nav-item nav-link pointer active";
+        return "dropdown-item pointer active";
       } else {
-        return "nav-item nav-link pointer";
+        return "dropdown-item pointer";
       }
     }
 

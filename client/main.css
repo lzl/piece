@@ -58,6 +58,10 @@
   margin-bottom: 0.5rem;
 }
 
+.bar {
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 34em) {
   .navbar {
     padding-left: 0;
