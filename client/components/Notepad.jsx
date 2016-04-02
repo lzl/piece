@@ -1,3 +1,5 @@
+import React from 'react';
+
 Notepad = React.createClass({
   getInitialState() {
     const formDisabled = '';

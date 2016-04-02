@@ -1,3 +1,5 @@
+import React from 'react';
+
 About = () =>
   <div id="about" className={P.isActiveCard('about')}>
     <p className="card-text">Each piece is one idea. Your idea. People could follow you. Know more about you, piece by piece. And do you know, your best reader may be yourself. Look <span onClick={P.handleExport}>back</span> your own pieces. Feel and learn from the younger version of yourself.</p>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 AddressBox = React.createClass({
   getInitialState() {
     return {

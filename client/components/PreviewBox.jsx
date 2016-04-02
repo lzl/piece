@@ -1,3 +1,5 @@
+import React from 'react';
+
 PreviewBox = React.createClass({
   getInitialState() {
     return {

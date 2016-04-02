@@ -1,3 +1,6 @@
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+
 AccountBox = () =>
   <div id="account" className={P.isActiveCard('account')}>
     <ManageEmail />
@@ -61,23 +64,17 @@ const AddEmail = React.createClass({
   }
 });
 
-const ManageEmail = React.createClass({
+const ManageEmailComponent = React.createClass({
   getInitialState() {
     return {
       sent: false,
     };
   },
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      email: Meteor.user().emails && Meteor.user().emails[0],
-    }
-  },
   render() {
-    if (this.data.email) {
+    if (this.props.email) {
       return (
         <p className="card-text">
-          <EmailText address={this.data.email.address} />
+          <EmailText address={this.props.email.address} />
           {' '}
           {this.renderEmailVerified()}
           {this.renderSendEmail()}
@@ -96,17 +93,17 @@ const ManageEmail = React.createClass({
     }
   },
   renderEmailVerified() {
-    if (this.data.email.verified) {
+    if (this.props.email.verified) {
       return <EmailVerifiedText />
     }
   },
   renderSendEmail() {
-    if (!this.data.email.verified && !this.state.sent) {
+    if (!this.props.email.verified && !this.state.sent) {
       return <SendVerificationEmailText handle={this.handleSendVerificationEmail} />
     }
   },
   renderSentEmail() {
-    if (!this.data.email.verified && this.state.sent) {
+    if (!this.props.email.verified && this.state.sent) {
       return <SentEmailText />
     }
   },
@@ -121,7 +118,7 @@ const ManageEmail = React.createClass({
   },
   handleDeleteEmail(event) {
     event.preventDefault();
-    const email = this.data.email.address;
+    const email = this.props.email.address;
     if (confirm(`Do you realy want to remove this email address: ${email} ?`)) {
       Meteor.call('removeEmail', email, (error, result) => {
         if (error) {
@@ -131,6 +128,84 @@ const ManageEmail = React.createClass({
     }
   }
 });
+
+ManageEmail = createContainer(() => {
+  const handleClones = Meteor.subscribe("currentUserClones");
+  return {
+    clonesIsReady: handleClones.ready()
+  };
+}, ManageEmailComponent);
+
+// const ManageEmail = React.createClass({
+//   getInitialState() {
+//     return {
+//       sent: false,
+//     };
+//   },
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     return {
+//       email: Meteor.user().emails && Meteor.user().emails[0],
+//     }
+//   },
+//   render() {
+//     if (this.data.email) {
+//       return (
+//         <p className="card-text">
+//           <EmailText address={this.data.email.address} />
+//           {' '}
+//           {this.renderEmailVerified()}
+//           {this.renderSendEmail()}
+//           {this.renderSentEmail()}
+//           {' '}
+//           <DeleteEmailText handle={this.handleDeleteEmail} />
+//         </p>
+//       );
+//     } else {
+//       return (
+//         <div>
+//           <AddEmail />
+//           <div className="hr" />
+//         </div>
+//       );
+//     }
+//   },
+//   renderEmailVerified() {
+//     if (this.data.email.verified) {
+//       return <EmailVerifiedText />
+//     }
+//   },
+//   renderSendEmail() {
+//     if (!this.data.email.verified && !this.state.sent) {
+//       return <SendVerificationEmailText handle={this.handleSendVerificationEmail} />
+//     }
+//   },
+//   renderSentEmail() {
+//     if (!this.data.email.verified && this.state.sent) {
+//       return <SentEmailText />
+//     }
+//   },
+//
+//   handleSendVerificationEmail(event) {
+//     event.preventDefault();
+//     if (Meteor.userId()) {
+//       this.setState({sent: true});
+//       Meteor.call("sendVerificationEmail");
+//       // alert("Success! Please check your inbox.")
+//     }
+//   },
+//   handleDeleteEmail(event) {
+//     event.preventDefault();
+//     const email = this.data.email.address;
+//     if (confirm(`Do you realy want to remove this email address: ${email} ?`)) {
+//       Meteor.call('removeEmail', email, (error, result) => {
+//         if (error) {
+//           alert(error.reason);
+//         }
+//       });
+//     }
+//   }
+// });
 
 const EmailText = ({address}) =>
   <span>Your email address is <mark>{address}</mark>.</span>

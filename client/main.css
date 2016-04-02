@@ -105,3 +105,12 @@
     padding-bottom: 0;
   }
 }
+
+/* FollowBox */
+.btn-follow {
+  width: 100px;
+}
+/* FollowingList */
+.btn-following-item {
+  top: -3px;
+}

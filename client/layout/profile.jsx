@@ -1,3 +1,6 @@
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+
 Profile = ({clone, pieces}) =>
   <div className="container narrow">
     <div className="hr" />
@@ -6,16 +9,9 @@ Profile = ({clone, pieces}) =>
   </div>
 Profile.displayName = "Profile";
 
-ProfileCloneWrapper = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    const handleProfile = Meteor.subscribe("singleCloneProfile", this.props.cloneId);
-    return {
-      profileIsReady: handleProfile.ready()
-    };
-  },
+class ProfileCloneWrapperComponent extends Component {
   render() {
-    if (this.data.profileIsReady) {
+    if (this.props.profileIsReady) {
       return <ProfileClone cloneId={this.props.cloneId} />
     } else {
       return (
@@ -26,18 +22,41 @@ ProfileCloneWrapper = React.createClass({
       );
     }
   }
-});
+}
 
-ProfileClone = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      profile: Clones.findOne({_id: this.props.cloneId}),
-    };
-  },
-  render () {
-    if (this.data.profile) {
-      const {_id, name, updatedAt} = this.data.profile;
+ProfileCloneWrapper = createContainer(() => {
+  const handleProfile = Meteor.subscribe("singleCloneProfile", this.props.cloneId);
+  return {
+    profileIsReady: handleProfile.ready()
+  };
+}, ProfileCloneWrapperComponent);
+
+// ProfileCloneWrapper = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     const handleProfile = Meteor.subscribe("singleCloneProfile", this.props.cloneId);
+//     return {
+//       profileIsReady: handleProfile.ready()
+//     };
+//   },
+//   render() {
+//     if (this.data.profileIsReady) {
+//       return <ProfileClone cloneId={this.props.cloneId} />
+//     } else {
+//       return (
+//         <div>
+//           <Loading text="Loading profile..." />
+//           <div className="br" />
+//         </div>
+//       );
+//     }
+//   }
+// });
+
+class ProfileCloneComponent extends Component {
+  render() {
+    if (this.props.profile) {
+      const {_id, name, updatedAt} = this.props.profile;
       const hostname = P.getHostname();
       const address = P.makeAddress({hostname, userId: _id});
       return (
@@ -56,39 +75,110 @@ ProfileClone = React.createClass({
       );
     }
   }
-});
+}
 
-ProfilePiecesWrapper = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    const handlePieces = Meteor.subscribe("singleClonePieces", this.props.cloneId);
-    return {
-      piecesIsReady: handlePieces.ready()
-    };
-  },
+ProfileClone = createContainer(() => {
+  return {
+    profile: Clones.findOne({_id: this.props.cloneId}),
+  };
+}, ProfileCloneComponent);
+
+// ProfileClone = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     return {
+//       profile: Clones.findOne({_id: this.props.cloneId}),
+//     };
+//   },
+//   render () {
+//     if (this.data.profile) {
+//       const {_id, name, updatedAt} = this.data.profile;
+//       const hostname = P.getHostname();
+//       const address = P.makeAddress({hostname, userId: _id});
+//       return (
+//         <div className="card">
+//           <div className="card-block">
+//             {name ? <span title={address}>{name}</span> : ''}
+//           </div>
+//         </div>
+//       );
+//     } else {
+//       return (
+//         <div>
+//           <Loading text="No profile found." />
+//           <div className="br" />
+//         </div>
+//       );
+//     }
+//   }
+// });
+
+class ProfilePiecesWrapperComponent extends Component {
   render() {
-    if (this.data.piecesIsReady) {
+    if (this.props.piecesIsReady) {
       return <ProfilePieces cloneId={this.props.cloneId} />;
     } else {
       return <Loading text="Loading pieces..." />;
     }
   }
-});
+}
 
-ProfilePieces = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      pieces: Pieces.find({userId: this.props.cloneId}, {sort: {createdAt: -1}}).fetch(),
-    };
-  },
-  render () {
-    if (this.data.pieces.length) {
+ProfilePiecesWrapper = createContainer(() => {
+  const handlePieces = Meteor.subscribe("singleClonePieces", this.props.cloneId);
+  return {
+    piecesIsReady: handlePieces.ready()
+  };
+}, ProfilePiecesWrapperComponent);
+
+// ProfilePiecesWrapper = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     const handlePieces = Meteor.subscribe("singleClonePieces", this.props.cloneId);
+//     return {
+//       piecesIsReady: handlePieces.ready()
+//     };
+//   },
+//   render() {
+//     if (this.data.piecesIsReady) {
+//       return <ProfilePieces cloneId={this.props.cloneId} />;
+//     } else {
+//       return <Loading text="Loading pieces..." />;
+//     }
+//   }
+// });
+
+class ProfilePiecesComponent extends Component {
+  render() {
+    if (this.props.pieces.length) {
       return (
-        <PieceList pieces={this.data.pieces} />
+        <PieceList pieces={this.props.pieces} />
       );
     } else {
       return <Loading text="No piece found." />;
     }
   }
-});
+}
+
+ProfilePieces = createContainer(() => {
+  return {
+    pieces: Pieces.find({userId: this.props.cloneId}, {sort: {createdAt: -1}}).fetch(),
+  };
+}, ProfilePiecesComponent);
+
+// ProfilePieces = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     return {
+//       pieces: Pieces.find({userId: this.props.cloneId}, {sort: {createdAt: -1}}).fetch(),
+//     };
+//   },
+//   render () {
+//     if (this.data.pieces.length) {
+//       return (
+//         <PieceList pieces={this.data.pieces} />
+//       );
+//     } else {
+//       return <Loading text="No piece found." />;
+//     }
+//   }
+// });

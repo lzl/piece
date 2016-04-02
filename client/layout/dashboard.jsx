@@ -1,3 +1,6 @@
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+
 Dashboard = React.createClass({
   render () {
     return (
@@ -34,16 +37,9 @@ Dashboard = React.createClass({
   }
 })
 
-FollowingHasSub = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    const ownerId = Session.get("currentCloneId");
-    return {
-      hasSub: Subs.findOne({ownerId}),
-    };
-  },
+class FollowingHasSubComponent extends Component {
   render() {
-    if (this.data.hasSub) {
+    if (this.props.hasSub) {
       return (
         <AddressesWrapper>
           <FollowingList />
@@ -61,4 +57,40 @@ FollowingHasSub = React.createClass({
       );
     }
   }
-})
+}
+
+FollowingHasSub = createContainer(() => {
+  const ownerId = Session.get("currentCloneId");
+  return {
+    hasSub: Subs.findOne({ownerId}),
+  };
+}, FollowingHasSubComponent);
+
+// FollowingHasSub = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     const ownerId = Session.get("currentCloneId");
+//     return {
+//       hasSub: Subs.findOne({ownerId}),
+//     };
+//   },
+//   render() {
+//     if (this.data.hasSub) {
+//       return (
+//         <AddressesWrapper>
+//           <FollowingList />
+//         </AddressesWrapper>
+//       );
+//     } else {
+//       return (
+//         <div className="row">
+//           <div className="col-xs-12">
+//             <ul id="following" className={P.isActiveListGroup('following')}>
+//               <li className="list-group-item">You have no following.</li>
+//             </ul>
+//           </div>
+//         </div>
+//       );
+//     }
+//   }
+// })

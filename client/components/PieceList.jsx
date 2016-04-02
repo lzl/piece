@@ -1,3 +1,5 @@
+import React from 'react';
+
 PieceList = React.createClass({
   componentDidMount() {
     $('.js-content').linkify(P.linkifyOptions);
