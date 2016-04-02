@@ -1,0 +1,13 @@
+{
+  "name": "piece",
+  "version": "1.0.0",
+  "description": "a message platform powered by Meteor",
+  "scripts": {
+    "start": "meteor --settings settings.json"
+  },
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-mounter": "^1.1.0"
+  }
+}
