@@ -74,9 +74,9 @@ const FollowButtonComponent = React.createClass({
   },
 });
 
-FollowButton = createContainer(() => {
+FollowButton = createContainer(({hostname, userId}) => {
   return {
-    following: !!Subs.findOne({hostname: this.props.hostname, userId: this.props.userId, ownerId: Session.get('currentCloneId')}),
+    following: !!Subs.findOne({hostname, userId, ownerId: Session.get('currentCloneId')}),
   }
 }, FollowButtonComponent);
 

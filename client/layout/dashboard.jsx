@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 Dashboard = React.createClass({
+  componentDidMount() {
+    Session.setDefault('location.hash', window.location.hash.substr(1));
+    if ("onhashchange" in window) {
+      window.onhashchange = () => {
+        Session.set('location.hash', window.location.hash.substr(1));
+      }
+    }
+  },
   render () {
     return (
       <div className="row">

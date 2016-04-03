@@ -6,7 +6,12 @@
     "start": "meteor --settings settings.json"
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
+    "clipboard": "^1.5.9",
+    "linkifyjs": "^2.0.0-beta.9",
+    "moment": "^2.12.0",
     "react": "^0.14.8",
+    "react-addons-pure-render-mixin": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-mounter": "^1.1.0"
   }

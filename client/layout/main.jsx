@@ -89,9 +89,9 @@ class MainWithSubsComponent extends Component {
   }
 }
 
-MainWithSubs = createContainer(() => {
+MainWithSubs = createContainer(({before}) => {
   const cloneId = Session.get("currentCloneId");
-  const handlePieces = Meteor.subscribe("currentClonePieces", cloneId, this.props.before);
+  const handlePieces = Meteor.subscribe("currentClonePieces", cloneId, before);
   return {
     piecesIsReady: handlePieces.ready(),
   };

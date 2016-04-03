@@ -70,9 +70,9 @@ class ReaderWithSubsComponent extends Component {
   }
 }
 
-ReaderWithSubs = createContainer(() => {
+ReaderWithSubs = createContainer(({before}) => {
   const cloneId = Session.get("currentCloneId");
-  const handlePieces = Meteor.subscribe("multiClonePieces", cloneId, this.props.before);
+  const handlePieces = Meteor.subscribe("multiClonePieces", cloneId, before);
   return {
     piecesIsReady: handlePieces.ready(),
   };

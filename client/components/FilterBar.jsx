@@ -57,7 +57,7 @@ class FilterBarComponent extends Component {
   }
 
   isActive(filter) {
-    const timestamp = FlowRouter.getQueryParam("before");
+    const timestamp = this.props.before;
 
     const now = () => {
       if (!timestamp) {
@@ -116,6 +116,7 @@ FilterBar = createContainer(() => {
   }
   return {
     enableFilterFeature: Session.get('enableFilterFeature'),
+    before: FlowRouter.getQueryParam("before"),
   };
 }, FilterBarComponent);
 
@@ -225,7 +226,7 @@ FilterBar = createContainer(() => {
 //     }
 //
 //     const filters = { now, week, month, year };
-// 
+//
 //     if (filters && filters.hasOwnProperty(filter)) {
 //       return filters[filter]();
 //     } else {

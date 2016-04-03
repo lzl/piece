@@ -21,7 +21,7 @@ CloneBox = createContainer(() => {
   P.setCurrentCloneId();
   const currentCloneId = Session.get("currentCloneId");
   return {
-    cloneNum: Clones.find({ownerId: currentCloneId}).count(),
+    cloneNum: Clones.find({ownerId: Meteor.userId()}).count(),
     enableCloneFeature: Session.get('enableCloneFeature'),
   };
 }, CloneBoxComponent);
@@ -33,7 +33,7 @@ CloneBox = createContainer(() => {
 //     P.setCurrentCloneId();
 //     const currentCloneId = Session.get("currentCloneId");
 //     return {
-//       cloneNum: Clones.find({ownerId: currentCloneId}).count(),
+//       cloneNum: Clones.find({ownerId: Meteor.userId()}).count(),
 //       enableCloneFeature: Session.get('enableCloneFeature'),
 //     };
 //   },
@@ -151,9 +151,9 @@ CloneSelectBox = createContainer(() => {
   P.setCurrentCloneId();
   const currentCloneId = Session.get("currentCloneId");
   return {
-    clones: Clones.find({ownerId: currentCloneId}, {sort: {createdAt: 1}}).fetch(),
+    clones: Clones.find({ownerId: Meteor.userId()}, {sort: {createdAt: 1}}).fetch(),
     currentClone: Clones.findOne({_id: currentCloneId}),
-    otherClones: Clones.find({_id: {$ne: currentCloneId}, ownerId: currentCloneId}).fetch(),
+    otherClones: Clones.find({_id: {$ne: currentCloneId}, ownerId: Meteor.userId()}).fetch(),
   };
 }, CloneSelectBoxComponent);
 
@@ -163,12 +163,13 @@ CloneSelectBox = createContainer(() => {
 //     P.setCurrentCloneId();
 //     const currentCloneId = Session.get("currentCloneId");
 //     return {
-//       clones: Clones.find({ownerId: currentCloneId}, {sort: {createdAt: 1}}).fetch(),
+//       clones: Clones.find({ownerId: Meteor.userId()}, {sort: {createdAt: 1}}).fetch(),
 //       currentClone: Clones.findOne({_id: currentCloneId}),
-//       otherClones: Clones.find({_id: {$ne: currentCloneId}, ownerId: currentCloneId}).fetch(),
+//       otherClones: Clones.find({_id: {$ne: currentCloneId}, ownerId: Meteor.userId()}).fetch(),
 //     };
 //   },
 //   render () {
+//     console.log(this.data.clones.length)
 //     if (this.data.clones.length > 1) {
 //       return (
 //         <select className="c-select" ref="select" defaultValue={this.data.currentClone._id} onChange={this.handleSelect}>

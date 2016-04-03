@@ -26,17 +26,11 @@ reactive-dict
 # force-ssl
 
 react-meteor-data
-# react
-# https://github.com/arunoda/meteor-up/issues/812#issuecomment-170391908
-# react-runtime@=0.14.3
-# react-runtime-dev@=0.14.3
-# react-runtime-prod@=0.14.3
-
 kadira:flow-router
-# kadira:react-layout
 accounts-password
 
 peerlibrary:server-autorun
 mizzao:timesync
 
 email
+twbs:bootstrap@=4.0.0-alpha.2

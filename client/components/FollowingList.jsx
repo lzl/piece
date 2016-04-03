@@ -14,6 +14,7 @@ class FollowingListComponent extends Component {
 FollowingList = createContainer(() => {
   return {
     addresses: Addresses.find({}, {sort: {updatedAt: -1}}).fetch(),
+    hash: Session.get('location.hash'),
   }
 }, FollowingListComponent);
 
