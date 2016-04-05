@@ -130,10 +130,9 @@ const ManageEmailComponent = React.createClass({
 });
 
 ManageEmail = createContainer(() => {
-  const handleClones = Meteor.subscribe("currentUserClones");
   return {
-    clonesIsReady: handleClones.ready()
-  };
+    email: Meteor.user().emails && Meteor.user().emails[0],
+  }
 }, ManageEmailComponent);
 
 // const ManageEmail = React.createClass({
