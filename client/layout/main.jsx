@@ -13,12 +13,7 @@ class MainComponent extends Component {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-xs-12">
-              <Notepad />
-              <div className="hr" />
-            </div>
-          </div>
+          {this.renderNotepad()}
 
           <SubsWrapper>
             <div className="row">
@@ -31,6 +26,28 @@ class MainComponent extends Component {
         </div>
       </ClonesWrapper>
     );
+  }
+
+  renderNotepad() {
+    if (!this.props.before) {
+      return (
+        <div className="row">
+          <div className="col-xs-12">
+            <Notepad />
+            <div className="hr" />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="row">
+          <div className="col-xs-12">
+            <BeforeBar before={this.props.before} />
+            <div className="br" />
+          </div>
+        </div>
+      );
+    }
   }
 }
 
