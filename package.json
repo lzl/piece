@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "a message platform powered by Meteor",
   "scripts": {
-    "start": "meteor --settings settings.json"
+    "start": "meteor --settings settings.json",
+    "production": "meteor --settings settings.json --production"
   },
   "dependencies": {
     "clipboard": "^1.5.9",
