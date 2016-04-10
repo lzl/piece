@@ -1,19 +1,39 @@
-FollowingList = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      addresses: Addresses.find({}, {sort: {updatedAt: -1}}).fetch(),
-    }
-  },
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 
+class FollowingListComponent extends Component {
   render() {
     return (
       <ul id="following" className={P.isActiveListGroup('following')}>
-        {this.data.addresses.map((address) => <FollowingItem key={address._id} address={address} />)}
+        {this.props.addresses.map((address) => <FollowingItem key={address._id} address={address} />)}
       </ul>
     );
   }
-});
+}
+
+FollowingList = createContainer(() => {
+  return {
+    addresses: Addresses.find({}, {sort: {updatedAt: -1}}).fetch(),
+    hash: Session.get('location.hash'),
+  }
+}, FollowingListComponent);
+
+// FollowingList = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     return {
+//       addresses: Addresses.find({}, {sort: {updatedAt: -1}}).fetch(),
+//     }
+//   },
+//
+//   render() {
+//     return (
+//       <ul id="following" className={P.isActiveListGroup('following')}>
+//         {this.data.addresses.map((address) => <FollowingItem key={address._id} address={address} />)}
+//       </ul>
+//     );
+//   }
+// });
 
 const FollowingItem = ({address}) =>
   <li className="list-group-item">

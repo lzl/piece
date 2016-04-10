@@ -1,3 +1,5 @@
+import React from 'react';
+
 Notepad = React.createClass({
   getInitialState() {
     const formDisabled = '';
@@ -12,9 +14,9 @@ Notepad = React.createClass({
       <form onSubmit={this.handleSubmit}>
         <fieldset disabled={this.state.formDisabled}>
           <div className="form-group">
-            <textarea className="form-control" ref="textarea" rows="3" defaultValue={this.state.formText} onChange={this.handleChange} required></textarea>
+            <textarea className="form-control" ref="textarea" rows="3" defaultValue={this.state.formText} onChange={this.handleChange} tabIndex="1" required></textarea>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary" tabIndex="2">Submit</button>
           {' '}
           <CloneSelectBox />
         </fieldset>

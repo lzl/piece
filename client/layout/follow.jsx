@@ -1,3 +1,5 @@
+import React from 'react';
+
 Follow = React.createClass({
   render() {
     return (

@@ -1,3 +1,5 @@
+import React from 'react';
+
 PreviewBox = React.createClass({
   getInitialState() {
     return {
@@ -9,10 +11,10 @@ PreviewBox = React.createClass({
       <form className="form-inline" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label className="sr-only" htmlFor="address">Address</label>
-          <input type="text" className="form-control" id="address" ref="address" placeholder="Address" size={this.state.length} onChange={this.handleChange} required />
+          <input type="text" className="form-control" id="address" ref="address" placeholder="Address" size={this.state.length} onChange={this.handleChange} tabIndex="1" required />
         </div>
         {' '}
-        <button type="submit" className="btn btn-primary">Preview</button>
+        <button type="submit" className="btn btn-primary" tabIndex="2">Preview</button>
         {' '}
         <CloneSelectBox />
         <button type="button" className="btn btn-link hidden-sm" onClick={this.handleHelp}>How to follow?</button>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 Navigation = ({status, isUser}) =>
   <nav className="navbar navbar-light">
     <ul className="nav navbar-nav hidden-xs-down">

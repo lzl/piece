@@ -1,3 +1,5 @@
+import React from 'react';
+
 AccountBar = React.createClass({
   getInitialState() {
     return {

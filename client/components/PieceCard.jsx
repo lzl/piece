@@ -1,38 +1,36 @@
-PieceCard = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    // It's weired, but it works.
-    const createdAt = P.fromNow(this.props.piece.createdAt);
-    return {}
-  },
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 
+class PieceCardComponent extends Component {
   componentDidMount() {
     $('p.js-content').linkify(P.linkifyOptions);
-  },
+  }
+
   componentWillUnmount() {
     const modalId = this.props.piece._id;
     $(`#detail-${modalId}`).modal('hide');
-  },
+  }
 
   render() {
     return (
       <CardType {...this.props}>
-        <DetailButton handleDetail={this.handleDetail} />
+        <DetailButton handleDetail={this.handleDetail.bind(this)} />
         {' '}
-        <ShareButton handleShare={this.handleShare} />
+        <ShareButton handleShare={this.handleShare.bind(this)} />
         {' '}
-        {this.props.piece.userId === Session.get("currentCloneId") ? <DeleteButton handleDelete={this.handleDelete} /> : ''}
+        {this.props.piece.userId === Session.get("currentCloneId") ? <DeleteButton handleDelete={this.handleDelete.bind(this)} /> : ''}
 
         <DetailModal {...this.props} />
         <ShareModal {...this.props} />
       </CardType>
     );
-  },
+  }
 
   handleDetail(event) {
     event.preventDefault();
     $(`#detail-${this.props.piece._id}`).modal('show');
-  },
+  }
+
   handleShare(event) {
     event.preventDefault();
     const modalId = this.props.piece._id;
@@ -41,14 +39,73 @@ PieceCard = React.createClass({
       $('[name=comment]').focus();
       // ReactDOM.findDOMNode(this.refs.comment).focus();
     });
-  },
+  }
+
   handleDelete(event) {
     event.preventDefault();
     if (confirm("Do you really want to delete this piece?")) {
       Meteor.call('removePieceByClone', this.props.piece._id);
     }
   }
-});
+}
+
+PieceCard = createContainer(({piece}) => {
+  // It's weird, but it works.
+  const createdAt = P.fromNow(piece.createdAt);
+  return {}
+}, PieceCardComponent);
+
+// PieceCard = React.createClass({
+//   mixins: [ReactMeteorData],
+//   getMeteorData() {
+//     // It's weired, but it works.
+//     const createdAt = P.fromNow(this.props.piece.createdAt);
+//     return {}
+//   },
+//
+//   componentDidMount() {
+//     $('p.js-content').linkify(P.linkifyOptions);
+//   },
+//   componentWillUnmount() {
+//     const modalId = this.props.piece._id;
+//     $(`#detail-${modalId}`).modal('hide');
+//   },
+//
+//   render() {
+//     return (
+//       <CardType {...this.props}>
+//         <DetailButton handleDetail={this.handleDetail} />
+//         {' '}
+//         <ShareButton handleShare={this.handleShare} />
+//         {' '}
+//         {this.props.piece.userId === Session.get("currentCloneId") ? <DeleteButton handleDelete={this.handleDelete} /> : ''}
+//
+//         <DetailModal {...this.props} />
+//         <ShareModal {...this.props} />
+//       </CardType>
+//     );
+//   },
+//
+//   handleDetail(event) {
+//     event.preventDefault();
+//     $(`#detail-${this.props.piece._id}`).modal('show');
+//   },
+//   handleShare(event) {
+//     event.preventDefault();
+//     const modalId = this.props.piece._id;
+//     $(`#share-${modalId}`).modal('show');
+//     $(`#share-${modalId}`).on('shown.bs.modal', () => {
+//       $('[name=comment]').focus();
+//       // ReactDOM.findDOMNode(this.refs.comment).focus();
+//     });
+//   },
+//   handleDelete(event) {
+//     event.preventDefault();
+//     if (confirm("Do you really want to delete this piece?")) {
+//       Meteor.call('removePieceByClone', this.props.piece._id);
+//     }
+//   }
+// });
 
 const CardType = (props) => {
   const types = {
@@ -191,6 +248,92 @@ const DetailModal = React.createClass({
 const ShareButton = ({handleShare}) =>
   <button type="button" className="btn btn-secondary" onClick={handleShare}>Share</button>
 ShareButton.displayName = 'ShareButton';
+
+// const ShareModalComponent = React.createClass({
+//   getInitialState() {
+//     return {
+//       selectCloneId: Session.get("currentCloneId"),
+//       comment: ''
+//     };
+//   },
+//
+//   render() {
+//     return <div className="modal fade" id={`share-${this.props.piece._id}`} tabIndex="-1" role="dialog" aria-labelledby="readerPieceShare" aria-hidden="true">
+//       <div className="modal-dialog" role="document">
+//         <div className="modal-content">
+//           <div className="modal-header">
+//             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+//               <span aria-hidden="true">&times;</span>
+//             </button>
+//             <h4 className="modal-title" id="readerPieceShare">Share this to your followers?</h4>
+//           </div>
+//           <div className="modal-body">
+//             <div className="input-group">
+//               <span className="input-group-addon" id="input-share-comment">Comment</span>
+//               <input type="text" className="form-control" ref="comment" name="comment" placeholder="Optional" aria-describedby="input-share-comment" onKeyUp={this.handleComment} />
+//             </div>
+//
+//             <br />
+//
+//             <p className="card-text">
+//               <span className="username">{this.props.selectClone.name}</span>
+//               {' '}
+//               <small className="text-muted">shared</small>
+//             </p>
+//             <p className="card-text">
+//               {this.state.comment}
+//             </p>
+//
+//             {this.props.piece.type === "plaintext" ? <PlaintextCard {...this.props} /> : ''}
+//             {this.props.piece.type === "sharism-piece" ? <SharedPlaintextCard {...this.props} /> : ''}
+//           </div>
+//           <div className="modal-footer">
+//             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+//             {' '}
+//             {this.props.clones.length > 1 ? <select className="c-select" ref="selectClone" defaultValue={this.props.currentClone._id} onChange={this.handleSelect}>
+//               {this.props.clones.map((clone) => {
+//                 return <option key={clone._id} value={clone._id}>{clone.name}</option>
+//               })}
+//             </select> : ''}
+//             {' '}
+//             <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Share</button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   },
+//
+//   handleComment(event) {
+//     event.preventDefault();
+//     this.setState({comment: this.refs.comment.value});
+//   },
+//   handleSelect(event) {
+//     event.preventDefault()
+//     this.setState({selectCloneId: this.refs.selectClone.value});
+//   },
+//   handleSubmit(event) {
+//     event.preventDefault()
+//     const types = {
+//       'plaintext': this.props.piece,
+//       'sharism-piece': this.props.piece.origin
+//     }
+//     const piece = types[this.props.piece.type];
+//     const comment = this.refs.comment.value;
+//     const cloneId = this.state.selectCloneId;
+//     const modalId = this.props.piece._id;
+//     Meteor.call('sharePieceByClone', piece, comment, cloneId, () => {
+//       $(`#share-${modalId}`).modal('hide');
+//     });
+//   }
+// });
+//
+// const ShareModal = createContainer(() => {
+//   // TODO
+//   return {
+//     selectClone: Clones.findOne({_id: Session.get("currentCloneId")})
+//     // selectClone: Clones.findOne({_id: this.state.selectCloneId})
+//   };
+// }, ShareModalComponent);
 
 const ShareModal = React.createClass({
   mixins: [ReactMeteorData],

@@ -1,3 +1,6 @@
+import React from 'react';
+import Clipboard from 'clipboard';
+
 AddressBox = React.createClass({
   getInitialState() {
     return {
