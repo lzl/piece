@@ -22,24 +22,31 @@ Navigation = ({status, isUser}) =>
       </li> : ''}
     </ul>
 
-    <div className="nav navbar-nav hidden-sm-up">
-      <div className="btn-group btn-group-sm">
-        <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <ul className="nav navbar-nav hidden-sm-up">
+      <li className="nav-item">
+        <div className="nav-link">
           <Status status={status} />
-        </button>
-        <div className="dropdown-menu">
-          <a className={P.isActiveDropdownItem("main")} href="/">Piece</a>
-          {isUser ? <a className={P.isActiveDropdownItem("reader")} href="/reader">Reader</a> : ''}
-          {isUser ? <a className={P.isActiveDropdownItem("dashboard")} href="/dashboard">Dashboard</a> : ''}
-          {isUser ? <div className="dropdown-divider"></div> : ''}
-          {isUser ? <a className="dropdown-item" href="#" onClick={(e) => {e.preventDefault(); Meteor.logout();}}>Logout</a> : ''}
         </div>
-      </div>
-      {' '}
-      {isUser ? <div className="btn-group btn-group-sm pull-xs-right" role="group" aria-label="Navigation"><a className={P.isActiveButton("main")} href="/">Piece</a><a className={P.isActiveButton("reader")} href="/reader">Reader</a></div> : ""}
-    </div>
+      </li>
+      {isUser ? <li className="nav-item pull-xs-right"><MobileNavRight /></li> : <li className="nav-item active"><a className="nav-link" href="/">Piece</a></li>}
+    </ul>
   </nav>
 Navigation.displayName = 'Navigation'
+
+const MobileNavRight = () =>
+  <div className="btn-group" role="group">
+    <a className={P.isActiveButton("main")} href="/">Piece</a>
+    <a className={P.isActiveButton("reader")} href="/reader">Reader</a>
+    <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span className="sr-only">Toggle Dropdown</span>
+    </button>
+    <div className="dropdown-menu">
+      <a className={P.isActiveDropdownItem("dashboard")} href="/dashboard">Dashboard</a>
+      <div className="dropdown-divider"></div>
+      <a className="dropdown-item" href="#" onClick={(e) => {e.preventDefault(); Meteor.logout();}}>Logout</a>
+    </div>
+  </div>
+MobileNavRight.displayName = 'MobileNavRight'
 
 const Status = ({status}) => {
   const statuses = {
