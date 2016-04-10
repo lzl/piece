@@ -24,8 +24,8 @@ class ProfileCloneWrapperComponent extends Component {
   }
 }
 
-ProfileCloneWrapper = createContainer(() => {
-  const handleProfile = Meteor.subscribe("singleCloneProfile", this.props.cloneId);
+ProfileCloneWrapper = createContainer(({cloneId}) => {
+  const handleProfile = Meteor.subscribe("singleCloneProfile", cloneId);
   return {
     profileIsReady: handleProfile.ready()
   };
@@ -77,9 +77,9 @@ class ProfileCloneComponent extends Component {
   }
 }
 
-ProfileClone = createContainer(() => {
+ProfileClone = createContainer(({cloneId}) => {
   return {
-    profile: Clones.findOne({_id: this.props.cloneId}),
+    profile: Clones.findOne({_id: cloneId}),
   };
 }, ProfileCloneComponent);
 
@@ -123,8 +123,8 @@ class ProfilePiecesWrapperComponent extends Component {
   }
 }
 
-ProfilePiecesWrapper = createContainer(() => {
-  const handlePieces = Meteor.subscribe("singleClonePieces", this.props.cloneId);
+ProfilePiecesWrapper = createContainer(({cloneId}) => {
+  const handlePieces = Meteor.subscribe("singleClonePieces", cloneId);
   return {
     piecesIsReady: handlePieces.ready()
   };
@@ -159,9 +159,9 @@ class ProfilePiecesComponent extends Component {
   }
 }
 
-ProfilePieces = createContainer(() => {
+ProfilePieces = createContainer(({cloneId}) => {
   return {
-    pieces: Pieces.find({userId: this.props.cloneId}, {sort: {createdAt: -1}}).fetch(),
+    pieces: Pieces.find({userId: cloneId}, {sort: {createdAt: -1}}).fetch(),
   };
 }, ProfilePiecesComponent);
 
