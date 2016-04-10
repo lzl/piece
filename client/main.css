@@ -6,6 +6,9 @@
   width: 100%;
   height: 0.5em;
 }
+.br-inline {
+  margin-bottom: 0.5rem;
+}
 
 .word-wrap {
   /* These are technically the same, but use both */
@@ -55,10 +58,6 @@
 }
 
 .form-group {
-  margin-bottom: 0.5rem;
-}
-
-.bar {
   margin-bottom: 0.5rem;
 }
 

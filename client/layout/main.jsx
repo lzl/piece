@@ -19,6 +19,7 @@ class MainComponent extends Component {
             <div className="row">
               <div className="col-xs-12">
                 <FilterBar />
+                {this.props.before ? <BeforeBar before={this.props.before} /> : ''}
                 <MainWithSubs before={this.props.before} />
               </div>
             </div>
@@ -39,14 +40,7 @@ class MainComponent extends Component {
         </div>
       );
     } else {
-      return (
-        <div className="row">
-          <div className="col-xs-12">
-            <BeforeBar before={this.props.before} />
-            <div className="br" />
-          </div>
-        </div>
-      );
+      return <span />
     }
   }
 }

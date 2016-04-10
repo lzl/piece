@@ -5,7 +5,7 @@ class FilterBarComponent extends Component {
   render() {
     if (this.props.enableFilterFeature) {
       return (
-        <div className="bar">
+        <div className="br-inline">
           <div className="btn-group btn-group-sm">
             <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Go to
