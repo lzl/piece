@@ -10,9 +10,9 @@
     "clipboard": "^1.5.9",
     "linkifyjs": "^2.0.0-beta.9",
     "moment": "^2.12.0",
-    "react": "^0.14.8",
-    "react-addons-pure-render-mixin": "^0.14.8",
-    "react-dom": "^0.14.8",
-    "react-mounter": "^1.1.0"
+    "react": "^15.0.1",
+    "react-addons-pure-render-mixin": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-mounter": "^1.2.0"
   }
 }
