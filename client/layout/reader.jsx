@@ -16,6 +16,7 @@ Reader = React.createClass({
           <SubsWrapper>
             <div className="row">
               <div className="col-xs-12">
+                {this.props.before ? <BeforeBar before={this.props.before} /> : ''}
                 <ReaderHasSub before={this.props.before} />
               </div>
             </div>
