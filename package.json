@@ -7,9 +7,9 @@
     "production": "meteor --settings settings.json --production"
   },
   "dependencies": {
-    "clipboard": "^1.5.9",
-    "linkifyjs": "^2.0.0-beta.9",
-    "moment": "^2.12.0",
+    "clipboard": "^1.5.10",
+    "linkifyjs": "^2.0.0",
+    "moment": "^2.13.0",
     "react": "^15.0.1",
     "react-addons-pure-render-mixin": "^15.0.1",
     "react-dom": "^15.0.1",

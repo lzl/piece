@@ -63,7 +63,7 @@ peerlibrary:server-autorun@0.5.2
 promise@0.6.6
 random@1.0.8
 rate-limit@1.0.3
-react-meteor-data@0.2.7
+react-meteor-data@0.2.9
 reactive-dict@1.1.6
 reactive-var@1.0.8
 reload@1.1.7
@@ -79,7 +79,7 @@ standard-minifier-css@1.0.5
 standard-minifier-js@1.0.5
 templating@1.1.8
 templating-tools@1.0.3
-tmeasday:check-npm-versions@0.2.0
+tmeasday:check-npm-versions@0.3.1
 tracker@1.0.12
 ui@1.0.10
 underscore@1.0.7
