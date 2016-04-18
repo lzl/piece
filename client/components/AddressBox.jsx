@@ -15,7 +15,11 @@ AddressBox = React.createClass({
     });
     clipboard.on('error', (e) => {
       let copyText = undefined;
-      if (/iPhone|iPad/i.test(navigator.userAgent)) {
+      if (Meteor.isCordova) {
+        e.clearSelection();
+        cordova.plugins.clipboard.copy(this.props.address);
+        copyText = 'Copied!';
+      } else if (/iPhone|iPad/i.test(navigator.userAgent)) {
         copyText = 'Hold hightlight to copy';
       } else if (/Mac/i.test(navigator.userAgent)) {
         copyText = 'Press ⌘-C to copy';
