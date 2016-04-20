@@ -4,7 +4,8 @@
   "description": "a message platform powered by Meteor",
   "scripts": {
     "start": "meteor --settings settings.json",
-    "production": "meteor --settings settings.json --production"
+    "production": "meteor --settings settings.json --production",
+    "galaxy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy piece.lililulu.com --settings settings.json"
   },
   "dependencies": {
     "clipboard": "^1.5.10",
