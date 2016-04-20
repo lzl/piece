@@ -4,8 +4,16 @@ import { createContainer } from 'meteor/react-meteor-data';
 Profile = ({clone, pieces}) =>
   <div className="container narrow">
     <div className="hr" />
-    <div className="row">{clone}</div>
-    <div className="row">{pieces}</div>
+    <div className="row">
+      <div className="col-xs-12">
+        {clone}
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-xs-12">
+        {pieces}
+      </div>
+    </div>
   </div>
 Profile.displayName = "Profile";
 
