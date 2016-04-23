@@ -195,7 +195,7 @@ const DetailModal = React.createClass({
               <p className="card-text word-wrap">
                 <span>Username: {this.props.piece.username}</span>
                 <br />
-                <span>Address: <a href={address}>{address}</a></span>
+                <span>Address: <a href={address} onClick={this.handleAddress}>{address}</a></span>
               </p>
               <p className="card-text">
                 <span>Piece ID: <code>{this.props.piece._id}</code></span>
@@ -227,7 +227,7 @@ const DetailModal = React.createClass({
           <p className="card-text word-wrap">
             <span>Username: {this.props.piece.origin.username}</span>
             <br />
-            <span>Address: <a href={address}>{address}</a></span>
+            <span>Address: <a href={address} onClick={this.handleAddress}>{address}</a></span>
           </p>
           <p className="card-text">
             <span>Piece ID: <code>{this.props.piece.origin._id}</code></span>
@@ -242,7 +242,20 @@ const DetailModal = React.createClass({
         </div>
       );
     }
-  }
+  },
+
+  handleAddress(event) {
+    event.preventDefault();
+    if (Meteor.isCordova) {
+      if (P.getHostname(event.target.href) === P.getHostname()) {
+        FlowRouter.go(P.getPathname(event.target.href));
+      } else {
+        cordova.InAppBrowser.open(event.target.href, '_system');
+      }
+    } else {
+      window.open(event.target.href, '_blank');
+    }
+  },
 });
 
 const ShareButton = ({handleShare}) =>
