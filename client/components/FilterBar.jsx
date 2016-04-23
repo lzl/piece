@@ -9,31 +9,27 @@ class FilterBarComponent extends Component {
   }
 
   render() {
-    if (this.props.enableFilterFeature) {
-      return (
-        <div className="br-inline">
-          <div className="btn-group btn-group-sm">
-            <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Go to
-            </button>
-            <div className="dropdown-menu">
-              <span className={this.isActive('now')} onClick={this.handleNow.bind(this)}>now</span>
-              <span className={this.isActive('week')} onClick={this.handleLastWeek.bind(this)}>last week</span>
-              <span className={this.isActive('month')} onClick={this.handleLastMonth.bind(this)}>last month</span>
-              <span className={this.isActive('year')} onClick={this.handleLastYear.bind(this)}>last year</span>
-            </div>
+    return (
+      <div className="br-inline">
+        <div className="btn-group btn-group-sm">
+          <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Go to
+          </button>
+          <div className="dropdown-menu">
+            <span className={this.isActive('now')} onClick={this.handleNow.bind(this)}>now</span>
+            <span className={this.isActive('week')} onClick={this.handleLastWeek.bind(this)}>last week</span>
+            <span className={this.isActive('month')} onClick={this.handleLastMonth.bind(this)}>last month</span>
+            <span className={this.isActive('year')} onClick={this.handleLastYear.bind(this)}>last year</span>
           </div>
-
-          <form className="form-inline pull-xs-right">
-            <input className="form-control form-control-sm" type="text" placeholder="Search" />
-            {' '}
-            <button className="btn btn-success-outline btn-sm hidden-xs-down" type="submit">Search</button>
-          </form>
         </div>
-      );
-    } else {
-      return <span />;
-    }
+
+        <form className="form-inline pull-xs-right">
+          <input className="form-control form-control-sm" type="text" placeholder="Search" />
+          {' '}
+          <button className="btn btn-success-outline btn-sm hidden-xs-down" type="submit">Search</button>
+        </form>
+      </div>
+    );
   }
 
   handleNow(event) {
@@ -113,6 +109,16 @@ class FilterBarComponent extends Component {
   }
 }
 
+class FilterBarComponentOrNot extends Component {
+  render() {
+    if (this.props.enableFilterFeature) {
+      return <FilterBarComponent {...this.props} />
+    } else {
+      return <span />
+    }
+  }
+}
+
 FilterBar = createContainer(() => {
   Session.setDefault('enableFilterFeature', undefined);
   if (Session.get('enableFilterFeature') === undefined) {
@@ -124,7 +130,7 @@ FilterBar = createContainer(() => {
     enableFilterFeature: Session.get('enableFilterFeature'),
     before: FlowRouter.getQueryParam("before"),
   };
-}, FilterBarComponent);
+}, FilterBarComponentOrNot);
 
 // FilterBar = React.createClass({
 //   mixins: [ReactMeteorData],
