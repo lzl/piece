@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class FilterBarComponent extends Component {
-  componentDidMount() {
-    $('[data-toggle=dropdown]').mouseenter(() => {
-      $('[data-toggle=dropdown]').dropdown('toggle');
-    });
-  }
+  // componentDidMount() {
+  //   $('[data-toggle=dropdown]').mouseenter(() => {
+  //     $('[data-toggle=dropdown]').dropdown('toggle');
+  //   });
+  // }
 
   render() {
     return (
