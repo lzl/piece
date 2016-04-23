@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 class FilterBarComponent extends Component {
   componentDidMount() {
-    $('[data-toggle=dropdown]').hover((e) => {
+    $('[data-toggle=dropdown]').mouseenter(() => {
       $('[data-toggle=dropdown]').dropdown('toggle');
     });
   }
