@@ -58,6 +58,7 @@ Meteor.methods({
       const createdAt = new Date();
       const hostname = P.getHostname();
       Clones.update({_id: cloneId, ownerId: userId}, {$set: {updatedAt: createdAt}});
+      Addresses.update({hostname, userId: cloneId}, {$set: {username: ownedClone.name, updatedAt: createdAt}});
       return Pieces.insert({
         type: "sharism-piece",
         content: comment,
