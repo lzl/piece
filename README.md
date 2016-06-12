@@ -1,5 +1,7 @@
 # Go for the [Giant Cotton Apron Awards](https://themeteorchef.com/blog/introducing-the-giant-cotton-apron-awards/)!
 
+<a href="https://themeteorchef.com/blog/giant-cotton-apron-awards-show"><img src="https://s3.amazonaws.com/tmc-post-content/gcaa-2016-mention-badge.svg"></a>
+
 ## The project
 
 This project is called Piece. A piece is as a tweet in Twitter context. Beyond that, two Piece apps can be connected, like a distributed version of Twitter.
